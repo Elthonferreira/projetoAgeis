@@ -1,7 +1,7 @@
-package com.example.saude.services;
+package com.example.backend.saude.services;
 
-import com.example.saude.models.Clinica;
-import com.example.saude.repositories.ClinicaRepository;
+import com.example.backend.saude.models.Clinica;
+import com.example.backend.saude.repositories.ClinicaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

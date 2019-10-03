@@ -1,4 +1,4 @@
-package com.example.saude.models;
+package com.example.backend.saude.models;
 
 public class Endereco {
 
