@@ -1,7 +1,7 @@
 <template>
   <footer class="footer-wrapper">
         <div class="footer-content">
-            © 2019 Copyright
+            © 2019 Todos os direitos reservados.
         </div>
     </footer>
 </template>

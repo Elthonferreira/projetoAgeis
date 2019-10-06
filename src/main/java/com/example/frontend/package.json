@@ -10,6 +10,7 @@
     "build": "cross-env NODE_ENV=production browserify -g envify src/main.js | uglifyjs -c warnings=false -m > dist/build.js"
   },
   "dependencies": {
+    "svg.js": "^2.7.1",
     "vue": "^2.0.1",
     "vue-resource": "^1.5.1",
     "vue-router": "^3.1.3"

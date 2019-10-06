@@ -1,9 +1,9 @@
-import RegiaoCorpotal1 from './pages/RegiaoCorporal1.vue'
+import BodyRegion1 from './pages/BodyRegion1.vue'
 
 const Routes = {
     routes : [
-        { path: '/regiaocorporal1',
-          component: RegiaoCorpotal1
+        { path: '/bodyregion1',
+          component: BodyRegion1
         }
     ]
 }
