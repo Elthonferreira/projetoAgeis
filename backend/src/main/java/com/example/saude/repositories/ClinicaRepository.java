@@ -1,6 +1,6 @@
-package com.example.backend.saude.repositories;
+package com.example.saude.repositories;
 
-import com.example.backend.saude.models.Clinica;
+import com.example.saude.models.Clinica;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,7 +1,7 @@
-package com.example.backend.saude.controllers;
+package com.example.saude.controllers;
 
-import com.example.backend.saude.models.Clinica;
-import com.example.backend.saude.services.ClinicaService;
+import com.example.saude.models.Clinica;
+import com.example.saude.services.ClinicaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
