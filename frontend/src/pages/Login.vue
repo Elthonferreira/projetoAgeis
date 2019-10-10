@@ -1,21 +1,25 @@
 <template>
   <div class="login">
       <app-header></app-header>
-      <div class="content-body">
-            <div class="row">
-                <div class="box-login">
-                    <div class="input-field col s12">
-                        <input id="nome" type="text" class="validate">
-                        <label for="nome">Nome</label>
+      
+        ,<div class="row d-flex justify-content-center mt-5">
+            <div class="login-row col-sm-4">
+                <h4 class="pb-4 text-center">Entrar</h4>
+                <form>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">E-mail</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Digite seu email...">
                     </div>
-                    <div class="input-field col s12">
-                        <input id="password" type="password" class="validate">
-                        <label for="password">Senha</label>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Senha</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="******">
                     </div>
-                </div>
+                    
+                    <button type="submit" class="btn btn-primary">Entrar</button>
+                </form>
             </div>
-          
-      </div>
+        </div>
+
       <app-footer></app-footer>
   </div>
 </template>
@@ -46,6 +50,15 @@ export default {
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
+    }
+
+    .login-row{
+        background-color: #f6f6f6;
+        padding-top: 20px;
+        padding-bottom: 50px;
+        padding-left: 30px;
+        padding-right: 30px;
+
     }
 
     .box-login {
