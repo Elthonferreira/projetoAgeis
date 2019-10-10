@@ -102,7 +102,7 @@
     import AppFooter from "../components/Footer.vue"
 
 export default {
-    name: "",
+    name: "userRegister",
     components: {
       AppHeader, AppFooter
     },

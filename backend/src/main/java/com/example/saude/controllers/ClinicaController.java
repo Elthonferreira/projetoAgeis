@@ -11,7 +11,7 @@ import java.util.List;
 
 @CrossOrigin("*") // Depois trocar o * pelo endereço do frontend
 @RestController
-@RequestMapping("/clinicas")
+@RequestMapping("/api/clinicas")
 public class ClinicaController {
     @Autowired
     private ClinicaService clinicaService;

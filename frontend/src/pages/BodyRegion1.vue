@@ -48,11 +48,11 @@ export default {
     color: #2f52b9;
     font-size: 26px;
     font-weight: bold;
-    margin-left: 21.5%;
+    padding-left: 22%;
   }
 
   .btn {
-    margin-left: 19%;
+   
     background: #4676ff;
   }
 
@@ -60,12 +60,13 @@ export default {
     color: #2f52b9;
     font-size: 26px;
     font-weight: bold;
-    margin-left: 17%;
+    margin-right: 23.5%;
   }
 
   .bottom-info {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     margin-top: -50px;
   }
 
