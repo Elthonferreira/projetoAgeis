@@ -16,7 +16,7 @@ export default {
     .footer-wrapper {
         position: absolute;
         bottom: 0;
-        width: 100%;
+        min-width: 100%;
     }
 
     .footer-content {
@@ -24,7 +24,7 @@ export default {
         justify-content: center;
         align-items: center;
         height: 30px;
-        width: 100%;
+        min-width: 100%;
         margin-top: 20px;
         background: #4676ff;
         color: #fff;

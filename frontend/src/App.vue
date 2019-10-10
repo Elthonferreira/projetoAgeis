@@ -20,8 +20,7 @@
     margin: 0;
     padding: 0;
     font-family: Helvetica, sans-serif;
-    height: 800px;
-    min-height: 100%;
+    height: 100%;
   }
 
   #app {

@@ -13,9 +13,9 @@
 
     <!-- Dropdown Structure -->
     <ul id='dropdown1' class='dropdown-content'>
-        <li><a href="#!">Registrar como um paciente</a></li>
+        <li><a href="/#/userRegister">Registrar-se como um usuário</a></li>
         <li class="divider" tabindex="-1"></li>
-        <li><a href="#!">Registrar como uma clínica</a></li>
+        <li><a href="#!">Registrar-se como uma clínica</a></li>
     </ul>
 
     <ul class="sidenav" id="mobile-demo">

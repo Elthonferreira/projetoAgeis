@@ -1,5 +1,5 @@
 <template>
-    <div id="regiao-corporal-1">
+    <div id="bodyRegion1">
         <app-header></app-header>
         <div class="top-info">
           <span class="title">Selecionar Regiões</span>
@@ -23,7 +23,7 @@
     import MapBodyFront from "../components/MapBody.vue"
 
 export default {
-    name: "regiao-corporal-1",
+    name: "bodyRegion1",
     components: {
       AppHeader, AppFooter, MapBodyFront
     },
