@@ -4,26 +4,26 @@
         <div class="content-body">
             <h3>Cadastro de Usuário</h3>
             <div class="row" >
-                 <form action="" class="form col s12">
+                 <form @submit.prevent="save()" class="form col s12">
                      <h4>Dados Pessoais</h4>
                     <div class="input-field col s12">
-                        <input id="nome" type="text" class="validate">
+                        <input id="nome" type="text" class="validate" v-model="user.name" required>
                         <label for="nome">Nome</label>
                     </div>
                     <div class="input-field col s8">
-                            <input id="street" type="text" class="validate">
+                            <input id="street" type="text" class="validate" v-model="user.street" required>
                             <label for="street">Rua</label>
                         </div>
                     <div class="input-field col s4">
-                        <input id="numberHome" type="text" class="validate">
-                        <label for="numberHome">Número</label>
+                        <input id="number" type="text" class="validate" v-model="user.number" required>
+                        <label for="number">Número</label>
                     </div>
                     <div class="input-field col s8">
-                        <input id="neighborhood" type="text" class="validate">
+                        <input id="neighborhood" type="text" class="validate" v-model="user.neighborhood" required>
                         <label for="neighborhood">Bairro</label>
                     </div>
                     <div class="input-field col s4">
-                        <select class="select-UF">
+                        <select class="select-UF" v-model="user.state">
                             <option value="" disabled selected>UF</option>
                             <option value="AC">Acre</option>
                             <option value="AL">Alagoas</option>
@@ -53,30 +53,28 @@
                             <option value="SE">Sergipe</option>
                             <option value="TO">Tocantins</option>
                         </select>
-                        <label>Materialize Select</label>
+                        <label>Estado</label>
                     </div>
 
                     <div class="input-field col s8">
-                        <input id="Telephone" type="tel" pattern= "[0-9]*" class="validate">
+                        <input id="Telephone" type="tel" pattern= "[0-9]*" class="validate" v-model="user.telephone" required>
                         <label for="Telephone">Telefone</label>
                     </div>
-                    <div class="row">
-                        <div class="input-field col s4">
-                            <label for="birthdate">Data de Nascimento</label>
-                            <input id="birthdate" type="text" class="datepicker">
-                        </div>
+                     <div class="input-field col s4">
+                        <label for="birthdate">Data de Nascimento</label>
+                        <input id="birthdate" type="text" class="datepicker" v-model="user.birthdate" required>
                     </div>
                     <h4>Dados da Conta</h4>
                     <div class="input-field col s12">
-                        <input id="email" type="email" class="validate">
-                        <label for="email">Email</label>
+                        <input id="email" type="email" class="validate" v-model="user.email" required>
+                        <label for="email">E-mail</label>
                     </div>
                     <div class="input-field col s12">
-                        <input id="password" type="password" class="validate">
+                        <input id="password" type="password" class="validate" v-model="user.password" required>
                         <label for="password">Senha</label>
                     </div>
                     <div class="input-field col s12">
-                        <input id="confirmPassword" type="password" class="validate">
+                        <input id="confirmPassword" type="password" class="validate" required>
                         <label for="confirmPassword">Confirmar Senha</label>
                     </div>
 
@@ -93,31 +91,71 @@
 </template>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var elems = document.querySelectorAll('select');
-        var instances = M.FormSelect.init(elems, {});
-    });
+document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('select');
+    var instances = M.FormSelect.init(elems, {});
+});
 
-    import AppHeader from "../components/Header.vue"
-    import AppFooter from "../components/Footer.vue"
+document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.datepicker');
+    var instances = M.Datepicker.init(elems, {
+        autoClose: true,
+        format: 'yyyy-mm-dd',
+        today: "Hoje",
+        close: "X",
+        yearRange: 80
+    });
+});
+
+import AppHeader from "../components/Header.vue"
+import AppFooter from "../components/Footer.vue"
+import axios from 'axios';
+import md5 from 'md5';
 
 export default {
     name: "userRegister",
     components: {
       AppHeader, AppFooter
     },
-    data() {
-        return {
-            
-        }
-    }, 
-    methods: {
+    data: () => {
+    return {
+      url: "http://localhost:8081/api",
+      user: {
+        name: "",
+        street: "",
+        number: "",
+        neighborhood: "",
+        state: "",
+        telephone: "",
+        birthdate: "",
+        email: "",
+        password: ""
+      },
+      error: "",
+      condicao: false
+    };
+  },
+  methods: {
+    save() {
+        var datepicker = document.querySelectorAll('.datepicker');
+        this.user.birthdate = datepicker[0].value;
+        this.user.password = md5(this.user.password);
 
+      axios
+        .post(this.url + "/user", this.user)
+        .then(function() {
+          alert("Cadastrado com sucesso!");
+          window.location.href = "/#/login";
+        })
+        .catch(error => {
+          this.error = error.response.data;
+        });
     }
+  }
 }
 </script>
 
-<style scoped>
+<style >
     .content-body {
         max-width: 800px;
         margin: 0 auto;
@@ -177,5 +215,9 @@ export default {
    .input-field input[type=text]:focus + label, .input-field input[type=email]:focus + label,
     .input-field input[type=tel]:focus + label, .input-field input[type=password]:focus + label {
      color: #4676ff;
+   }
+
+   .datepicker-modal {
+       height: auto !important;
    }
 </style>
