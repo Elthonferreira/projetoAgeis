@@ -5,7 +5,7 @@
             <a href="#!" class="brand-logo">Logo</a>
             <a href="#!" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
-                <li><a href="#!">Entrar</a></li>
+                <li><a href="/#/login">Entrar</a></li>
                 <li><a class='dropdown-trigger btn' href='#!' data-target='dropdown1'>Registrar</a></li>
             </ul>
         </div>
@@ -15,7 +15,7 @@
     <ul id='dropdown1' class='dropdown-content'>
         <li><a href="/#/userRegister">Registrar-se como um usuário</a></li>
         <li class="divider" tabindex="-1"></li>
-        <li><a href="#!">Registrar-se como uma clínica</a></li>
+        <li><a href="/#/clinica">Registrar-se como uma clínica</a></li>
     </ul>
 
     <ul class="sidenav" id="mobile-demo">

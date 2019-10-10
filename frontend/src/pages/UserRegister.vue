@@ -57,7 +57,7 @@
                     </div>
 
                     <div class="input-field col s8">
-                        <input id="Telephone" type="tel" pattern= "[0-9]" class="validate">
+                        <input id="Telephone" type="tel" pattern= "[0-9]*" class="validate">
                         <label for="Telephone">Telefone</label>
                     </div>
                     <div class="row">
@@ -149,6 +149,12 @@ export default {
         font-size: 20px;
         background: #4676ff;
         font-weight: bold;
+        border-radius: 5px;
+    }
+
+    .button-submit button:hover {
+        background: #2f52b9;
+        color: #fff;
     }
 
     .input-field input[type=text]:focus, .input-field input[type=email]:focus, .input-field input[type=tel]:focus,

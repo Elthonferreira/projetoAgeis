@@ -1,30 +1,48 @@
 <template>
   <div id="app">
-    <nav>
-      <div class="nav-wrapper blue darken-1">
-        <a href="#" class="brand-logo center">Cadastro de Clínicas</a>
-      </div>
-    </nav>
+    <app-header></app-header>
     <div class="container">
+      <h3>Cadastro de Clínica</h3>
       {{error}}
-      <form @submit.prevent="salvar()">
-        <label>Nome</label>
-        <input type="text" placeholder="nome" v-model="clinica.nome" />
-        <label>Usuário</label>
-        <input type="text" placeholder="usuário" v-model="clinica.usuario" />
-        <label>Senha</label>
-        <input type="password" placeholder="senha" v-model="clinica.senha" />
-        <label>Especialidade</label>
-        <input type="text" placeholder="especialidade" v-model="clinica.especialidade" />
-        <label>Telefone</label>
-        <input type="text" placeholder="telefone" v-model="clinica.telefone" />
-        <label>Email</label>
-        <input type="text" placeholder="email" v-model="clinica.email" />
-        <button @click="listar()" class="waves-effect waves-light btn-small">
-          Salvar
-          <i class="material-icons left">save</i>
-        </button>
+      <div class="row">
+        <form @submit.prevent="salvar()" class="col s12">
+          <h4>Dados Pessoais</h4>
+          <div class="input-field col s12">
+            <input id="name" type="text" class="validate" v-model="clinica.nome">
+            <label for="name">Nome</label>
+          </div>
+          <div class="input-field col s12">
+            <input id="speciality" type="text" class="validate" v-model="clinica.especialidade">
+            <label for="speciality">Especialidade</label>
+          </div>
+          <div class="input-field col s12">
+            <input id="telephone" type="tel" pattern="[0-9]*" class="validate" v-model="clinica.telefone">
+            <label for="telephone">Telefone</label>
+          </div>
+          <div class="input-field col s12">
+            <input id="email" type="email" class="validate" v-model="clinica.email">
+            <label for="email">E-mail</label>
+          </div>
+          <h4>Dados da Conta</h4>
+           <div class="input-field col s12">
+            <input id="user" type="text" class="validate" v-model="clinica.usuario">
+            <label for="user">Usuário</label>
+          </div>
+          <div class="input-field col s12">
+            <input id="password" type="password" class="validate" v-model="clinica.senha">
+            <label for="password">Senha</label>
+          </div>
+          <div class="input-field col s12">
+            <input id="confirmPassword" type="password" class="validate" >
+            <label for="confirmPassword">Confirmar Senha</label>
+          </div>
+        <div class="button-submit">
+          <button @click="listar()" class="waves-effect waves-light btn-small">
+            Cadastrar
+          </button>
+        </div>
       </form>
+      </div>
       <table>
         <thead>
           <tr>
@@ -47,7 +65,7 @@
             <td>{{ clinica.email }}</td>
             <td>
               <button @click="alterar(clinica)" class="waves-effect btn-small blue darken-1">
-                <i class="material-icons">Alterar</i>
+                <i class="material-icons">Salvar</i>
               </button>
               <button @click="deletar(clinica)" class="waves-effect btn-small red darken-1">
                 <i class="material-icons">Deletar</i>
@@ -62,12 +80,17 @@
 
 <script type="text/javascript">
 import axios from "axios";
+import AppHeader from "../components/Header.vue"
+import AppFooter from "../components/Footer.vue"
 
 export default {
   name: "app",
+  components: {
+    AppHeader, AppFooter
+  },
   data: () => {
     return {
-      url: "http://localhost:8081",
+      url: "http://localhost:8081/api",
       clinica: {
         nome: "",
         usuario: "",
@@ -139,4 +162,52 @@ export default {
 </script>
 
 <style>
+  h3 {
+    text-align: center;
+    color: #2f52b9;
+    font-weight: bold;  
+  }
+
+  h4 {
+    color: #2f52b9;
+  }
+
+  .container {
+    width: 800px;
+    margin: 0 auto;
+    padding: 80px 0;
+  }
+
+  .button-submit {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    padding-top: 20px;
+    }    
+
+  .button-submit button {
+    width: 180px;
+    height: 50px;
+    font-size: 20px;
+    background: #4676ff;
+    font-weight: bold;
+    border-radius: 5px;
+  } 
+
+  .button-submit button:hover {
+    background: #2f52b9;
+    color: #fff;
+  }
+
+  .input-field input[type=text]:focus, .input-field input[type=email]:focus, .input-field input[type=tel]:focus,
+    .input-field input[type=password]:focus {
+    border-bottom: 1px solid #4676ff !important;
+    box-shadow: 0 1px 0 0 #4676ff !important;
+  }
+  .input-field input[type=text]:focus + label, .input-field input[type=email]:focus + label,
+    .input-field input[type=tel]:focus + label, .input-field input[type=password]:focus + label {
+    color: #4676ff !important;
+  }
+
 </style>
