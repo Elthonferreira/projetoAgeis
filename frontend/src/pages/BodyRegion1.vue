@@ -1,78 +1,78 @@
 <template>
-  <div id="bodyRegion1">
-    <app-header></app-header>
-    <div class="top-info">
-      <span class="title">Selecionar Regiões</span>
-      <br />
-      <span class="subtitle">Selecione as regiões dos sintomas</span>
-    </div>
-    <div class="body-area">
-      <div class="body-area-group">
-        <div class="space"></div>
-        <map-body-front class="body" bodyId="front" @map-clicked="onMapClickFront"></map-body-front>
-
-        <div class="card-select">
-          <div class="input-field col s12">
-            <select v-model="areaCorporal" multiple>
-              <option value disabled>Selecione</option>
-              <option value="1">Option 1</option>
-              <option value="2">Option 2</option>
-              <option value="3">Option 3</option>
-            </select>
-            <label>Membro</label>
+  <div id="content">
+    <div id="content">
+      <app-header></app-header>
+      <div class="top-info">
+        <span class="subtitle">Identificação dos sintomas</span>
+      </div>
+      <div class="body-area">
+        <div class="body-area-group">
+          <div class="space"></div>
+          <div class="body">
+            <span>Frente</span>
+            <map-body-front bodyId="front" @map-clicked="onMapClickFront"></map-body-front>
           </div>
-          <p>{{ areaCorporal }}</p>
+          <div class="card-select">
+            <div class="input-field col s12">
+              <select v-model="areaCorporal" multiple>
+                <option value disabled>Selecione</option>
+                <option
+                  v-bind:key="index"
+                  v-for="(item, index) in human"
+                  value="1"
+                >{{ item.name | filterA('arg1', arg2) }}</option>
+              </select>
+              <label>{{ mapFront}}</label>
+            </div>
+            <p>{{ areaCorporal }}</p>
 
-          <div class="input-field col s12">
-            <select v-model="sintomas" multiple>
-              <option value disabled>Selecione</option>
-              <option value="1">Option 1</option>
-              <option value="2">Option 2</option>
-              <option value="3">Option 3</option>
-            </select>
-            <label>Sintomas</label>
+            <div class="input-field col s12">
+              <select v-model="sintomas" multiple>
+                <option value disabled>Selecione</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+              </select>
+              <label>Sintomas</label>
+            </div>
+            <p>{{ sintomas}}</p>
           </div>
-          <p>{{ sintomas}}</p>
+          <div class="space"></div>
         </div>
-        <div class="space"></div>
-      </div>
 
-      <div class="body-area-group">
-        <div class="space"></div>
-        <map-body-front class="body" bodyId="back" @map-clicked="onMapClickFront"></map-body-front>
-
-        <div class="card-select">
-          <div class="input-field col s12">
-            <select v-model="areaCorporal" multiple>
-              <option value disabled>Selecione</option>
-              <option value="1">Option 1</option>
-              <option value="2">Option 2</option>
-              <option value="3">Option 3</option>
-            </select>
-            <label>Membro</label>
+        <div class="body-area-group">
+          <div class="space"></div>
+          <div class="body">
+            <span>Costas</span>
+            <map-body-front bodyId="back" @map-clicked="onMapClickBack"></map-body-front>
           </div>
-          <p>{{ areaCorporal }}</p>
+          <div class="card-select">
+            <div class="input-field col s12">
+              <select v-model="areaCorporal" multiple>
+                <option value disabled>Selecione</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+              </select>
+              <label>{{ mapBack}}</label>
+            </div>
+            <p>{{ areaCorporal }}</p>
 
-          <div class="input-field col s12">
-            <select v-model="sintomas" multiple>
-              <option value disabled>Selecione</option>
-              <option value="1">Option 1</option>
-              <option value="2">Option 2</option>
-              <option value="3">Option 3</option>
-            </select>
-            <label>Sintomas</label>
+            <div class="input-field col s12">
+              <select v-model="sintomas" multiple>
+                <option value disabled>Selecione</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+              </select>
+              <label>Sintomas</label>
+            </div>
+            <p>{{ sintomas}}</p>
           </div>
-          <p>{{ sintomas}}</p>
+          <div class="space"></div>
         </div>
-        <div class="space"></div>
       </div>
-      <!-- <div class="body-area-group">
-        <map-body-front class="body-front" bodyId="back" @map-clicked="onMapClickFront"></map-body-front>
-      </div>
-    </div>
-    <a class="waves-effect waves-light btn">Próximo</a>
-    <div class="bottom-info"></div>
-      <app-footer></app-footer>-->
+      <app-footer></app-footer>
     </div>
   </div>
 </template>
@@ -91,10 +91,42 @@ export default {
   },
   data() {
     return {
-      mapFront: null,
-      mapBack: null,
+      mapFront: "Membro",
+      mapBack: "Membro",
       sintomas: "",
-      areaCorporal: ""
+      areaCorporal: "",
+      human: [
+        {
+          name: "Cabeça",
+          subArea: [
+            {
+              name: "cabeça",
+              sintomas: ["Dor", "Enxaqueca", "Latejando"]
+            },
+            {
+              name: "olhos",
+              sintomas: ["Dor", "Visão embaçada"]
+            }
+          ]
+        },
+        {},
+        {
+          name: "Braço Direito",
+          subArea: [
+            {
+              name: "AnteBraço",
+              sintomas: ["Dor no osso", "Sarna"]
+            },
+            {
+              name: "Mão",
+              sintomas: ["Dor no osso", "Sarna"]
+            }
+          ]
+        },
+        {},
+        {},
+        {}
+      ]
     };
   },
   methods: {
@@ -110,6 +142,14 @@ export default {
 };
 </script> 
 <style scoped>
+#content {
+  display: flex;
+  flex-direction: column;
+}
+.top-info {
+  margin: 16px;
+  font-size: 16px;
+}
 .body-area {
   display: flex;
   flex-direction: column;
@@ -127,8 +167,12 @@ export default {
   min-width: 600px;
   align-self: flex-end;
   min-height: 800;
+  text-align: center;
+  font-weight: bold;
+  color: gray;
 }
 .card-select {
+  padding: 6px;
   display: flex;
   flex-direction: column;
   min-width: 200px;
@@ -158,12 +202,6 @@ export default {
   align-items: center;
   justify-content: space-between;
   margin-top: -50px;
-}
-
-.top-info {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
 }
 
 .title {

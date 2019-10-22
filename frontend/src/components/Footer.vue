@@ -1,33 +1,29 @@
 <template>
   <footer class="footer-wrapper">
-        <div class="footer-content">
-            © 2019 Todos os direitos reservados.
-        </div>
-    </footer>
+    <div class="footer-content">© 2019 Todos os direitos reservados.</div>
+  </footer>
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 
 <style scoped>
-    .footer-wrapper {
-        position: absolute;
-        bottom: 0;
-        min-width: 100%;
-    }
+.footer-wrapper {
+  position: absolute;
+  bottom: 0;
+  min-width: 100%;
+}
 
-    .footer-content {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 30px;
-        min-width: 100%;
-        margin-top: 20px;
-        background: #4676ff;
-        color: #fff;
-        font-weight: 500;   
-    }
+.footer-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  min-width: 100%;
+  margin-top: 20px;
+  background: #f7f7f7;
+  color: #000;
+  font-weight: 500;
+}
 </style>
