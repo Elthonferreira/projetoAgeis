@@ -62,7 +62,7 @@
                     </div>
                      <div class="input-field col s4">
                         <label for="birthdate">Data de Nascimento</label>
-                        <input id="birthdate" type="text" class="datepicker" v-model="user.birthdate" required>
+                        <input id="birthdate" type="text" class="datepicker" required>
                     </div>
                     <h4>Dados da Conta</h4>
                     <div class="input-field col s12">
@@ -144,13 +144,27 @@ export default {
       axios
         .post(this.url + "/user", this.user)
         .then(function() {
-          alert("Cadastrado com sucesso!");
-          window.location.href = "/#/login";
+            M.toast({html: 'Usuário cadastrado com sucesso!', classes: 'rounded'});
+            window.location.href = "/#/login";
         })
         .catch(error => {
-          this.error = error.response.data;
+            this.error = error.response.data;
         });
     }
+  },
+
+  mounted() {
+        var elems = document.querySelectorAll('select');
+        var instances = M.FormSelect.init(elems, {});
+
+        var elems = document.querySelectorAll('.datepicker');
+        var instances = M.Datepicker.init(elems, {
+            autoClose: true,
+            format: 'yyyy-mm-dd',
+            today: "Hoje",
+            close: "X",
+            yearRange: 80
+        });
   }
 }
 </script>

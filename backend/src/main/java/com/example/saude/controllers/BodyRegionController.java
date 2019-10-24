@@ -1,5 +1,6 @@
 package com.example.saude.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,22 +25,27 @@ public class BodyRegionController {
 	@Autowired
     private BodyRegionService bodyRegionService;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getAllByUserID(@PathVariable("id") Long id) {
+    @GetMapping("/{userId}")
+    public ResponseEntity<?> getByUserID(@PathVariable("userId") Long userId) {
         List<BodyRegion> bodyRegions = bodyRegionService.getAll();
+        List<BodyRegion> userBodyRegions = new ArrayList<>();
+        
         if(bodyRegions.isEmpty()) {
-            return new ResponseEntity<>("Nenhuma região corporal cadastrada", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Nenhuma região corporal cadastrada.", HttpStatus.NOT_FOUND);
+        } else {
+            for (BodyRegion bodyRegion: bodyRegions) {
+            	if (bodyRegion.getUserId() == userId) {
+            		userBodyRegions.add(bodyRegion);
+            	}
+            }
         }
-        else {
-            return new ResponseEntity<>(bodyRegions, HttpStatus.OK);
-        }
+        
+        return new ResponseEntity<>(userBodyRegions, HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<?> save(@RequestBody BodyRegion bodyRegion) {
-    	
     	return new ResponseEntity<>(bodyRegionService.save(bodyRegion), HttpStatus.OK);
-        
     }
     
 }

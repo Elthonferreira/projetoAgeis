@@ -3,7 +3,6 @@
     <app-header></app-header>
     <div class="container">
       <h3>Cadastro de Clínica</h3>
-      {{error}}
       <div class="row">
         <form @submit.prevent="salvar()" class="col s12">
           <h4>Dados Pessoais</h4>
@@ -37,44 +36,14 @@
             <label for="confirmPassword">Confirmar Senha</label>
           </div>
         <div class="button-submit">
-          <button @click="listar()" class="waves-effect waves-light btn-small">
+          <button type="submit" class="waves-effect waves-light btn-small">
             Cadastrar
           </button>
         </div>
       </form>
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>Usuário</th>
-            <th>Senha</th>
-            <th>Especialidade</th>
-            <th>Telefone</th>
-            <th>Email</th>
-            <th>Opções</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="clinica of clinicas" :key="clinica.key">
-            <td>{{ clinica.nome }}</td>
-            <td>{{ clinica.usuario }}</td>
-            <td>{{ clinica.senha }}</td>
-            <td>{{ clinica.especialidade }}</td>
-            <td>{{ clinica.telefone }}</td>
-            <td>{{ clinica.email }}</td>
-            <td>
-              <button @click="alterar(clinica)" class="waves-effect btn-small blue darken-1">
-                <i class="material-icons">Salvar</i>
-              </button>
-              <button @click="deletar(clinica)" class="waves-effect btn-small red darken-1">
-                <i class="material-icons">Deletar</i>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
     </div>
+    <app-footer></app-footer>
   </div>
 </template>
 
@@ -109,9 +78,8 @@ export default {
       axios
         .post(this.url + "/clinicas", this.clinica)
         .then(function() {
-          this.listar();
-          this.produto = {};
-          alert("Salvo com sucesso!");
+          M.toast({html: 'Clínica cadastrada com sucesso!', classes: 'rounded'});
+          window.location.href = "/#/login";
         })
         .catch(error => {
           this.error = error.response.data;

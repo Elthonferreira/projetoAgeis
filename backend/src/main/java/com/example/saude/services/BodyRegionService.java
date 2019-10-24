@@ -12,21 +12,21 @@ import com.example.saude.repositories.BodyRegionRepository;
 public class BodyRegionService {
 	
 	 @Autowired
-	    private BodyRegionRepository bodyRegionRepository;
+	 private BodyRegionRepository bodyRegionRepository;
 
-	    public BodyRegion save(BodyRegion bodyRegion) {
-	        return bodyRegionRepository.save(bodyRegion);
-	    }
+	 public BodyRegion save(BodyRegion bodyRegion) {
+	    return bodyRegionRepository.save(bodyRegion);
+	 }
 
-	    public List<BodyRegion> getAll() {
-	        return bodyRegionRepository.findAll();
-	    }
+	 public List<BodyRegion> getAll() {
+	     return bodyRegionRepository.findAll();
+	 }
 	    
-	    public BodyRegion update(BodyRegion bodyRegion) {
-	        return bodyRegionRepository.save(bodyRegion);
-	    }
+	 public BodyRegion update(BodyRegion bodyRegion) {
+	     return bodyRegionRepository.save(bodyRegion);
+	 }
 
-	    public void delete(BodyRegion bodyRegion) {
-	    	bodyRegionRepository.delete(bodyRegion);
-	    }
+	 public void delete(BodyRegion bodyRegion) {
+		 bodyRegionRepository.delete(bodyRegion);
+	 }
 }

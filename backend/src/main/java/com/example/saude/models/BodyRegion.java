@@ -15,7 +15,7 @@ public class BodyRegion {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long bodyRegionId;
 
-    // Necessita de ID do usuário
+    private Long userId;
     
     private Boolean headFront;
     private Boolean bodyFront;
@@ -31,11 +31,17 @@ public class BodyRegion {
     private Boolean legLeftBack;
     private Boolean legRightBack;
     
-	public BodyRegion(Long bodyRegionId, Boolean headFront, Boolean bodyFront, Boolean armLeftFront,
+    
+    public BodyRegion() {
+    	
+    }
+    
+	public BodyRegion(Long bodyRegionId, Long userId, Boolean headFront, Boolean bodyFront, Boolean armLeftFront,
 			Boolean armRightFront, Boolean legLeftFront, Boolean legRightFront, Boolean headBack, Boolean bodyBack,
 			Boolean armLeftBack, Boolean armRightBack, Boolean legLeftBack, Boolean legRightBack) {
 		super();
 		this.bodyRegionId = bodyRegionId;
+		this.userId = userId;
 		this.headFront = headFront;
 		this.bodyFront = bodyFront;
 		this.armLeftFront = armLeftFront;
@@ -56,6 +62,14 @@ public class BodyRegion {
 
 	public void setBodyRegionId(Long bodyRegionId) {
 		this.bodyRegionId = bodyRegionId;
+	}
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
 	public Boolean getHeadFront() {
@@ -153,4 +167,5 @@ public class BodyRegion {
 	public void setLegRightBack(Boolean legRightBack) {
 		this.legRightBack = legRightBack;
 	}
+    
 }
