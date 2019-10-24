@@ -1,9 +1,26 @@
+Skip to content
+ 
+Search…
+All gists
+Back to GitHub
+@BarbaLoira 
+@kevinbreaker kevinbreaker/bodyRegion1.vue Secret
+Last active now • Report abuse
+0
+0
+ Code Revisions 3
+<script src="https://gist.github.com/kevinbreaker/71a870344e93c8ea376bc95959af3a9a.js"></script>
+  
+Segura ae barba loira
+ bodyRegion1.vue
 <template>
   <div id="content">
     <div id="content">
       <app-header></app-header>
       <div class="top-info">
         <span class="subtitle">Identificação dos sintomas</span>
+
+        <p v-bind:key="index" v-for="(item, index) in humanSubAreaFiltred" value="1">{{ item.name }}</p>
       </div>
       <div class="body-area">
         <div class="body-area-group">
@@ -14,28 +31,36 @@
           </div>
           <div class="card-select">
             <div class="input-field col s12">
-              <select v-model="areaCorporal" multiple>
-                <option value disabled>Selecione</option>
+              <select
+                style="display: block"
+                @change="onChangeSubAreaFront($event)"
+                v-model="areaCorporalFront"
+              >
                 <option
                   v-bind:key="index"
-                  v-for="(item, index) in human"
-                  value="1"
-                >{{ item.name | filterA('arg1', arg2) }}</option>
+                  v-for="(item, index) in humanSubAreaFiltred"
+                  v-bind:value="item.name"
+                >{{ item.name }}</option>
               </select>
-              <label>{{ mapFront}}</label>
+              <label>{{ mapFront }}</label>
             </div>
-            <p>{{ areaCorporal }}</p>
+            <p>{{ areaCorporalFront }}</p>
 
             <div class="input-field col s12">
-              <select v-model="sintomas" multiple>
+              <select style="display: block" multiple v-if="podeEscolherSintomas">
                 <option value disabled>Selecione</option>
-                <option value="1">Option 1</option>
+                <option
+                  :key="index"
+                  v-for="(item, index) in tuaSubArea.sintomas"
+                  :value="item"
+                >{{ item }}</option>
+                <!-- <option value="1">Option 1</option>
                 <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
+                <option value="3">Option 3</option>-->
               </select>
               <label>Sintomas</label>
             </div>
-            <p>{{ sintomas}}</p>
+            <p>{{ sintomas }}</p>
           </div>
           <div class="space"></div>
         </div>
@@ -48,15 +73,15 @@
           </div>
           <div class="card-select">
             <div class="input-field col s12">
-              <select v-model="areaCorporal" multiple>
+              <select v-model="areaCorporalBack" multiple>
                 <option value disabled>Selecione</option>
                 <option value="1">Option 1</option>
                 <option value="2">Option 2</option>
                 <option value="3">Option 3</option>
               </select>
-              <label>{{ mapBack}}</label>
+              <label>{{ mapBack }}</label>
             </div>
-            <p>{{ areaCorporal }}</p>
+            <p>{{ areaCorporalBack }}</p>
 
             <div class="input-field col s12">
               <select v-model="sintomas" multiple>
@@ -67,7 +92,7 @@
               </select>
               <label>Sintomas</label>
             </div>
-            <p>{{ sintomas}}</p>
+            <p>{{ sintomas }}</p>
           </div>
           <div class="space"></div>
         </div>
@@ -81,7 +106,7 @@
 import AppHeader from "../components/Header.vue";
 import AppFooter from "../components/Footer.vue";
 import MapBodyFront from "../components/MapBody.vue";
-
+// import { filterSubArea } from "./utils";
 export default {
   name: "bodyRegion1",
   components: {
@@ -93,8 +118,10 @@ export default {
     return {
       mapFront: "Membro",
       mapBack: "Membro",
-      sintomas: "",
-      areaCorporal: "",
+      sintomas: [],
+      areaCorporalFront: "",
+      areaCorporalBack: [],
+      humanSubAreaFiltred: [{ name: "Selecione" }],
       human: [
         {
           name: "Cabeça",
@@ -109,7 +136,6 @@ export default {
             }
           ]
         },
-        {},
         {
           name: "Braço Direito",
           subArea: [
@@ -122,16 +148,35 @@ export default {
               sintomas: ["Dor no osso", "Sarna"]
             }
           ]
-        },
-        {},
-        {},
-        {}
-      ]
+        }
+      ],
+      podeEscolherSintomas: false,
+      tuaSubArea: []
     };
   },
   methods: {
+    filterSubArea(array, stringCompare) {
+      // console.log(array);
+      var copyAux = [];
+      for (var i = 0; i < array.length; i++) {
+        if (array[i].name == stringCompare) {
+          copyAux = array[i].subArea;
+        }
+      }
+      return copyAux;
+    },
+    onChangeSubAreaFront(event) {
+      this.podeEscolherSintomas = true;
+      this.tuaSubArea = this.humanSubAreaFiltred.filter(
+        el => el.name === event.target.value
+      )[0];
+      console.log("@@ ", event.target.value);
+    },
     onMapClickFront: function(attr) {
       this.mapFront = attr.mapId;
+      this.humanSubAreaFiltred = this.filterSubArea(this.human, this.mapFront);
+      console.log(this.human);
+      console.log(this.humanSubAreaFiltred);
       //alert(`You clicked on state with id: ${attr.mapId} (front) `);
     },
     onMapClickBack: function(attr) {
@@ -182,37 +227,49 @@ export default {
   margin: 16px;
   justify-content: space-between;
 }
-
 .space {
   flex: 0.5;
 }
 .btn {
   background: #4676ff;
 }
-
 .title-back {
   color: #2f52b9;
   font-size: 26px;
   font-weight: bold;
   margin-right: 23.5%;
 }
-
 .bottom-info {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-top: -50px;
 }
-
 .title {
   margin-top: 20px;
   font-size: 26px;
   font-weight: bold;
   color: #2f52b9;
 }
-
 .subtitle {
   margin-top: -20px;
   font-weight: bold;
 }
 </style>
+@BarbaLoira
+ 
+Leave a comment
+
+Attach files by dragging & dropping, selecting or pasting them.
+© 2019 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Help
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
