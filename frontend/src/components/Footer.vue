@@ -25,5 +25,6 @@ export default {};
   background: #f7f7f7;
   color: #000;
   font-weight: 500;
+  box-shadow: 10px 0px 0px 0px #888888;
 }
 </style>

@@ -91,22 +91,6 @@
 </template>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('select');
-    var instances = M.FormSelect.init(elems, {});
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.datepicker');
-    var instances = M.Datepicker.init(elems, {
-        autoClose: true,
-        format: 'yyyy-mm-dd',
-        today: "Hoje",
-        close: "X",
-        yearRange: 80
-    });
-});
-
 import AppHeader from "../components/Header.vue"
 import AppFooter from "../components/Footer.vue"
 import axios from 'axios';
@@ -152,20 +136,6 @@ export default {
         });
     }
   },
-
-  mounted() {
-        var elems = document.querySelectorAll('select');
-        var instances = M.FormSelect.init(elems, {});
-
-        var elems = document.querySelectorAll('.datepicker');
-        var instances = M.Datepicker.init(elems, {
-            autoClose: true,
-            format: 'yyyy-mm-dd',
-            today: "Hoje",
-            close: "X",
-            yearRange: 80
-        });
-  }
 }
 </script>
 
