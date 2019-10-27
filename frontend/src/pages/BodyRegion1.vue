@@ -1,18 +1,7 @@
-Skip to content
- 
-Search…
-All gists
-Back to GitHub
-@BarbaLoira 
-@kevinbreaker kevinbreaker/bodyRegion1.vue Secret
-Last active now • Report abuse
-0
-0
- Code Revisions 3
+
 <script src="https://gist.github.com/kevinbreaker/71a870344e93c8ea376bc95959af3a9a.js"></script>
   
-Segura ae barba loira
- bodyRegion1.vue
+
 <template>
   <div id="content">
     <div id="content">
@@ -31,18 +20,14 @@ Segura ae barba loira
           </div>
           <div class="card-select">
             <div class="input-field col s12">
-              <select
-                style="display: block"
-                @change="onChangeSubAreaFront($event)"
-                v-model="areaCorporalFront"
-              >
+              <p>Membro</p>
+              <select @change="onChangeSubAreaFront($event)" v-model="areaCorporalFront">
                 <option
                   v-bind:key="index"
                   v-for="(item, index) in humanSubAreaFiltred"
                   v-bind:value="item.name"
                 >{{ item.name }}</option>
               </select>
-              <label>{{ mapFront }}</label>
             </div>
             <p>{{ areaCorporalFront }}</p>
 
@@ -255,21 +240,11 @@ export default {
   margin-top: -20px;
   font-weight: bold;
 }
-</style>
-@BarbaLoira
- 
-Leave a comment
 
-Attach files by dragging & dropping, selecting or pasting them.
-© 2019 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Help
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
+select {
+  width: 100%;
+  border: 6px solid transparent;
+  border-color: #fff transparent transparent transparent;
+}
+</style>
+ 
