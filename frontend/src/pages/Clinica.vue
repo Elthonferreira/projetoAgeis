@@ -3,45 +3,66 @@
     <app-header></app-header>
     <div class="container">
       <h3>Cadastro de Clínica</h3>
-      <div class="row">
-        <form @submit.prevent="salvar()" class="col s12">
-          <h4>Dados Pessoais</h4>
-          <div class="input-field col s12">
-            <input id="name" type="text" class="validate" v-model="clinica.nome">
-            <label for="name">Nome</label>
-          </div>
-          <div class="input-field col s12">
-            <input id="speciality" type="text" class="validate" v-model="clinica.especialidade">
-            <label for="speciality">Especialidade</label>
-          </div>
-          <div class="input-field col s12">
-            <input id="telephone" type="tel" pattern="[0-9]*" class="validate" v-model="clinica.telefone">
-            <label for="telephone">Telefone</label>
-          </div>
-          <div class="input-field col s12">
-            <input id="email" type="email" class="validate" v-model="clinica.email">
-            <label for="email">E-mail</label>
-          </div>
-          <h4>Dados da Conta</h4>
-           <div class="input-field col s12">
-            <input id="user" type="text" class="validate" v-model="clinica.usuario">
-            <label for="user">Usuário</label>
-          </div>
-          <div class="input-field col s12">
-            <input id="password" type="password" class="validate" v-model="clinica.senha">
-            <label for="password">Senha</label>
-          </div>
-          <div class="input-field col s12">
-            <input id="confirmPassword" type="password" class="validate" >
-            <label for="confirmPassword">Confirmar Senha</label>
-          </div>
-        <div class="button-submit">
-          <button type="submit" class="waves-effect waves-light btn-small">
-            Cadastrar
-          </button>
-        </div>
-      </form>
-      </div>
+      <form  @submit.prevent="salvar()">
+                    <h4>Dados Pessoais</h4>
+                    <div class="form-group">
+                        <div class="name-column1">
+                            <label for="name">Nome da Clínica:</label>
+                            <input id="name" type="text" class="form-control" v-model="clinica.nome" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="speciality-column1">
+                            <label for="speciality">Especialidade</label>
+                            <input id="speciality" type="text" class="form-control" v-model="clinica.especialidade" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="neighborhood-column1">
+                            <label for="neighborhood">Bairro</label>
+                            <input id="neighborhood" type="text" class="form-control" v-model="clinica.Email" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="email-telephone-column1">
+                            <label for="email">E-mail</label>
+                            <input id="email" type="email" class="form-control" v-model="clinica.email" required>
+                        </div>
+                        <div class="email-telephone-column2">
+                            <label for="Telephone">Telefone</label>
+                            <input id="Telephone" type="tel" pattern= "[0-9]*" class="form-control" v-model="clinica.telefone" required>
+                        </div>
+                    </div>
+
+                    <h4>Dados da Conta</h4>
+
+                    <div class="form-group">
+                        <div class="user-column1">
+                            <label for="user">Usuário</label>
+                            <input id="user" type="text" class="form-control" v-model="clinica.usuario" required>
+                        </div>
+                        <div class="email-column2"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="password-confirmPassword-column1">
+                            <label for="password">Senha</label>
+                            <input id="password" type="password" class="form-control" v-model="clinica.senha" required>
+                        </div>
+                        <div class="password-confirmPassword-column2">
+                            <label for="confirmPassword">Confirmar Senha</label>
+                            <input id="confirmPassword" type="password" class="form-control" required>
+                        </div>
+
+                        <div class="password-confirmPassword-column3"></div>
+                    </div>
+
+                    <div class="form-group wrapper-button-submit">
+                        <button type="submit" class="btn btn-primary">Cadastrar</button>
+                    </div>
+                    </form>
     </div>
     <app-footer></app-footer>
   </div>
@@ -146,36 +167,59 @@ export default {
     padding: 80px 0;
   }
 
-  .button-submit {
+  .form-group {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+
+  .form-group > label {
+      height: 100%;
+      margin: auto 0;
+  }
+
+  .name-column1 {
     width: 100%;
-    display: flex;
-    justify-content: center;
-    margin: 0 auto;
-    padding-top: 20px;
-    }    
-
-  .button-submit button {
-    width: 180px;
-    height: 50px;
-    font-size: 20px;
-    background: #4676ff;
-    font-weight: bold;
-    border-radius: 5px;
-  } 
-
-  .button-submit button:hover {
-    background: #2f52b9;
-    color: #fff;
   }
 
-  .input-field input[type=text]:focus, .input-field input[type=email]:focus, .input-field input[type=tel]:focus,
-    .input-field input[type=password]:focus {
-    border-bottom: 1px solid #4676ff !important;
-    box-shadow: 0 1px 0 0 #4676ff !important;
+  .speciality-column1 {
+    width: 100%;
   }
-  .input-field input[type=text]:focus + label, .input-field input[type=email]:focus + label,
-    .input-field input[type=tel]:focus + label, .input-field input[type=password]:focus + label {
-    color: #4676ff !important;
+
+  .neighborhood-column1 {
+    width: 100%;
   }
+
+  .email-telephone-column1 {
+    width: 60%;
+  }
+
+  .email-telephone-column2 {
+    width: 35%;
+    margin-left: 5%;
+  }
+
+  .user-column1{
+    width: 100%;
+  }
+
+  .password-confirmPassword-column1 {
+        width: 25%;
+    }
+
+    .password-confirmPassword-column2 {
+        width: 25%;
+        margin-left: 5%;
+    }
+
+    .password-confirmPassword-column3{
+        width: 45%;
+    }
+
+  .btn-primary {
+          width: 150px;
+          font-weight: bold;
+          margin-top: 20px;
+      }
 
 </style>

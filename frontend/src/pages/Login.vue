@@ -8,12 +8,10 @@
                     <h4 class="text-center">Login</h4>
                     <form action="/#/bodyregion1">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">E-mail</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" >
+                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="E-mail">
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Senha</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1" >
+                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Senha">
                         </div>
                         <div class="wrapper-button-submit">
                             <button type="submit" class="btn btn-primary">Entrar</button>
@@ -68,7 +66,7 @@ export default {
     }
 
     form {
-        margin-top: 40px;
+        margin-top: 60px;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -77,10 +75,11 @@ export default {
 
     input {
         width: 400px;
+        border-radius: 20px;
     }
 
     .login-row{
-        width: 800px;
+        width: 600px;
         height: 500px;
         background-color: #fff;
         padding-top: 20px;
@@ -97,7 +96,7 @@ export default {
     }
 
     .wrapper-button-submit {
-        margin-top: 40px;
+        margin-top: 20px;
     }
 
     .wrapper-button-submit > .btn-primary {
@@ -105,6 +104,7 @@ export default {
         height: 50px;
         font-size: 24px;
         font-weight: bold;
+        border-radius: 30px;
         background-color: #4676ff;
     }
 
@@ -127,7 +127,7 @@ export default {
 
     .button-register {
         background: #4676ff;   
-        border-radius: 20px;
+        border-radius: 30px;
         color: #f3f3f3;
         margin-left: 30px;
         margin-right: 30px;

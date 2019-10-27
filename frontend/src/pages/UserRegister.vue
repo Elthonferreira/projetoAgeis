@@ -1,91 +1,111 @@
 <template>
   <div id="userRegister" >
         <app-header></app-header>
-        <div class="content-body">
-            <h3>Cadastro de Usuário</h3>
-            <div class="row" >
-                 <form @submit.prevent="save()" class="form col s12">
-                     <h4>Dados Pessoais</h4>
-                    <div class="input-field col s12">
-                        <input id="nome" type="text" class="validate" v-model="user.name" required>
-                        <label for="nome">Nome</label>
-                    </div>
-                    <div class="input-field col s8">
-                            <input id="street" type="text" class="validate" v-model="user.street" required>
-                            <label for="street">Rua</label>
+        <div>
+            <div class="content-body">
+                <h3>Cadastro de Usuário</h3>
+                <form  @submit.prevent="save()">
+                    <h4>Dados Pessoais</h4>
+                    <div class="form-group">
+                        <div class="name-column1">
+                            <label for="name">Nome:</label>
+                            <input id="name" type="text" class="form-control" v-model="user.name" required>
                         </div>
-                    <div class="input-field col s4">
-                        <input id="number" type="text" class="validate" v-model="user.number" required>
-                        <label for="number">Número</label>
                     </div>
-                    <div class="input-field col s8">
-                        <input id="neighborhood" type="text" class="validate" v-model="user.neighborhood" required>
-                        <label for="neighborhood">Bairro</label>
-                    </div>
-                    <div class="input-field col s4">
-                        <select class="select-UF" v-model="user.state">
-                            <option value="" disabled selected>UF</option>
-                            <option value="AC">Acre</option>
-                            <option value="AL">Alagoas</option>
-                            <option value="AP">Amapá</option>
-                            <option value="AM">Amazonas</option>
-                            <option value="BA">Bahia</option>
-                            <option value="CE">Ceará</option>
-                            <option value="DF">Distrito Federal</option>
-                            <option value="ES">Espírito Santo</option>
-                            <option value="GO">Goiás</option>
-                            <option value="MA">Maranhão</option>
-                            <option value="MT">Mato Grosso</option>
-                            <option value="MS">Mato Grosso do Sul</option>
-                            <option value="MG">Minas Gerais</option>
-                            <option value="PA">Pará</option>
-                            <option value="PB">Paraíba</option>
-                            <option value="PR">Paraná</option>
-                            <option value="PE">Pernambuco</option>
-                            <option value="PI">Piauí</option>
-                            <option value="RJ">Rio de Janeiro</option>
-                            <option value="RN">Rio Grande do Norte</option>
-                            <option value="RS">Rio Grande do Sul</option>
-                            <option value="RO">Rondônia</option>
-                            <option value="RR">Roraima</option>
-                            <option value="SC">Santa Catarina</option>
-                            <option value="SP">São Paulo</option>
-                            <option value="SE">Sergipe</option>
-                            <option value="TO">Tocantins</option>
-                        </select>
-                        <label>Estado</label>
+                    <div class="form-group">
+                        <div class="street-number-column1">
+                            <label for="street">Rua</label>
+                            <input id="street" type="text" class="form-control" v-model="user.street" required>
+                        </div>
+
+                        <div class="street-number-column2">
+                            <label for="number">Número</label>
+                            <input id="number" type="text" class="form-control" v-model="user.number" required>
+                        </div>
                     </div>
 
-                    <div class="input-field col s8">
-                        <input id="Telephone" type="tel" pattern= "[0-9]*" class="validate" v-model="user.telephone" required>
-                        <label for="Telephone">Telefone</label>
+                    <div class="form-group">
+                        <div class="neighborhood-state-column1">
+                            <label for="neighborhood">Bairro</label>
+                            <input id="neighborhood" type="text" class="form-control" v-model="user.neighborhood" required>
+                        </div>
+                        <div class="neighborhood-state-column2">
+                            <label>Estado</label>
+                            <select class="form-control" v-model="user.state">
+                                <option value="" disabled selected>UF</option>
+                                <option value="AC">Acre</option>
+                                <option value="AL">Alagoas</option>
+                                <option value="AP">Amapá</option>
+                                <option value="AM">Amazonas</option>
+                                <option value="BA">Bahia</option>
+                                <option value="CE">Ceará</option>
+                                <option value="DF">Distrito Federal</option>
+                                <option value="ES">Espírito Santo</option>
+                                <option value="GO">Goiás</option>
+                                <option value="MA">Maranhão</option>
+                                <option value="MT">Mato Grosso</option>
+                                <option value="MS">Mato Grosso do Sul</option>
+                                <option value="MG">Minas Gerais</option>
+                                <option value="PA">Pará</option>
+                                <option value="PB">Paraíba</option>
+                                <option value="PR">Paraná</option>
+                                <option value="PE">Pernambuco</option>
+                                <option value="PI">Piauí</option>
+                                <option value="RJ">Rio de Janeiro</option>
+                                <option value="RN">Rio Grande do Norte</option>
+                                <option value="RS">Rio Grande do Sul</option>
+                                <option value="RO">Rondônia</option>
+                                <option value="RR">Roraima</option>
+                                <option value="SC">Santa Catarina</option>
+                                <option value="SP">São Paulo</option>
+                                <option value="SE">Sergipe</option>
+                                <option value="TO">Tocantins</option>
+                            </select>
+                        </div>
                     </div>
-                     <div class="input-field col s4">
-                        <label for="birthdate">Data de Nascimento</label>
-                        <input id="birthdate" type="text" class="datepicker" required>
+
+                    <div class="form-group">
+                        <div class="telephone-birthdate-column1">
+                            <label for="Telephone">Telefone</label>
+                            <input id="Telephone" type="tel" pattern= "[0-9]*" class="form-control" v-model="user.telephone" required>
+                        </div>
+                        <div class="telephone-birthdate-column2">
+                            <label for="birthdate">Data de Nascimento</label>
+                            <input id="birthdate" type="text" class="form-control" required>
+                        </div>
+
+                        <div class="telephone-birthdate-column3"></div>
                     </div>
+
                     <h4>Dados da Conta</h4>
-                    <div class="input-field col s12">
-                        <input id="email" type="email" class="validate" v-model="user.email" required>
-                        <label for="email">E-mail</label>
-                    </div>
-                    <div class="input-field col s12">
-                        <input id="password" type="password" class="validate" v-model="user.password" required>
-                        <label for="password">Senha</label>
-                    </div>
-                    <div class="input-field col s12">
-                        <input id="confirmPassword" type="password" class="validate" required>
-                        <label for="confirmPassword">Confirmar Senha</label>
+
+                    <div class="form-group">
+                        <div class="email-column1">
+                            <label for="email">E-mail</label>
+                            <input id="email" type="email" class="form-control" v-model="user.email" required>
+                        </div>
+                        <div class="email-column2"></div>
                     </div>
 
-                    <div class="button-submit">
-                        <button class="btn waves-effect waves-light" type="submit" name="action">
-                            Cadastrar
-                        </button>
+                    <div class="form-group">
+                        <div class="password-confirmPassword-column1">
+                            <label for="password">Senha</label>
+                            <input id="password" type="password" class="form-control" v-model="user.password" required>
+                        </div>
+                        <div class="password-confirmPassword-column2">
+                            <label for="confirmPassword">Confirmar Senha</label>
+                            <input id="confirmPassword" type="password" class="form-control" required>
+                        </div>
+
+                        <div class="password-confirmPassword-column3"></div>
                     </div>
-                </form>
+
+                    <div class="form-group wrapper-button-submit">
+                        <button type="submit" class="btn btn-primary">Cadastrar</button>
+                    </div>
+                    </form>
+                </div>
             </div>
-        </div>
         <app-footer></app-footer>
   </div>
 </template>
@@ -139,7 +159,74 @@ export default {
 }
 </script>
 
-<style >
+<style scoped>
+    .name-column1 {
+        width: 100%;
+    }
+
+    .street-number-column1 {
+        width: 80%;
+    }
+
+    .street-number-column2 {
+        width: 15%;
+        margin-left: 5%;
+    }
+
+    .neighborhood-state-column1 {
+        width: 70%;
+    }
+
+    .neighborhood-state-column2 {
+        width: 25%;
+        margin-left: 5%;
+    }
+
+    .telephone-birthdate-column1 {
+        width: 35%;
+    }
+
+    .telephone-birthdate-column2 {
+        width: 25%;
+        margin-left: 5%;
+    }
+
+    .telephone-birthdate-column3 {
+        width: 35%;
+    }
+    
+    .email-column1 {
+        width: 55%;
+    }
+
+    .email-column2 {
+        width: 45%;
+    }
+
+    .password-confirmPassword-column1 {
+        width: 25%;
+    }
+
+    .password-confirmPassword-column2 {
+        width: 25%;
+        margin-left: 5%;
+    }
+
+    .password-confirmPassword-column3{
+        width: 45%;
+    }
+
+    .form-group {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .form-group > label {
+        height: 100%;
+        margin: auto 0;
+    }
+
     .content-body {
         max-width: 800px;
         margin: 0 auto;
@@ -157,51 +244,10 @@ export default {
         color: #2f52b9;
     }
 
-    .button-submit {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        margin: 0 auto;
-        padding-top: 20px;
-    }    
-
-    .button-submit button {
-        width: 180px;
-        height: 50px;
-        font-size: 20px;
-        background: #4676ff;
+    .btn-primary {
+        width: 150px;
         font-weight: bold;
-        border-radius: 5px;
+        margin-top: 20px;
     }
 
-    .button-submit button:hover {
-        background: #2f52b9;
-        color: #fff;
-    }
-
-    .input-field input[type=text]:focus, .input-field input[type=email]:focus, .input-field input[type=tel]:focus,
-    .input-field input[type=password]:focus {
-     border-bottom: 1px solid #4676ff;
-     box-shadow: 0 1px 0 0 #4676ff;
-   }
-
-    /*
-    .select-wrapper input.select-dropdown:focus {
-        border-bottom: 1px solid #4676ff;
-        box-shadow: 0 1px 0 0 #4676ff;
-    }
-
-    .select-css option {
-        color: #4676ff;
-    }
-    */
-
-   .input-field input[type=text]:focus + label, .input-field input[type=email]:focus + label,
-    .input-field input[type=tel]:focus + label, .input-field input[type=password]:focus + label {
-     color: #4676ff;
-   }
-
-   .datepicker-modal {
-       height: auto !important;
-   }
 </style>
