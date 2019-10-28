@@ -21,7 +21,11 @@
           <div class="card-select">
             <div class="input-field col s12">
               <p>Membro</p>
-              <select @change="onChangeSubAreaFront($event)" v-model="areaCorporalFront">
+              <select
+                class="subarea"
+                @change="onChangeSubAreaFront($event)"
+                v-model="areaCorporalFront"
+              >
                 <option
                   v-bind:key="index"
                   v-for="(item, index) in humanSubAreaFiltred"
@@ -29,10 +33,15 @@
                 >{{ item.name }}</option>
               </select>
             </div>
-            <p>{{ areaCorporalFront }}</p>
 
             <div class="input-field col s12">
-              <select style="display: block" multiple v-if="podeEscolherSintomas">
+              <label>Sintomas</label>
+              <select
+                style="display: block"
+                multiple
+                v-if="podeEscolherSintomas"
+                v-model="sintomasFront"
+              >
                 <option value disabled>Selecione</option>
                 <option
                   :key="index"
@@ -43,9 +52,9 @@
                 <option value="2">Option 2</option>
                 <option value="3">Option 3</option>-->
               </select>
-              <label>Sintomas</label>
             </div>
-            <p>{{ sintomas }}</p>
+
+            <button>Confirmar</button>
           </div>
           <div class="space"></div>
         </div>
@@ -105,6 +114,7 @@ export default {
       mapBack: "Membro",
       sintomas: [],
       areaCorporalFront: "",
+      sintomasFront: [],
       areaCorporalBack: [],
       humanSubAreaFiltred: [{ name: "Selecione" }],
       human: [
@@ -245,6 +255,7 @@ select {
   width: 100%;
   border: 6px solid transparent;
   border-color: #fff transparent transparent transparent;
+  margin-bottom: 16px;
 }
 </style>
  
