@@ -9,11 +9,16 @@
       <div class="top-info">
         <span class="subtitle">Identificação dos sintomas</span>
       </div>
+
       <div class="body-area">
+        <div class="section">
+          <span>Frente</span>
+          <hr />
+        </div>
+
         <div class="body-area-group">
           <div class="space"></div>
           <div class="body">
-            <span>Frente</span>
             <map-body-front bodyId="front" @map-clicked="onMapClickFront"></map-body-front>
           </div>
           <div class="card-select">
@@ -26,7 +31,7 @@
               >
                 <option
                   v-bind:key="index"
-                  v-for="(item, index) in humanSubAreaFiltred"
+                  v-for="(item, index) in humanSubAreaFiltredFront"
                   v-bind:value="item.name"
                 >{{ item.name }}</option>
               </select>
@@ -37,12 +42,12 @@
               <select
                 style="display: block"
                 multiple
-                v-if="podeEscolherSintomas"
+                v-if="podeEscolherSintomasFront"
                 v-model="sintomasFront"
               >
                 <option
                   :key="index"
-                  v-for="(item, index) in tuaSubArea.sintomas"
+                  v-for="(item, index) in tuaSubAreaFront.sintomas"
                   :value="item"
                 >{{ item }}</option>
                 <!-- <option value="1">Option 1</option>
@@ -53,44 +58,66 @@
 
             <button
               v-if="sintomasFront.length>=1"
-              v-on:click="addFront(areaCorporalFront,sintomasFront)"
+              v-on:click="add(areaCorporalFront,sintomasFront,'Frente')"
             >Adicionar</button>
           </div>
           <div class="space"></div>
         </div>
 
+        <div class="section">
+          <span>Costas</span>
+          <hr />
+        </div>
         <div class="body-area-group">
           <div class="space"></div>
           <div class="body">
-            <span>Costas</span>
             <map-body-front bodyId="back" @map-clicked="onMapClickBack"></map-body-front>
           </div>
           <div class="card-select">
-            <div class="input-field col s12">
-              <select v-model="areaCorporalBack" multiple>
-                <option value disabled>Selecione</option>
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
+            <div class="input-field col s12" v-show="mapBack">
+              <p>Membro</p>
+              <select
+                class="subarea"
+                @change="onChangeSubAreaBack($event)"
+                v-model="areaCorporalBack"
+              >
+                <option
+                  v-bind:key="index"
+                  v-for="(item, index) in humanSubAreaFiltredBack"
+                  v-bind:value="item.name"
+                >{{ item.name }}</option>
               </select>
-              <label>{{ mapBack }}</label>
             </div>
-            <p>{{ areaCorporalBack }}</p>
 
             <div class="input-field col s12">
-              <select v-model="sintomas" multiple>
-                <option value disabled>Selecione</option>
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
-              </select>
               <label>Sintomas</label>
+              <select
+                style="display: block"
+                multiple
+                v-if="podeEscolherSintomasBack"
+                v-model="sintomasBack"
+              >
+                <option
+                  :key="index"
+                  v-for="(item, index) in tuaSubAreaBack.sintomas"
+                  :value="item"
+                >{{ item }}</option>
+                <!-- <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>-->
+              </select>
             </div>
-            <p>{{ sintomas }}</p>
+
+            <button
+              v-if="sintomasBack.length>=1"
+              v-on:click="add(areaCorporalBack,sintomasBack,'Costas')"
+            >Adicionar</button>
           </div>
+
           <div class="space"></div>
         </div>
       </div>
+      <button id="save" v-if="humanResult.length>=1" v-on:click="save()">Adicionar</button>
       <app-footer></app-footer>
     </div>
   </div>
@@ -115,8 +142,10 @@ export default {
       sintomas: [],
       areaCorporalFront: "",
       sintomasFront: [],
+      sintomasBack: [],
       areaCorporalBack: [],
-      humanSubAreaFiltred: [{ name: "Selecione" }],
+      humanSubAreaFiltredFront: [{ name: "Selecione" }],
+      humanSubAreaFiltredBack: [{ name: "Selecione" }],
       humanResult: [],
       human: [
         {
@@ -146,8 +175,10 @@ export default {
           ]
         }
       ],
-      podeEscolherSintomas: false,
-      tuaSubArea: []
+      podeEscolherSintomasFront: false,
+      podeEscolherSintomasBack: false,
+      tuaSubAreaFront: [],
+      tuaSubAreaBack: []
     };
   },
   methods: {
@@ -162,41 +193,49 @@ export default {
       return copyAux;
     },
     onChangeSubAreaFront(event) {
-      this.podeEscolherSintomas = true;
-      this.tuaSubArea = this.humanSubAreaFiltred.filter(
+      this.podeEscolherSintomasFront = true;
+      this.tuaSubAreaFront = this.humanSubAreaFiltredFront.filter(
+        el => el.name === event.target.value
+      )[0];
+      //  console.log("@@ ", event.target.value);
+    },
+    onChangeSubAreaBack(event) {
+      this.podeEscolherSintomasBack = true;
+      this.tuaSubAreaBack = this.humanSubAreaFiltredBack.filter(
         el => el.name === event.target.value
       )[0];
       //  console.log("@@ ", event.target.value);
     },
     onMapClickFront: function(attr) {
       this.mapFront = attr.mapId;
-      this.humanSubAreaFiltred = this.filterSubArea(this.human, this.mapFront);
+      this.humanSubAreaFiltredFront = this.filterSubArea(
+        this.human,
+        this.mapFront
+      );
       //   console.log(this.human);
       // console.log(this.humanSubAreaFiltred);
       //alert(`You clicked on state with id: ${attr.mapId} (front) `);
     },
     onMapClickBack: function(attr) {
       this.mapBack = attr.mapId;
+      this.humanSubAreaFiltredBack = this.filterSubArea(
+        this.human,
+        this.mapBack
+      );
       //alert(`You clicked on state with id: ${attr.mapId} (back) `);
     },
-    addFront: function(areaCorporalFront, sintomasFront) {
+    add: function(areaCorporalFront, sintomasFront, lado) {
       //    console.log(areaCorporalFront);
       //   console.log(sintomasFront);
       this.humanResult.push({
-        lado: "Frente",
+        lado: lado,
         subArea: areaCorporalFront,
         sintomas: sintomasFront
       });
       console.log(this.humanResult);
     },
-    addBack: function(areaCorporalFront, sintomasFront) {
-      //    console.log(areaCorporalFront);
-      //   console.log(sintomasFront);
-      this.humanResult.push({
-        lado: "Frente",
-        subArea: areaCorporalFront,
-        sintomas: sintomasFront
-      });
+    save: function() {
+      console.log("save");
       console.log(this.humanResult);
     }
   }
@@ -277,6 +316,22 @@ select {
   border: 6px solid transparent;
   border-color: #fff transparent transparent transparent;
   margin-bottom: 16px;
+}
+hr {
+  border: 0;
+  width: 100%;
+  background-color: darkgray;
+  height: 1px;
+  margin-top: 0px;
+}
+.section {
+  margin: 16px;
+  font-weight: bold;
+}
+#save {
+  margin: 16px;
+  margin-bottom: 30px;
+  width: 100px;
 }
 </style>
  
