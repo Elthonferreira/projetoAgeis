@@ -8,8 +8,6 @@
       <app-header></app-header>
       <div class="top-info">
         <span class="subtitle">Identificação dos sintomas</span>
-
-        <p v-bind:key="index" v-for="(item, index) in humanSubAreaFiltred" value="1">{{ item.name }}</p>
       </div>
       <div class="body-area">
         <div class="body-area-group">
@@ -19,7 +17,7 @@
             <map-body-front bodyId="front" @map-clicked="onMapClickFront"></map-body-front>
           </div>
           <div class="card-select">
-            <div class="input-field col s12">
+            <div class="input-field col s12" v-show="mapFront">
               <p>Membro</p>
               <select
                 class="subarea"
@@ -42,7 +40,6 @@
                 v-if="podeEscolherSintomas"
                 v-model="sintomasFront"
               >
-                <option value disabled>Selecione</option>
                 <option
                   :key="index"
                   v-for="(item, index) in tuaSubArea.sintomas"
@@ -54,7 +51,10 @@
               </select>
             </div>
 
-            <button>Confirmar</button>
+            <button
+              v-if="sintomasFront.length>=1"
+              v-on:click="addFront(areaCorporalFront,sintomasFront)"
+            >Adicionar</button>
           </div>
           <div class="space"></div>
         </div>
@@ -110,13 +110,14 @@ export default {
   },
   data() {
     return {
-      mapFront: "Membro",
-      mapBack: "Membro",
+      mapFront: "",
+      mapBack: "",
       sintomas: [],
       areaCorporalFront: "",
       sintomasFront: [],
       areaCorporalBack: [],
       humanSubAreaFiltred: [{ name: "Selecione" }],
+      humanResult: [],
       human: [
         {
           name: "Cabeça",
@@ -165,18 +166,38 @@ export default {
       this.tuaSubArea = this.humanSubAreaFiltred.filter(
         el => el.name === event.target.value
       )[0];
-      console.log("@@ ", event.target.value);
+      //  console.log("@@ ", event.target.value);
     },
     onMapClickFront: function(attr) {
       this.mapFront = attr.mapId;
       this.humanSubAreaFiltred = this.filterSubArea(this.human, this.mapFront);
-      console.log(this.human);
-      console.log(this.humanSubAreaFiltred);
+      //   console.log(this.human);
+      // console.log(this.humanSubAreaFiltred);
       //alert(`You clicked on state with id: ${attr.mapId} (front) `);
     },
     onMapClickBack: function(attr) {
       this.mapBack = attr.mapId;
       //alert(`You clicked on state with id: ${attr.mapId} (back) `);
+    },
+    addFront: function(areaCorporalFront, sintomasFront) {
+      //    console.log(areaCorporalFront);
+      //   console.log(sintomasFront);
+      this.humanResult.push({
+        lado: "Frente",
+        subArea: areaCorporalFront,
+        sintomas: sintomasFront
+      });
+      console.log(this.humanResult);
+    },
+    addBack: function(areaCorporalFront, sintomasFront) {
+      //    console.log(areaCorporalFront);
+      //   console.log(sintomasFront);
+      this.humanResult.push({
+        lado: "Frente",
+        subArea: areaCorporalFront,
+        sintomas: sintomasFront
+      });
+      console.log(this.humanResult);
     }
   }
 };
