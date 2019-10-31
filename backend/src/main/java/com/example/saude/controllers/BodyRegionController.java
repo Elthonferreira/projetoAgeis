@@ -19,7 +19,7 @@ import com.example.saude.services.BodyRegionService;
 
 @CrossOrigin("*") // Depois trocar o * pelo endereço do frontend
 @RestController
-@RequestMapping("/api/bodyregion")
+@RequestMapping("/api/bodyRegion")
 public class BodyRegionController {
 	
 	@Autowired
@@ -31,7 +31,7 @@ public class BodyRegionController {
         List<BodyRegion> userBodyRegions = new ArrayList<>();
         
         if(bodyRegions.isEmpty()) {
-            return new ResponseEntity<>("Nenhuma região corporal cadastrada.", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Nenhuma região cadastrada.", HttpStatus.NOT_FOUND);
         } else {
             for (BodyRegion bodyRegion: bodyRegions) {
             	if (bodyRegion.getUserId() == userId) {
@@ -45,7 +45,7 @@ public class BodyRegionController {
 
     @PostMapping
     public ResponseEntity<?> save(@RequestBody BodyRegion bodyRegion) {
-    	return new ResponseEntity<>(bodyRegionService.save(bodyRegion), HttpStatus.OK);
+    	return new ResponseEntity<>(bodyRegionService.save(bodyRegion).getBodyRegionId(), HttpStatus.OK);
     }
     
 }

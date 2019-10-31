@@ -58,7 +58,7 @@
 
             <button
               v-if="sintomasFront.length>=1"
-              v-on:click="add(areaCorporalFront,sintomasFront,'Frente')"
+              v-on:click="add(areaCorporalFront,sintomasFront, true)"
             >Adicionar</button>
           </div>
           <div class="space"></div>
@@ -110,7 +110,7 @@
 
             <button
               v-if="sintomasBack.length>=1"
-              v-on:click="add(areaCorporalBack,sintomasBack,'Costas')"
+              v-on:click="add(areaCorporalBack,sintomasBack, false)"
             >Adicionar</button>
           </div>
 
@@ -127,6 +127,7 @@
 import AppHeader from "../components/Header.vue";
 import AppFooter from "../components/Footer.vue";
 import MapBodyFront from "../components/MapBody.vue";
+import axios from 'axios';
 // import { filterSubArea } from "./utils";
 export default {
   name: "bodyRegion1",
@@ -137,6 +138,7 @@ export default {
   },
   data() {
     return {
+      url: "http://localhost:8081/api",
       mapFront: "",
       mapBack: "",
       sintomas: [],
@@ -147,16 +149,31 @@ export default {
       humanSubAreaFiltredFront: [{ name: "Selecione" }],
       humanSubAreaFiltredBack: [{ name: "Selecione" }],
       humanResult: [],
+      bodyRegion: [],
+      bodyRegionJSON: {
+        headFront: false,
+        headBack: false,
+        bodyFront: false,
+        bodyBack: false,
+        armLeftFront: false,
+        armLeftBack: false,
+        armRightFront: false,
+        armRightBack: false,
+        legLeftFront: false,
+        legLeftBack: false,
+        legRightFront: false,
+        legRightBack: false,
+      },
       human: [
         {
           name: "Cabeça",
           subArea: [
             {
-              name: "cabeça",
+              name: "Cabeça",
               sintomas: ["Dor", "Enxaqueca", "Latejando"]
             },
             {
-              name: "olhos",
+              name: "Olhos",
               sintomas: ["Dor", "Visão embaçada"]
             }
           ]
@@ -208,6 +225,7 @@ export default {
     },
     onMapClickFront: function(attr) {
       this.mapFront = attr.mapId;
+      this.mapBack = null;
       this.humanSubAreaFiltredFront = this.filterSubArea(
         this.human,
         this.mapFront
@@ -218,6 +236,7 @@ export default {
     },
     onMapClickBack: function(attr) {
       this.mapBack = attr.mapId;
+      this.mapFront = null;
       this.humanSubAreaFiltredBack = this.filterSubArea(
         this.human,
         this.mapBack
@@ -227,16 +246,85 @@ export default {
     add: function(areaCorporalFront, sintomasFront, lado) {
       //    console.log(areaCorporalFront);
       //   console.log(sintomasFront);
+      if (!this.bodyRegion.includes()) {
+        this.bodyRegion.push({
+          region: this.mapFront || this.mapBack,
+          front: lado
+        });
+      }
+
       this.humanResult.push({
-        lado: lado,
-        subArea: areaCorporalFront,
-        sintomas: sintomasFront
+        bodyRegion: this.mapFront || this.mapBack,
+        bodySubRegion: areaCorporalFront,
+        symptom: sintomasFront,
+        front: lado,
       });
-      console.log(this.humanResult);
     },
-    save: function() {
-      console.log("save");
-      console.log(this.humanResult);
+    save: async function() {
+      this.bodyRegionJSON.userId = 10; // ### precisa buscar o usuario
+
+      for (let i = 0; i < this.bodyRegion.length; i++) {
+        let bodyMember = this.bodyRegion[i];
+        if (bodyMember.region == "Cabeça" && bodyMember.front) {
+          this.bodyRegionJSON.headFront = true;
+        } else if (bodyMember.region == "Cabeça" && !bodyMember.front) {
+          this.bodyRegionJSON.headBack = true;
+        } else if (bodyMember.region == "Corpo" && bodyMember.front) {
+          this.bodyRegionJSON.bodyFront = true;
+        } else if (bodyMember.region == "Corpo" && !bodyMember.front) {
+          this.bodyRegionJSON.bodyBack = true;
+        } else if (bodyMember.region == "Braço Esquerdo" && bodyMember.front) {
+          this.bodyRegionJSON.armLeftFront = true;
+        } else if (bodyMember.region == "Braço Esquerdo" && !bodyMember.front) {
+          this.bodyRegionJSON.armLeftBack = true;
+        } else if (bodyMember.region == "Braço Direito" && bodyMember.front) {
+          this.bodyRegionJSON.armRightFront = true;
+        } else if (bodyMember.region == "Braço Direito" && !bodyMember.front) {
+          this.bodyRegionJSON.armRightBack = true;
+        } else if (bodyMember.region == "Perna Esquerda" && bodyMember.front) {
+          this.bodyRegionJSON.legLeftFront = true;
+        } else if (bodyMember.region == "Perna Esquerda" && !bodyMember.front) {
+          this.bodyRegionJSON.legLeftBack = true;
+        } else if (bodyMember.region == "Perna Direita" && bodyMember.front) {
+          this.bodyRegionJSON.legRightFront = true;
+        } else if (bodyMember.region == "Perna Direita" && !bodyMember.front) {
+          this.bodyRegionJSON.legRightBack = true;
+        }
+      }
+         
+      let bodyRegionId = 0;
+
+      await axios
+        .post(this.url + "/bodyRegion", this.bodyRegionJSON)
+        .then(function(res) {
+          bodyRegionId = res.data;
+        })
+        .catch(error => {
+          //this.error = error.response.data;
+            console.log(error);
+        });
+
+        for (let i = 0; i < this.humanResult.length; i++) {
+            let bodySubRegion = this.humanResult[i];
+            bodySubRegion.symptom = this.humanResult[i].symptom;
+            bodySubRegion.bodyRegionId = bodyRegionId;
+            for (let j = 0; j < bodySubRegion.symptom.length; j++) {
+              let bodySubRegionJSON = {
+                bodyRegionId: bodySubRegion.bodyRegionId,
+                bodyRegion: bodySubRegion.bodyRegion,
+                bodySubRegion: bodySubRegion.bodySubRegion,
+                symptom: bodySubRegion.symptom[j],
+                front: bodySubRegion.front,
+                
+              };
+          console.log(bodySubRegionJSON);
+              axios.post(this.url + "/bodySubRegion", bodySubRegionJSON);
+            }
+
+          }
+
+        //M.toast({html: 'Registrado com sucesso!', classes: 'rounded'});
+        window.location.href = "/#/login";
     }
   }
 };
