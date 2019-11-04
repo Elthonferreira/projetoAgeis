@@ -3,6 +3,9 @@
         <app-header></app-header>
         <div>
             <div class="content-body">
+                <div class="alert alert-success" hidden id="alert" role="alert">
+                    Paciente cadastrado com sucesso! Redirecionando para a tela de login em 3 segundos...
+                </div>
                 <h3>Cadastro de Usuário</h3>
                 <form  @submit.prevent="save()">
                     <h4>Dados Pessoais</h4>
@@ -71,7 +74,7 @@
                         </div>
                         <div class="telephone-birthdate-column2">
                             <label for="birthdate">Data de Nascimento</label>
-                            <input id="birthdate" type="text" class="form-control" required>
+                            <input id="birthdate" type="text" class="form-control" v-model="user.birthdate" required>
                         </div>
 
                         <div class="telephone-birthdate-column3"></div>
@@ -141,18 +144,22 @@ export default {
   },
   methods: {
     save() {
-        var datepicker = document.querySelectorAll('.datepicker');
-        this.user.birthdate = datepicker[0].value;
         this.user.password = md5(this.user.password);
 
       axios
         .post(this.url + "/user", this.user)
         .then(function() {
-            M.toast({html: 'Usuário cadastrado com sucesso!', classes: 'rounded'});
-            window.location.href = "/#/login";
+            //M.toast({html: 'Usuário cadastrado com sucesso!', classes: 'rounded'});
+            let message = document.getElementById("alert");
+            message.removeAttribute("hidden");
+            setTimeout(() => {
+                window.location.href = "/#/login";
+            }, 3000);
+            
         })
         .catch(error => {
-            this.error = error.response.data;
+            //this.error = error.response.data;
+            console.log(error);
         });
     }
   },

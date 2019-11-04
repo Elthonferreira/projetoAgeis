@@ -2,6 +2,9 @@
   <div id="app">
     <app-header></app-header>
     <div class="container">
+      <div class="alert alert-success" hidden id="alert" role="alert">
+        Clínica cadastrada com sucesso! Redirecionando para a tela de login em 3 segundos...
+      </div>
       <h3>Cadastro de Clínica</h3>
       <form  @submit.prevent="salvar()">
                     <h4>Dados Pessoais</h4>
@@ -99,8 +102,12 @@ export default {
       axios
         .post(this.url + "/clinicas", this.clinica)
         .then(function() {
-          M.toast({html: 'Clínica cadastrada com sucesso!', classes: 'rounded'});
-          window.location.href = "/#/login";
+          //M.toast({html: 'Clínica cadastrada com sucesso!', classes: 'rounded'});
+            let message = document.getElementById("alert");
+            message.removeAttribute("hidden");
+            setTimeout(() => {
+                window.location.href = "/#/login";
+            }, 3000);
         })
         .catch(error => {
           this.error = error.response.data;
