@@ -46,6 +46,8 @@ export default {
     generatePath: function(svgCont, pathObj) {
       const vue = this;
 
+      const mapData = BodyMap.g.path;
+
       const attrs = {
         fill: "#4676ff",
         stroke: "white",
@@ -53,6 +55,7 @@ export default {
         "map-id": pathObj["-id"]
       };
       const element = svgCont.path(pathObj["-d"]).attr(attrs);
+      element.node.attributes["fill"].value = "#4676ff";
       element.click(function() {
         if (this.node.attributes["fill"].value === "#4676ff") {
           // pinta a parte selecionada
@@ -60,6 +63,12 @@ export default {
         } else {
           this.node.attributes["fill"].value = "#4676ff";
         }
+
+        mapData.forEach(otherPathObj => {
+          if (otherPathObj["-id"] != pathObj["-id"]) {
+            vue.generatePath(svgCont, otherPathObj);
+          }
+        });
 
         const mapId = this.node.attributes["map-id"].value;
         vue.$emit("map-clicked", { mapId });

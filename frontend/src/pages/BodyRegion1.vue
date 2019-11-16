@@ -1,6 +1,4 @@
-
 <script src="https://gist.github.com/kevinbreaker/71a870344e93c8ea376bc95959af3a9a.js"></script>
-  
 
 <template>
   <div id="content">
@@ -19,10 +17,13 @@
         <div class="body-area-group">
           <div class="space"></div>
           <div class="body">
-            <map-body-front bodyId="front" @map-clicked="onMapClickFront"></map-body-front>
+            <map-body-front
+              bodyId="front"
+              @map-clicked="onMapClickFront"
+            ></map-body-front>
           </div>
           <div class="card-select">
-            <div class="input-field col s12" v-show="mapFront">
+            <div class="selectSympton col s12" v-show="mapFront">
               <p>Membro</p>
               <select
                 class="subarea"
@@ -33,12 +34,15 @@
                   v-bind:key="index"
                   v-for="(item, index) in humanSubAreaFiltredFront"
                   v-bind:value="item.name"
-                >{{ item.name }}</option>
+                  >{{ item.name }}</option
+                >
               </select>
             </div>
 
-            <div class="input-field col s12">
-              <label>Sintomas</label>
+            <div class="selectSympton col s12">
+              <p v-show="mapFront == false">
+                Selecione uma região do corpo
+              </p>
               <select
                 style="display: block"
                 multiple
@@ -49,7 +53,8 @@
                   :key="index"
                   v-for="(item, index) in tuaSubAreaFront.sintomas"
                   :value="item"
-                >{{ item }}</option>
+                  >{{ item }}</option
+                >
                 <!-- <option value="1">Option 1</option>
                 <option value="2">Option 2</option>
                 <option value="3">Option 3</option>-->
@@ -57,9 +62,36 @@
             </div>
 
             <button
-              v-if="sintomasFront.length>=1"
-              v-on:click="add(areaCorporalFront,sintomasFront, true)"
-            >Adicionar</button>
+              class="selectSympton"
+              v-if="sintomasFront.length >= 1"
+              v-on:click="add(areaCorporalFront, sintomasFront, true)"
+            >
+              Adicionar
+            </button>
+          </div>
+          <div class="symptomList">
+            <p>Sintomas adicionados</p>
+
+            <div v-for="(item, index) in humanResult">
+              <div
+                v-if="item.front"
+                v-for="(sympton, indexSymp) in item.symptom"
+              >
+                <strong>{{ sympton }}</strong> na região
+                <strong>frontal</strong> da(o)
+                <strong
+                  >{{ item["bodySubRegion"] }} ({{
+                    item["bodyRegion"]
+                  }})</strong
+                >
+                <span
+                  class="link-remove"
+                  v-on:click="removerSympton(index, indexSymp)"
+                  >Remover</span
+                >
+                <br />
+              </div>
+            </div>
           </div>
           <div class="space"></div>
         </div>
@@ -71,10 +103,13 @@
         <div class="body-area-group">
           <div class="space"></div>
           <div class="body">
-            <map-body-front bodyId="back" @map-clicked="onMapClickBack"></map-body-front>
+            <map-body-front
+              bodyId="back"
+              @map-clicked="onMapClickBack"
+            ></map-body-front>
           </div>
           <div class="card-select">
-            <div class="input-field col s12" v-show="mapBack">
+            <div class="selectSympton col s12" v-show="mapBack">
               <p>Membro</p>
               <select
                 class="subarea"
@@ -85,11 +120,12 @@
                   v-bind:key="index"
                   v-for="(item, index) in humanSubAreaFiltredBack"
                   v-bind:value="item.name"
-                >{{ item.name }}</option>
+                  >{{ item.name }}</option
+                >
               </select>
             </div>
 
-            <div class="input-field col s12">
+            <div class="selectSympton col s12">
               <label>Sintomas</label>
               <select
                 style="display: block"
@@ -101,7 +137,8 @@
                   :key="index"
                   v-for="(item, index) in tuaSubAreaBack.sintomas"
                   :value="item"
-                >{{ item }}</option>
+                  >{{ item }}</option
+                >
                 <!-- <option value="1">Option 1</option>
                 <option value="2">Option 2</option>
                 <option value="3">Option 3</option>-->
@@ -109,15 +146,43 @@
             </div>
 
             <button
-              v-if="sintomasBack.length>=1"
-              v-on:click="add(areaCorporalBack,sintomasBack, false)"
-            >Adicionar</button>
+              class="selectSympton"
+              v-if="sintomasBack.length >= 1"
+              v-on:click="add(areaCorporalBack, sintomasBack, false)"
+            >
+              Adicionar
+            </button>
           </div>
+          <div class="symptomList">
+            <p>Sintomas adicionados</p>
 
+            <div v-for="(item, index) in humanResult">
+              <div
+                v-if="!item.front"
+                v-for="(sympton, indexSymp) in item.symptom"
+              >
+                <strong>{{ sympton }}</strong> na região
+                <strong>traseira</strong> da(o)
+                <strong
+                  >{{ item["bodySubRegion"] }} ({{
+                    item["bodyRegion"]
+                  }})</strong
+                >
+                <span
+                  class="link-remove"
+                  v-on:click="removerSympton(index, indexSymp)"
+                  >Remover</span
+                >
+                <br />
+              </div>
+            </div>
+          </div>
           <div class="space"></div>
         </div>
       </div>
-      <button id="save" v-if="humanResult.length>=1" v-on:click="save()">Adicionar</button>
+      <button id="save" v-if="humanResult.length >= 1" v-on:click="save()">
+        Adicionar
+      </button>
       <app-footer></app-footer>
     </div>
   </div>
@@ -127,7 +192,7 @@
 import AppHeader from "../components/Header.vue";
 import AppFooter from "../components/Footer.vue";
 import MapBodyFront from "../components/MapBody.vue";
-import axios from 'axios';
+import axios from "axios";
 // import { filterSubArea } from "./utils";
 export default {
   name: "bodyRegion1",
@@ -162,7 +227,7 @@ export default {
         legLeftFront: false,
         legLeftBack: false,
         legRightFront: false,
-        legRightBack: false,
+        legRightBack: false
       },
       human: [
         {
@@ -199,6 +264,13 @@ export default {
     };
   },
   methods: {
+    removerSympton(index, indexSympton) {
+      if (this.humanResult[index].symptom.length > 1) {
+        this.humanResult[index].symptom.splice(indexSympton, 1);
+      } else {
+        this.humanResult.splice(index, 1);
+      }
+    },
     filterSubArea(array, stringCompare) {
       // console.log(array);
       var copyAux = [];
@@ -257,7 +329,7 @@ export default {
         bodyRegion: this.mapFront || this.mapBack,
         bodySubRegion: areaCorporalFront,
         symptom: sintomasFront,
-        front: lado,
+        front: lado
       });
     },
     save: async function() {
@@ -291,7 +363,7 @@ export default {
           this.bodyRegionJSON.legRightBack = true;
         }
       }
-         
+
       let bodyRegionId = 0;
 
       await axios
@@ -301,34 +373,32 @@ export default {
         })
         .catch(error => {
           //this.error = error.response.data;
-            console.log(error);
+          console.log(error);
         });
 
-        for (let i = 0; i < this.humanResult.length; i++) {
-            let bodySubRegion = this.humanResult[i];
-            bodySubRegion.symptom = this.humanResult[i].symptom;
-            bodySubRegion.bodyRegionId = bodyRegionId;
-            for (let j = 0; j < bodySubRegion.symptom.length; j++) {
-              let bodySubRegionJSON = {
-                bodyRegionId: bodySubRegion.bodyRegionId,
-                bodyRegion: bodySubRegion.bodyRegion,
-                bodySubRegion: bodySubRegion.bodySubRegion,
-                symptom: bodySubRegion.symptom[j],
-                front: bodySubRegion.front,
-                
-              };
+      for (let i = 0; i < this.humanResult.length; i++) {
+        let bodySubRegion = this.humanResult[i];
+        bodySubRegion.symptom = this.humanResult[i].symptom;
+        bodySubRegion.bodyRegionId = bodyRegionId;
+        for (let j = 0; j < bodySubRegion.symptom.length; j++) {
+          let bodySubRegionJSON = {
+            bodyRegionId: bodySubRegion.bodyRegionId,
+            bodyRegion: bodySubRegion.bodyRegion,
+            bodySubRegion: bodySubRegion.bodySubRegion,
+            symptom: bodySubRegion.symptom[j],
+            front: bodySubRegion.front
+          };
           console.log(bodySubRegionJSON);
-              axios.post(this.url + "/bodySubRegion", bodySubRegionJSON);
-            }
+          axios.post(this.url + "/bodySubRegion", bodySubRegionJSON);
+        }
+      }
 
-          }
-
-        //M.toast({html: 'Registrado com sucesso!', classes: 'rounded'});
-        window.location.href = "/#/login";
+      //M.toast({html: 'Registrado com sucesso!', classes: 'rounded'});
+      window.location.href = "/#/login";
     }
   }
 };
-</script> 
+</script>
 <style scoped>
 #content {
   display: flex;
@@ -352,7 +422,7 @@ export default {
 }
 .body {
   flex: 2;
-  min-width: 600px;
+  min-width: 300px;
   align-self: flex-end;
   min-height: 800;
   text-align: center;
@@ -363,13 +433,32 @@ export default {
   padding: 6px;
   display: flex;
   flex-direction: column;
-  min-width: 200px;
-  flex: 2;
+  width: 400px;
   background: #f7f7f7;
-  border-radius: 6px;
-  margin: 16px;
+  margin: 16px 0;
   justify-content: space-between;
+  border-radius: 6px 0px 0px 6px;
+  border-right: 1px solid #d8d8d8;
+  flex: 1;
 }
+
+.selectSympton {
+  width: 250px;
+  margin-left: 15px;
+}
+
+.symptomList {
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  flex: 3;
+  background: #f7f7f7;
+  margin: 16px 0;
+  padding-left: 20px;
+  border-radius: 0px 6px 6px 0px;
+}
+
 .space {
   flex: 0.5;
 }
@@ -421,5 +510,13 @@ hr {
   margin-bottom: 30px;
   width: 100px;
 }
+
+.link-remove {
+  color: #4676ff;
+}
+
+.link-remove:hover {
+  color: #355dd1;
+  cursor: pointer;
+}
 </style>
- 
