@@ -31,9 +31,9 @@
                 v-model="areaCorporalFront"
               >
                 <option
-                  v-bind:key="index"
+                  v-bind:key="item.id"
                   v-for="(item, index) in humanSubAreaFiltredFront"
-                  v-bind:value="item.name"
+                  v-bind:value="item.id"
                   >{{ item.name }}</option
                 >
               </select>
@@ -50,10 +50,10 @@
                 v-model="sintomasFront"
               >
                 <option
-                  :key="index"
-                  v-for="(item, index) in tuaSubAreaFront.sintomas"
-                  :value="item"
-                  >{{ item }}</option
+                  :key="item.id"
+                  v-for="(item, index) in tuaSubAreaFront"
+                  :value="item.id"
+                  >{{ item.name }}</option
                 >
                 <!-- <option value="1">Option 1</option>
                 <option value="2">Option 2</option>
@@ -72,7 +72,7 @@
           <div class="symptomList">
             <p>Sintomas adicionados</p>
 
-            <div v-for="(item, index) in humanResult">
+            <div v-for="(item, index) in humanResultLabel">
               <div
                 v-if="item.front"
                 v-for="(sympton, indexSymp) in item.symptom"
@@ -117,9 +117,9 @@
                 v-model="areaCorporalBack"
               >
                 <option
-                  v-bind:key="index"
+                  v-bind:key="item.id"
                   v-for="(item, index) in humanSubAreaFiltredBack"
-                  v-bind:value="item.name"
+                  v-bind:value="item.id"
                   >{{ item.name }}</option
                 >
               </select>
@@ -134,10 +134,10 @@
                 v-model="sintomasBack"
               >
                 <option
-                  :key="index"
-                  v-for="(item, index) in tuaSubAreaBack.sintomas"
-                  :value="item"
-                  >{{ item }}</option
+                  :key="item.id"
+                  v-for="(item, index) in tuaSubAreaBack"
+                  :value="item.id"
+                  >{{ item.name }}</option
                 >
                 <!-- <option value="1">Option 1</option>
                 <option value="2">Option 2</option>
@@ -156,7 +156,7 @@
           <div class="symptomList">
             <p>Sintomas adicionados</p>
 
-            <div v-for="(item, index) in humanResult">
+            <div v-for="(item, index) in humanResultLabel">
               <div
                 v-if="!item.front"
                 v-for="(sympton, indexSymp) in item.symptom"
@@ -214,6 +214,7 @@ export default {
       humanSubAreaFiltredFront: [{ name: "Selecione" }],
       humanSubAreaFiltredBack: [{ name: "Selecione" }],
       humanResult: [],
+      humanResultLabel: [],
       bodyRegion: [],
       bodyRegionJSON: {
         headFront: false,
@@ -229,34 +230,6 @@ export default {
         legRightFront: false,
         legRightBack: false
       },
-      human: [
-        {
-          name: "Cabeça",
-          subArea: [
-            {
-              name: "Cabeça",
-              sintomas: ["Dor", "Enxaqueca", "Latejando"]
-            },
-            {
-              name: "Olhos",
-              sintomas: ["Dor", "Visão embaçada"]
-            }
-          ]
-        },
-        {
-          name: "Braço Direito",
-          subArea: [
-            {
-              name: "AnteBraço",
-              sintomas: ["Dor no osso", "Sarna"]
-            },
-            {
-              name: "Mão",
-              sintomas: ["Dor no osso", "Sarna"]
-            }
-          ]
-        }
-      ],
       podeEscolherSintomasFront: false,
       podeEscolherSintomasBack: false,
       tuaSubAreaFront: [],
@@ -264,11 +237,26 @@ export default {
     };
   },
   methods: {
+    selectMapId(mapId) {
+      if (mapId == "Cabeça") {
+        return 1;
+      } else if (mapId == "Corpo") {
+        return 2;
+      } else if (mapId == "Braço Esquerdo") {
+        return 3;
+      } else if (mapId == "Braço Direito") {
+        return 4;
+      } else if (mapId == "Perna Esquerda") {
+        return 5;
+      } else if (mapId == "Perna Direita") {
+        return 6;
+      }
+    },
     removerSympton(index, indexSympton) {
-      if (this.humanResult[index].symptom.length > 1) {
-        this.humanResult[index].symptom.splice(indexSympton, 1);
+      if (this.humanResultLabel[index].symptom.length > 1) {
+        this.humanResultLabel[index].symptom.splice(indexSympton, 1);
       } else {
-        this.humanResult.splice(index, 1);
+        this.humanResultLabel.splice(index, 1);
       }
     },
     filterSubArea(array, stringCompare) {
@@ -281,116 +269,180 @@ export default {
       }
       return copyAux;
     },
-    onChangeSubAreaFront(event) {
+    async onChangeSubAreaFront(event) {
+      const vue = this;
       this.podeEscolherSintomasFront = true;
-      this.tuaSubAreaFront = this.humanSubAreaFiltredFront.filter(
-        el => el.name === event.target.value
-      )[0];
-      //  console.log("@@ ", event.target.value);
-    },
-    onChangeSubAreaBack(event) {
-      this.podeEscolherSintomasBack = true;
-      this.tuaSubAreaBack = this.humanSubAreaFiltredBack.filter(
-        el => el.name === event.target.value
-      )[0];
-      //  console.log("@@ ", event.target.value);
-    },
-    onMapClickFront: function(attr) {
-      this.mapFront = attr.mapId;
-      this.mapBack = null;
-      this.humanSubAreaFiltredFront = this.filterSubArea(
-        this.human,
-        this.mapFront
-      );
-      //   console.log(this.human);
-      // console.log(this.humanSubAreaFiltred);
-      //alert(`You clicked on state with id: ${attr.mapId} (front) `);
-    },
-    onMapClickBack: function(attr) {
-      this.mapBack = attr.mapId;
-      this.mapFront = null;
-      this.humanSubAreaFiltredBack = this.filterSubArea(
-        this.human,
-        this.mapBack
-      );
-      //alert(`You clicked on state with id: ${attr.mapId} (back) `);
-    },
-    add: function(areaCorporalFront, sintomasFront, lado) {
-      //    console.log(areaCorporalFront);
-      //   console.log(sintomasFront);
-      if (!this.bodyRegion.includes()) {
-        this.bodyRegion.push({
-          region: this.mapFront || this.mapBack,
-          front: lado
-        });
-      }
-
-      this.humanResult.push({
-        bodyRegion: this.mapFront || this.mapBack,
-        bodySubRegion: areaCorporalFront,
-        symptom: sintomasFront,
-        front: lado
-      });
-    },
-    save: async function() {
-      this.bodyRegionJSON.userId = 10; // ### precisa buscar o usuario
-
-      for (let i = 0; i < this.bodyRegion.length; i++) {
-        let bodyMember = this.bodyRegion[i];
-        if (bodyMember.region == "Cabeça" && bodyMember.front) {
-          this.bodyRegionJSON.headFront = true;
-        } else if (bodyMember.region == "Cabeça" && !bodyMember.front) {
-          this.bodyRegionJSON.headBack = true;
-        } else if (bodyMember.region == "Corpo" && bodyMember.front) {
-          this.bodyRegionJSON.bodyFront = true;
-        } else if (bodyMember.region == "Corpo" && !bodyMember.front) {
-          this.bodyRegionJSON.bodyBack = true;
-        } else if (bodyMember.region == "Braço Esquerdo" && bodyMember.front) {
-          this.bodyRegionJSON.armLeftFront = true;
-        } else if (bodyMember.region == "Braço Esquerdo" && !bodyMember.front) {
-          this.bodyRegionJSON.armLeftBack = true;
-        } else if (bodyMember.region == "Braço Direito" && bodyMember.front) {
-          this.bodyRegionJSON.armRightFront = true;
-        } else if (bodyMember.region == "Braço Direito" && !bodyMember.front) {
-          this.bodyRegionJSON.armRightBack = true;
-        } else if (bodyMember.region == "Perna Esquerda" && bodyMember.front) {
-          this.bodyRegionJSON.legLeftFront = true;
-        } else if (bodyMember.region == "Perna Esquerda" && !bodyMember.front) {
-          this.bodyRegionJSON.legLeftBack = true;
-        } else if (bodyMember.region == "Perna Direita" && bodyMember.front) {
-          this.bodyRegionJSON.legRightFront = true;
-        } else if (bodyMember.region == "Perna Direita" && !bodyMember.front) {
-          this.bodyRegionJSON.legRightBack = true;
-        }
-      }
-
-      let bodyRegionId = 0;
+      this.tuaSubAreaFront = [];
 
       await axios
-        .post(this.url + "/bodyRegion", this.bodyRegionJSON)
+        .get(this.url + "/subareasintoma/" + event.target.value)
         .then(function(res) {
-          bodyRegionId = res.data;
+          const symptons = res.data;
+
+          symptons.forEach(function(elem) {
+            vue.tuaSubAreaFront.push({
+              name: elem.nome,
+              id: elem.id_sintoma
+            });
+          });
+        })
+        .catch(error => {
+          //this.error = error.response.data;
+          console.log(error);
+        });
+    },
+    async onChangeSubAreaBack(event) {
+      const vue = this;
+      this.podeEscolherSintomasBack = true;
+      this.tuaSubAreaBack = [];
+
+      await axios
+        .get(this.url + "/subareasintoma/" + event.target.value)
+        .then(function(res) {
+          const symptons = res.data;
+
+          symptons.forEach(function(elem) {
+            vue.tuaSubAreaBack.push({
+              name: elem.nome,
+              id: elem.id_sintoma
+            });
+          });
+        })
+        .catch(error => {
+          //this.error = error.response.data;
+          console.log(error);
+        });
+    },
+    onMapClickFront: async function(attr) {
+      const vue = this;
+      this.mapFront = attr.mapId;
+      this.mapBack = null;
+      this.humanSubAreaFiltredFront = [];
+
+      await axios
+        .get(this.url + "/subarea/" + this.selectMapId(this.mapFront))
+        .then(function(res) {
+          const subAreas = res.data;
+
+          subAreas.forEach(function(elem) {
+            if (elem.frente) {
+              vue.humanSubAreaFiltredFront.push({
+                name: elem.nome,
+                id: elem.id
+              });
+            }
+          });
+        })
+        .catch(error => {
+          //this.error = error.response.data;
+          console.log(error);
+        });
+    },
+    onMapClickBack: async function(attr) {
+      const vue = this;
+      this.mapBack = attr.mapId;
+      this.mapFront = null;
+      this.humanSubAreaFiltredBack = [];
+
+      await axios
+        .get(this.url + "/subarea/" + this.selectMapId(this.mapBack))
+        .then(function(res) {
+          const subAreas = res.data;
+
+          subAreas.forEach(function(elem) {
+            if (elem.costas) {
+              vue.humanSubAreaFiltredBack.push({
+                name: elem.nome,
+                id: elem.id
+              });
+            }
+          });
+        })
+        .catch(error => {
+          //this.error = error.response.data;
+          console.log(error);
+        });
+    },
+    add: async function(areaCorporalFront, sintomasFront, lado) {
+      let subAreaLabel = "";
+      let sintomaLabel = [];
+
+      await axios
+        .get(this.url + "/subarea/first/" + areaCorporalFront)
+        .then(function(res) {
+          subAreaLabel = res.data.nome;
         })
         .catch(error => {
           //this.error = error.response.data;
           console.log(error);
         });
 
-      for (let i = 0; i < this.humanResult.length; i++) {
-        let bodySubRegion = this.humanResult[i];
-        bodySubRegion.symptom = this.humanResult[i].symptom;
-        bodySubRegion.bodyRegionId = bodyRegionId;
-        for (let j = 0; j < bodySubRegion.symptom.length; j++) {
-          let bodySubRegionJSON = {
-            bodyRegionId: bodySubRegion.bodyRegionId,
-            bodyRegion: bodySubRegion.bodyRegion,
-            bodySubRegion: bodySubRegion.bodySubRegion,
-            symptom: bodySubRegion.symptom[j],
-            front: bodySubRegion.front
-          };
-          console.log(bodySubRegionJSON);
-          axios.post(this.url + "/bodySubRegion", bodySubRegionJSON);
+      for (let x in sintomasFront) {
+        console.log(x);
+        await axios
+          .get(this.url + "/sintoma/first/" + sintomasFront[x])
+          .then(function(res) {
+            sintomaLabel.push(res.data.nome);
+          })
+          .catch(error => {
+            //this.error = error.response.data;
+            console.log(error);
+          });
+      }
+
+      this.humanResultLabel.push({
+        bodyRegion: this.mapFront || this.mapBack,
+        bodySubRegion: subAreaLabel,
+        symptom: sintomaLabel,
+        front: lado
+      });
+
+      this.humanResult.push({
+        bodyRegion: this.selectMapId(this.mapFront || this.mapBack),
+        bodySubRegion: areaCorporalFront,
+        symptom: sintomasFront,
+        front: lado
+      });
+    },
+    createUserSubAreaSintoma: function(userSubAreaSintomaId) {
+      axios
+        .post(this.url + "/usersubareasintoma/", {
+          user_id: 3, // id do usuario fixo,
+          sub_area_sintoma_id: userSubAreaSintomaId
+        })
+        .then(function(res) {})
+        .catch(error => {
+          //this.error = error.response.data;
+          console.log(error);
+        });
+    },
+    save: async function() {
+      let allUserSubAreaSintomaId = [];
+
+      for (let i in this.humanResult) {
+        for (let j in this.humanResult[i].symptom) {
+          await axios
+            .get(
+              this.url +
+                "/subareasintoma/" +
+                this.humanResult[i].bodySubRegion +
+                "/" +
+                this.humanResult[i].symptom[j]
+            )
+            .then(function(res) {
+              if (res.data > 0) {
+                allUserSubAreaSintomaId.push(res.data);
+              }
+            })
+            .catch(error => {
+              //this.error = error.response.data;
+              console.log(error);
+            });
         }
+      }
+
+      for (let id in allUserSubAreaSintomaId) {
+        await this.createUserSubAreaSintoma(allUserSubAreaSintomaId[id]);
       }
 
       //M.toast({html: 'Registrado com sucesso!', classes: 'rounded'});

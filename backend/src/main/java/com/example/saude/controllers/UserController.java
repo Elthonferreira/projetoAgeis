@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.saude.models.User;
+import com.example.saude.models.Usuario;
 import com.example.saude.services.UserService;
 
 @CrossOrigin("*") // Depois trocar o * pelo endereço do frontend
@@ -28,7 +28,7 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<?> getAll() {
-        List<User> user = userService.getAll();
+        List<Usuario> user = userService.getAll();
         if(user.isEmpty()) {
             return new ResponseEntity<>("Sem usuários cadastrados", HttpStatus.NOT_FOUND);
         }
@@ -39,7 +39,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getByCpf(@PathVariable("id") Long id) {
-        User user = userService.getById(id);
+        Usuario user = userService.getById(id);
         if(user == null) {
             return new ResponseEntity<>("Usuário com id " + id + " não existe", HttpStatus.NOT_FOUND);
         }
@@ -49,8 +49,8 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<?> save(@RequestBody User user) {
-        User aux = userService.getById(user.getId());
+    public ResponseEntity<?> save(@RequestBody Usuario user) {
+        Usuario aux = userService.getById(user.getId());
         if(aux == null) {
             return new ResponseEntity<>(userService.save(user),HttpStatus.OK);
         }
@@ -60,8 +60,8 @@ public class UserController {
     }
 
     @PutMapping
-    public ResponseEntity<?> update(@RequestBody User newUser) {
-        User oldUser = userService.getById(newUser.getId());
+    public ResponseEntity<?> update(@RequestBody Usuario newUser) {
+        Usuario oldUser = userService.getById(newUser.getId());
         if(oldUser == null) {
             return new ResponseEntity<>("Usuário não cadastrado!", HttpStatus.NOT_FOUND);
         }
@@ -71,8 +71,8 @@ public class UserController {
     }
 
     @DeleteMapping
-    public ResponseEntity<?> delete(@RequestBody User user) {
-        User aux = userService.getById(user.getId());
+    public ResponseEntity<?> delete(@RequestBody Usuario user) {
+        Usuario aux = userService.getById(user.getId());
         if(aux == null) {
             return new ResponseEntity<>("Usuário não existe!", HttpStatus.NOT_FOUND);
         }

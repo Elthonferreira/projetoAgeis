@@ -15,7 +15,7 @@ public class Clinica {
     private String senha;
     private String nome;
     private String especialidade;
-    private String endereço;
+    private String endereco;
     private String telefone;
     private String email;
 
@@ -54,9 +54,9 @@ public class Clinica {
 
     public void setEspecialidade(String especialidade) {this.especialidade = especialidade;}
 
-    public String getEndereço() {return endereço;}
+    public String getEndereço() {return endereco;}
 
-    public void setEndereço(String endereço) {this.endereço = endereço;}
+    public void setEndereço(String endereço) {this.endereco = endereço;}
 
     public String getTelefone() {return telefone;}
 

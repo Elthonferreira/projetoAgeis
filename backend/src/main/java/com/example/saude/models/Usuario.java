@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,7 +26,7 @@ public class User {
     private String email;
     private String password;
     
-	public User(Long userId, String name, String street, String number, String neighborhood, String state,
+	public Usuario(Long userId, String name, String street, String number, String neighborhood, String state,
 			String telephone, Date birthdate, String email, String password) {
 		super();
 		this.id = userId;
