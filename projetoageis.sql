@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 17-Nov-2019 às 06:54
+-- Tempo de geração: 17-Nov-2019 às 18:03
 -- Versão do servidor: 10.3.16-MariaDB
 -- versão do PHP: 7.1.30
 
@@ -92,7 +92,7 @@ INSERT INTO `clinica` (`id_clinica`, `email`, `nome`, `senha`, `telefone`, `usua
 --
 
 CREATE TABLE `doencas` (
-  `id_doenca` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `nome` varchar(50) DEFAULT NULL,
   `descricao` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -101,7 +101,7 @@ CREATE TABLE `doencas` (
 -- Extraindo dados da tabela `doencas`
 --
 
-INSERT INTO `doencas` (`id_doenca`, `nome`, `descricao`) VALUES
+INSERT INTO `doencas` (`id`, `nome`, `descricao`) VALUES
 (1, 'Rinite ', 'Rinite é a irritação e inflamação da membrana mucosa no interior\r\nda cavidade nasal. Entre os sintomas mais comuns estão a congestão nasal, fluxo\r\nnasal abundante, espirros e acumulação de muco na garganta ou parte posterior do\r\nnariz.'),
 (2, 'Dengue ', 'Dengue é uma doença febril grave causada por um arbovírus.\r\nArbovírus são vírus transmitidos por picadas de insetos, especialmente os\r\nmosquitos. Existem quatro tipos de vírus de dengue (sorotipos 1, 2, 3 e 4).'),
 (3, 'Dermatite ', 'Dermatite é uma condição comum que não é contagiosa, mas\r\npode fazer com que você se sinta desconfortável. Uma combinação de medidas de\r\nautocuidado e medicamentos pode ajudá-lo a tratar a dermatite.'),
@@ -640,11 +640,11 @@ CREATE TABLE `hibernate_sequence` (
 --
 
 INSERT INTO `hibernate_sequence` (`next_val`) VALUES
-(7),
-(7),
-(7),
-(7),
-(7);
+(28),
+(28),
+(28),
+(28),
+(28);
 
 -- --------------------------------------------------------
 
@@ -978,20 +978,25 @@ INSERT INTO `user` (`id`, `birthdate`, `email`, `name`, `neighborhood`, `number`
 CREATE TABLE `user_sub_area_sintoma` (
   `id_user_sub_area_sintoma` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `sub_area_sintoma_id` int(11) NOT NULL
+  `sub_area_sintoma_id` int(11) NOT NULL,
+  `id_diagnostico` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `user_sub_area_sintoma`
 --
 
-INSERT INTO `user_sub_area_sintoma` (`id_user_sub_area_sintoma`, `user_id`, `sub_area_sintoma_id`) VALUES
-(1, 3, 1),
-(2, 3, 68),
-(3, 3, 86),
-(4, 3, 5),
-(5, 3, 49),
-(6, 3, 38);
+INSERT INTO `user_sub_area_sintoma` (`id_user_sub_area_sintoma`, `user_id`, `sub_area_sintoma_id`, `id_diagnostico`) VALUES
+(15, 3, 49, 14),
+(16, 3, 68, 14),
+(17, 3, 81, 14),
+(19, 3, 37, 18),
+(21, 3, 68, 20),
+(23, 3, 5, 22),
+(24, 3, 49, 22),
+(25, 3, 8, 22),
+(26, 3, 3, 22),
+(27, 3, 86, 22);
 
 --
 -- Índices para tabelas despejadas
@@ -1013,7 +1018,7 @@ ALTER TABLE `clinica`
 -- Índices para tabela `doencas`
 --
 ALTER TABLE `doencas`
-  ADD PRIMARY KEY (`id_doenca`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Índices para tabela `doenca_especialidade`
@@ -1079,7 +1084,8 @@ ALTER TABLE `user`
 ALTER TABLE `user_sub_area_sintoma`
   ADD PRIMARY KEY (`id_user_sub_area_sintoma`),
   ADD KEY `user_id` (`user_id`),
-  ADD KEY `sub_area_sintoma_id` (`sub_area_sintoma_id`);
+  ADD KEY `sub_area_sintoma_id` (`sub_area_sintoma_id`),
+  ADD KEY `user_sub_area_sintoma_ibfk_3` (`id_diagnostico`);
 
 --
 -- AUTO_INCREMENT de tabelas despejadas
@@ -1101,7 +1107,7 @@ ALTER TABLE `clinica`
 -- AUTO_INCREMENT de tabela `doencas`
 --
 ALTER TABLE `doencas`
-  MODIFY `id_doenca` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de tabela `doenca_especialidade`
@@ -1155,7 +1161,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de tabela `user_sub_area_sintoma`
 --
 ALTER TABLE `user_sub_area_sintoma`
-  MODIFY `id_user_sub_area_sintoma` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_user_sub_area_sintoma` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- Restrições para despejos de tabelas
@@ -1165,7 +1171,7 @@ ALTER TABLE `user_sub_area_sintoma`
 -- Limitadores para a tabela `doenca_especialidade`
 --
 ALTER TABLE `doenca_especialidade`
-  ADD CONSTRAINT `doenca_especialidade_ibfk_1` FOREIGN KEY (`doenca_id`) REFERENCES `doencas` (`id_doenca`),
+  ADD CONSTRAINT `doenca_especialidade_ibfk_1` FOREIGN KEY (`doenca_id`) REFERENCES `doencas` (`id`),
   ADD CONSTRAINT `doenca_especialidade_ibfk_2` FOREIGN KEY (`especialidade_id`) REFERENCES `especialidade` (`id_especialidade`),
   ADD CONSTRAINT `doenca_especialidade_ibfk_3` FOREIGN KEY (`clinica_id`) REFERENCES `clinica` (`id_clinica`);
 
@@ -1173,14 +1179,14 @@ ALTER TABLE `doenca_especialidade`
 -- Limitadores para a tabela `doenca_sintoma`
 --
 ALTER TABLE `doenca_sintoma`
-  ADD CONSTRAINT `doenca_sintoma_ibfk_1` FOREIGN KEY (`doenca_id`) REFERENCES `doencas` (`id_doenca`),
+  ADD CONSTRAINT `doenca_sintoma_ibfk_1` FOREIGN KEY (`doenca_id`) REFERENCES `doencas` (`id`),
   ADD CONSTRAINT `doenca_sintoma_ibfk_2` FOREIGN KEY (`sintoma_id`) REFERENCES `sintomas` (`id`);
 
 --
 -- Limitadores para a tabela `doenca_sub_area_sintoma`
 --
 ALTER TABLE `doenca_sub_area_sintoma`
-  ADD CONSTRAINT `doenca_sub_area_sintoma_ibfk_1` FOREIGN KEY (`doenca_id`) REFERENCES `doencas` (`id_doenca`),
+  ADD CONSTRAINT `doenca_sub_area_sintoma_ibfk_1` FOREIGN KEY (`doenca_id`) REFERENCES `doencas` (`id`),
   ADD CONSTRAINT `doenca_sub_area_sintoma_ibfk_2` FOREIGN KEY (`sub_area_sintoma_id`) REFERENCES `sub_area_sintoma` (`id_sub_area_sintoma`);
 
 --
@@ -1201,7 +1207,8 @@ ALTER TABLE `sub_area_sintoma`
 --
 ALTER TABLE `user_sub_area_sintoma`
   ADD CONSTRAINT `user_sub_area_sintoma_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `user_sub_area_sintoma_ibfk_2` FOREIGN KEY (`sub_area_sintoma_id`) REFERENCES `sub_area_sintoma` (`id_sub_area_sintoma`);
+  ADD CONSTRAINT `user_sub_area_sintoma_ibfk_2` FOREIGN KEY (`sub_area_sintoma_id`) REFERENCES `sub_area_sintoma` (`id_sub_area_sintoma`),
+  ADD CONSTRAINT `user_sub_area_sintoma_ibfk_3` FOREIGN KEY (`id_diagnostico`) REFERENCES `diagnostico` (`id_diagnostico`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
