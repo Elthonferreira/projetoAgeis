@@ -16,16 +16,19 @@ public class UserSubAreaSintoma {
 	
     private Long user_id;
     private Long sub_area_sintoma_id;
+    private Long id_diagnostico;
     
 	public UserSubAreaSintoma() {
 		super();
 	}
 
-	public UserSubAreaSintoma(Long id_user_sub_area_sintoma, Long user_id, Long sub_area_sintoma_id) {
+	public UserSubAreaSintoma(Long id_user_sub_area_sintoma, Long user_id, Long sub_area_sintoma_id,
+			Long id_diagnostico) {
 		super();
 		this.id_user_sub_area_sintoma = id_user_sub_area_sintoma;
 		this.user_id = user_id;
 		this.sub_area_sintoma_id = sub_area_sintoma_id;
+		this.id_diagnostico = id_diagnostico;
 	}
 
 	public Long getId_user_sub_area_sintoma() {
@@ -50,6 +53,14 @@ public class UserSubAreaSintoma {
 
 	public void setSub_area_sintoma_id(Long sub_area_sintoma_id) {
 		this.sub_area_sintoma_id = sub_area_sintoma_id;
+	}
+
+	public Long getId_diagnostico() {
+		return id_diagnostico;
+	}
+
+	public void setId_diagnostico(Long id_diagnostico) {
+		this.id_diagnostico = id_diagnostico;
 	}
 
 }

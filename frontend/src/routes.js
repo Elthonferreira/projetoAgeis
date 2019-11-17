@@ -14,7 +14,7 @@ const Routes = {
     },
     { path: "/userRegister", component: userRegister },
     { path: "/login", component: login },
-    { path: "/diagnostico", component: Diagnostico },
+    { path: "/diagnostico/:id", component: Diagnostico },
     { path: "/", component: login }
   ]
 };

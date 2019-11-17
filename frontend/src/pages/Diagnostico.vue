@@ -1,66 +1,72 @@
 <template>
-<div class="login">
-  <body>
-    <app-header></app-header>
+  <div class="login">
+    <body>
+      <app-header></app-header>
 
-    <div class="diagnostico">
-      <h4>Diagnóstico</h4>
-      <br />
-      <span>{{nomeDoenca}}</span>
-      <br />
-      <span>{{ probabilidade}} % de probabilidade</span>
-      <br />
-      <br />
-      <h5>Clínicas parceiras perto de você</h5>
-
-      <table id="customers">
-        <tr>
-          <th>Clínica</th>
-          <th>Especialidade</th>
-          <th>Contato</th>
-          <th>Ação</th>
-        </tr>
-        <tr v-bind:key="index" v-for="(item,index) in items">
-          <td>{{ item.nome}}</td>
-          <td>{{ item.especialidade}}</td>
-          <td>
-            <span>{{ item.email}}</span>
-            <br />
-            <span>{{ item.telefone}}</span>
-          </td>
-
-          <td>
-            <button v-on:click="mostrarClinica(item)">Ver mais</button>
-          </td>
-        </tr>
-      </table>
-    </div>
-
-    <app-footer></app-footer>
-
-    <!-- The Modal -->
-    <div id="myModal" class="modal">
-      <!-- Modal content -->
-      <div class="modal-content">
-        <span v-on:click="fecharModal()" class="close">&times;</span>
-
-        <h4>{{ clinicaselecionada.nome}}</h4>
-        <span>{{ clinicaselecionada.especialidade}}</span>
+      <div class="diagnostico">
+        <h4>Diagnóstico</h4>
         <br />
-        <span>{{ clinicaselecionada.email}}</span>
+        <span class="sickness-name"
+          ><strong>{{ nomeDoenca }}</strong></span
+        >
         <br />
-        <span>{{ clinicaselecionada.telefone}}</span>
+        <span
+          >Você possui {{ sintomasSelecionados }} de
+          {{ todasSintomasDoenca }} sintomas da(o) {{ nomeDoenca }}</span
+        >
         <br />
-        <span>{{ clinicaselecionada.endereco}}</span>
+        <br />
+        <h5>Clínicas parceiras perto de você</h5>
+
+        <table id="customers">
+          <tr>
+            <th>Clínica</th>
+            <th>Especialidade</th>
+            <th>Contato</th>
+            <th>Ação</th>
+          </tr>
+          <tr v-bind:key="index" v-for="(item, index) in items">
+            <td>{{ item.nome }}</td>
+            <td>{{ item.especialidade }}</td>
+            <td>
+              <span>{{ item.email }}</span>
+              <br />
+              <span>{{ item.telefone }}</span>
+            </td>
+
+            <td>
+              <button v-on:click="mostrarClinica(item)">Ver mais</button>
+            </td>
+          </tr>
+        </table>
       </div>
-    </div>
-  </body>
-</div>
+
+      <app-footer></app-footer>
+
+      <!-- The Modal -->
+      <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span v-on:click="fecharModal()" class="close">&times;</span>
+
+          <h4>{{ clinicaselecionada.nome }}</h4>
+          <span>{{ clinicaselecionada.especialidade }}</span>
+          <br />
+          <span>{{ clinicaselecionada.email }}</span>
+          <br />
+          <span>{{ clinicaselecionada.telefone }}</span>
+          <br />
+          <span>{{ clinicaselecionada.endereco }}</span>
+        </div>
+      </div>
+    </body>
+  </div>
 </template>
 
 <script>
 import AppHeader from "../components/Header.vue";
 import AppFooter from "../components/Footer.vue";
+import axios from "axios";
 
 export default {
   name: "diagnostico",
@@ -70,8 +76,10 @@ export default {
   },
   data() {
     return {
+      url: "http://localhost:8081/api",
       nomeDoenca: "Nome da doença",
-      probabilidade: "80",
+      sintomasSelecionados: "",
+      todasSintomasDoenca: "",
       clinicaselecionada: {
         nome: "a",
         especialidade: "a",
@@ -125,7 +133,85 @@ export default {
     fecharModal: function(attr) {
       var modal = document.getElementById("myModal");
       modal.style.display = "none";
+    },
+    getAllDoencasId: function(subAreaSintomaId, doencasId) {
+      return axios
+        .get(this.url + "/doencasubareasintoma/" + subAreaSintomaId)
+        .then(function(res) {
+          doencasId.push(res.data);
+        })
+        .catch(error => {
+          //this.error = error.response.data;
+          console.log(error);
+        });
+    },
+    getMostOccurrence: function(array, getId) {
+      if (array.length == 0) return null;
+      var modeMap = {};
+      var maxEl = array[0],
+        maxCount = 1;
+      for (var i = 0; i < array.length; i++) {
+        var el = array[i];
+        if (modeMap[el] == null) modeMap[el] = 1;
+        else modeMap[el]++;
+        if (modeMap[el] > maxCount) {
+          maxEl = el;
+          maxCount = modeMap[el];
+        }
+      }
+
+      if (getId) {
+        return maxEl;
+      } else {
+        return maxCount;
+      }
     }
+  },
+  mounted: async function() {
+    this.$nextTick(async function() {
+      const vue = this;
+      let doencasId = [];
+
+      await axios
+        .get(this.url + "/usersubareasintoma/" + this.$route.params.id)
+        .then(async function(res) {
+          for (let x in res.data) {
+            await vue.getAllDoencasId(
+              res.data[x].sub_area_sintoma_id,
+              doencasId
+            );
+          }
+        })
+        .catch(error => {
+          //this.error = error.response.data;
+          console.log(error);
+        });
+
+      await axios
+        .get(this.url + "/doenca/" + vue.getMostOccurrence(doencasId, true))
+        .then(function(res) {
+          vue.nomeDoenca = res.data.nome;
+        })
+        .catch(error => {
+          //this.error = error.response.data;
+          console.log(error);
+        });
+
+      await axios
+        .get(
+          this.url +
+            "/doencasubareasintoma/countSintomas/" +
+            vue.getMostOccurrence(doencasId, true)
+        )
+        .then(function(res) {
+          vue.sintomasSelecionados = vue.getMostOccurrence(doencasId, false);
+          vue.todasSintomasDoenca = res.data;
+        })
+        .catch(error => {
+          //this.error = error.response.data;
+          console.log(error);
+        });
+    });
   }
 };
 </script>
@@ -244,6 +330,10 @@ input {
 }
 .diagnostico {
   margin: 16px;
+}
+
+.sickness-name {
+  font-size: 25px;
 }
 /* The Modal (background) */
 .modal {

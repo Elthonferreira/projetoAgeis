@@ -404,11 +404,12 @@ export default {
         front: lado
       });
     },
-    createUserSubAreaSintoma: function(userSubAreaSintomaId) {
+    createUserSubAreaSintoma: function(userSubAreaSintomaId, diagnosticoId) {
       axios
         .post(this.url + "/usersubareasintoma/", {
-          user_id: 3, // id do usuario fixo,
-          sub_area_sintoma_id: userSubAreaSintomaId
+          user_id: 3, // id do usuario fixo
+          sub_area_sintoma_id: userSubAreaSintomaId,
+          id_diagnostico: diagnosticoId
         })
         .then(function(res) {})
         .catch(error => {
@@ -418,6 +419,19 @@ export default {
     },
     save: async function() {
       let allUserSubAreaSintomaId = [];
+      let diagnosticoId = -1;
+
+      await axios
+        .post(this.url + "/diagnostico/", {
+          id_user: 3 // id do usuario fixo
+        })
+        .then(function(res) {
+          diagnosticoId = res.data;
+        })
+        .catch(error => {
+          //this.error = error.response.data;
+          console.log(error);
+        });
 
       for (let i in this.humanResult) {
         for (let j in this.humanResult[i].symptom) {
@@ -442,11 +456,14 @@ export default {
       }
 
       for (let id in allUserSubAreaSintomaId) {
-        await this.createUserSubAreaSintoma(allUserSubAreaSintomaId[id]);
+        await this.createUserSubAreaSintoma(
+          allUserSubAreaSintomaId[id],
+          diagnosticoId
+        );
       }
 
       //M.toast({html: 'Registrado com sucesso!', classes: 'rounded'});
-      window.location.href = "/#/login";
+      window.location.href = "/#/diagnostico/" + diagnosticoId;
     }
   }
 };
