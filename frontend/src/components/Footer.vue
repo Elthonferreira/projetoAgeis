@@ -21,7 +21,6 @@ export default {};
   align-items: center;
   height: 30px;
   min-width: 100%;
-  margin-top: 20px;
   background: #f7f7f7;
   color: #000;
   font-weight: 500;

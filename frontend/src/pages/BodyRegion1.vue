@@ -4,9 +4,10 @@
   <div id="content">
     <div id="content">
       <app-header></app-header>
-      <div class="top-info">
+     <div class="top-info">
         <span class="subtitle">Identificação dos sintomas</span>
-      </div>
+        <button id="save" v-if="humanResult.length>=1" v-on:click="save()">Receber Diagnóstico</button>
+    </div>
 
       <div class="body-area">
         <div class="section">
@@ -62,7 +63,7 @@
             </div>
 
             <button
-              class="selectSympton"
+              class="button-add"
               v-if="sintomasFront.length >= 1"
               v-on:click="add(areaCorporalFront, sintomasFront, true)"
             >
@@ -146,7 +147,7 @@
             </div>
 
             <button
-              class="selectSympton"
+              class="button-add"
               v-if="sintomasBack.length >= 1"
               v-on:click="add(areaCorporalBack, sintomasBack, false)"
             >
@@ -180,9 +181,6 @@
           <div class="space"></div>
         </div>
       </div>
-      <button id="save" v-if="humanResult.length >= 1" v-on:click="save()">
-        Adicionar
-      </button>
       <app-footer></app-footer>
     </div>
   </div>
@@ -474,6 +472,9 @@ export default {
   flex-direction: column;
 }
 .top-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin: 16px;
   font-size: 16px;
 }
@@ -484,6 +485,7 @@ export default {
   flex: 1;
 }
 .body-area-group {
+  margin-bottom: 25px;
   flex: 1;
   display: flex;
   flex-direction: row;
@@ -553,7 +555,7 @@ export default {
   color: #2f52b9;
 }
 .subtitle {
-  margin-top: -20px;
+  margin-top: 25px;
   font-weight: bold;
 }
 
@@ -574,11 +576,6 @@ hr {
   margin: 16px;
   font-weight: bold;
 }
-#save {
-  margin: 16px;
-  margin-bottom: 30px;
-  width: 100px;
-}
 
 .link-remove {
   color: #4676ff;
@@ -587,5 +584,33 @@ hr {
 .link-remove:hover {
   color: #355dd1;
   cursor: pointer;
+}
+
+#save {
+  border-radius: 15px;
+  border-color: transparent;
+  background-color: #4676ff;
+  color: #fff;
+  margin-top: 16px;
+  font-size: 20px;
+  font-weight: bold;
+  width: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.button-add {
+  margin: 0 auto;
+  width: 200px;
+  border-radius: 15px;
+  border-color: transparent;
+  background-color: #4676ff;
+  color: #fff;
+}
+
+#save:hover, .button-add:hover {
+  background-color: #355dd1;
 }
 </style>

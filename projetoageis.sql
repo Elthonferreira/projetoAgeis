@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 17-Nov-2019 às 18:03
--- Versão do servidor: 10.3.16-MariaDB
--- versão do PHP: 7.1.30
+-- Tempo de geração: 17-Nov-2019 às 23:59
+-- Versão do servidor: 10.4.8-MariaDB
+-- versão do PHP: 7.3.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -84,6 +84,24 @@ INSERT INTO `clinica` (`id_clinica`, `email`, `nome`, `senha`, `telefone`, `usua
 (14, 'https://www.doctoralia.com.br/marilena-melo-cavalcanti/cardiologista-medico-clinicogeral/recife#address-id=[12266]', 'Dra. Marilena Melo Cavalcanti ', '123', '(81)\r\n3081-6767, (81) 3081-6780', 'dramarilena', 'R. do Futuro, 141, Graças , Recife', NULL),
 (15, 'https://www.doctoralia.com.br/renata-brandao-2/hematologista/recife#address-id=[5\r\n90883]', 'Dra. Renata Brandão', '123', '(81) 3049-3915', 'drarenata', 'Rua Iramaia,\r\n1156, Ilha do Leite, Ilha Do Leite , Recife', NULL),
 (16, 'http://www.jaymedafonte.com.br/consultorios/especialidades/18', 'Cláudio\r\nLacerda', '123', '3416-0075', 'claudiolacerda', 'Rua das Pernambucanas, 100, Graças\r\n- Recife', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `diagnostico`
+--
+
+CREATE TABLE `diagnostico` (
+  `id_diagnostico` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `diagnostico`
+--
+
+INSERT INTO `diagnostico` (`id_diagnostico`, `id_user`) VALUES
+(28, 3);
 
 -- --------------------------------------------------------
 
@@ -640,11 +658,11 @@ CREATE TABLE `hibernate_sequence` (
 --
 
 INSERT INTO `hibernate_sequence` (`next_val`) VALUES
-(28),
-(28),
-(28),
-(28),
-(28);
+(39),
+(39),
+(39),
+(39),
+(39);
 
 -- --------------------------------------------------------
 
@@ -987,16 +1005,16 @@ CREATE TABLE `user_sub_area_sintoma` (
 --
 
 INSERT INTO `user_sub_area_sintoma` (`id_user_sub_area_sintoma`, `user_id`, `sub_area_sintoma_id`, `id_diagnostico`) VALUES
-(15, 3, 49, 14),
-(16, 3, 68, 14),
-(17, 3, 81, 14),
-(19, 3, 37, 18),
-(21, 3, 68, 20),
-(23, 3, 5, 22),
-(24, 3, 49, 22),
-(25, 3, 8, 22),
-(26, 3, 3, 22),
-(27, 3, 86, 22);
+(29, 3, 3, 28),
+(30, 3, 69, 28),
+(31, 3, 68, 28),
+(32, 3, 77, 28),
+(33, 3, 24, 28),
+(34, 3, 50, 28),
+(35, 3, 24, 28),
+(36, 3, 49, 28),
+(37, 3, 31, 28),
+(38, 3, 3, 28);
 
 --
 -- Índices para tabelas despejadas
@@ -1013,6 +1031,13 @@ ALTER TABLE `area`
 --
 ALTER TABLE `clinica`
   ADD PRIMARY KEY (`id_clinica`);
+
+--
+-- Índices para tabela `diagnostico`
+--
+ALTER TABLE `diagnostico`
+  ADD PRIMARY KEY (`id_diagnostico`),
+  ADD KEY `diagnostico_const1` (`id_user`);
 
 --
 -- Índices para tabela `doencas`
@@ -1104,6 +1129,12 @@ ALTER TABLE `clinica`
   MODIFY `id_clinica` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
+-- AUTO_INCREMENT de tabela `diagnostico`
+--
+ALTER TABLE `diagnostico`
+  MODIFY `id_diagnostico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+
+--
 -- AUTO_INCREMENT de tabela `doencas`
 --
 ALTER TABLE `doencas`
@@ -1161,11 +1192,17 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de tabela `user_sub_area_sintoma`
 --
 ALTER TABLE `user_sub_area_sintoma`
-  MODIFY `id_user_sub_area_sintoma` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id_user_sub_area_sintoma` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- Restrições para despejos de tabelas
 --
+
+--
+-- Limitadores para a tabela `diagnostico`
+--
+ALTER TABLE `diagnostico`
+  ADD CONSTRAINT `diagnostico_const1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`);
 
 --
 -- Limitadores para a tabela `doenca_especialidade`

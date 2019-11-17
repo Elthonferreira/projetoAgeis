@@ -35,7 +35,7 @@
             </td>
 
             <td>
-              <button v-on:click="mostrarClinica(item)">Ver mais</button>
+              <button class="button-more-info" v-on:click="mostrarClinica(item)">Ver mais</button>
             </td>
           </tr>
         </table>
@@ -77,7 +77,7 @@ export default {
   data() {
     return {
       url: "http://localhost:8081/api",
-      nomeDoenca: "Nome da doença",
+      nomeDoenca: "",
       sintomasSelecionados: "",
       todasSintomasDoenca: "",
       clinicaselecionada: {
@@ -372,5 +372,18 @@ input {
   color: #000;
   text-decoration: none;
   cursor: pointer;
+}
+
+.button-more-info {
+  margin: 0 auto;
+  width: 100px;
+  border-radius: 15px;
+  border-color: transparent;
+  background-color: #4676ff;
+  color: #fff;
+}
+
+.button-more-info:hover {
+  background-color: #355dd1;
 }
 </style>
