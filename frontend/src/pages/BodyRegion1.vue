@@ -253,8 +253,10 @@ export default {
     removerSympton(index, indexSympton) {
       if (this.humanResultLabel[index].symptom.length > 1) {
         this.humanResultLabel[index].symptom.splice(indexSympton, 1);
+        this.humanResult[index].symptom.splice(indexSympton, 1);
       } else {
         this.humanResultLabel.splice(index, 1);
+        this.humanResult.splice(index, 1);
       }
     },
     filterSubArea(array, stringCompare) {
@@ -361,6 +363,31 @@ export default {
           console.log(error);
         });
     },
+    checkIfInclude: function(array, obj) {
+      
+      let countEqual = 0;
+      for (let x in array) {
+        countEqual = 0
+
+        for (let key in array[x]) {
+          if (key != "symptom" && array[x][key] === obj[key]) {
+            countEqual++;
+          } 
+
+          if (key == "symptom" 
+          && Array.prototype.every.call(obj[key], function(value) {
+            return array[x][key].includes(value);
+          })) {
+           countEqual++;
+          }
+        }
+        if (countEqual == 4) {
+          return true;
+        }
+      }
+
+      return false;
+    },
     add: async function(areaCorporalFront, sintomasFront, lado) {
       let subAreaLabel = "";
       let sintomaLabel = [];
@@ -388,19 +415,28 @@ export default {
           });
       }
 
-      this.humanResultLabel.push({
-        bodyRegion: this.mapFront || this.mapBack,
-        bodySubRegion: subAreaLabel,
-        symptom: sintomaLabel,
-        front: lado
-      });
-
-      this.humanResult.push({
+      if (!this.checkIfInclude(this.humanResult, {
         bodyRegion: this.selectMapId(this.mapFront || this.mapBack),
         bodySubRegion: areaCorporalFront,
         symptom: sintomasFront,
         front: lado
-      });
+      })) {
+
+        this.humanResultLabel.push({
+          bodyRegion: this.mapFront || this.mapBack,
+          bodySubRegion: subAreaLabel,
+          symptom: sintomaLabel,
+          front: lado
+        });
+
+        this.humanResult.push({
+          bodyRegion: this.selectMapId(this.mapFront || this.mapBack),
+          bodySubRegion: areaCorporalFront,
+          symptom: sintomasFront,
+          front: lado
+        });
+
+      }
     },
     createUserSubAreaSintoma: function(userSubAreaSintomaId, diagnosticoId) {
       axios

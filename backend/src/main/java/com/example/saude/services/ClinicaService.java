@@ -21,6 +21,8 @@ public class ClinicaService {
     }
 
     public Clinica getByNome(String nome) {return clinicaRepository.findByNome(nome);}
+    
+    public Clinica getById(Long id) {return clinicaRepository.findById(id);}
 
     public Clinica update(Clinica clinica) {
         return clinicaRepository.save(clinica);

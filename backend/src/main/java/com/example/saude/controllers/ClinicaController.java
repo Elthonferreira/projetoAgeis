@@ -27,11 +27,22 @@ public class ClinicaController {
         }
     }
 
-    @GetMapping("/{nome}")
-    public ResponseEntity<?> getByCpf(@PathVariable("nome") String nome) {
-        Clinica clinica = clinicaService.getByNome(nome);
+//    @GetMapping("/{nome}")
+//    public ResponseEntity<?> getByCpf(@PathVariable("nome") String nome) {
+//        Clinica clinica = clinicaService.getByNome(nome);
+//        if(clinica == null) {
+//            return new ResponseEntity<>("Clínica com nome "+nome+" não existe", HttpStatus.NOT_FOUND);
+//        }
+//        else {
+//            return new ResponseEntity<>(clinica, HttpStatus.OK);
+//        }
+//    }
+    
+    @GetMapping("/{clinicaId}")
+    public ResponseEntity<?> getByCpf(@PathVariable("clinicaId") Long id) {
+        Clinica clinica = clinicaService.getById(id);
         if(clinica == null) {
-            return new ResponseEntity<>("Clínica com nome "+nome+" não existe", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Clínica com id "+id+" não existe", HttpStatus.NOT_FOUND);
         }
         else {
             return new ResponseEntity<>(clinica, HttpStatus.OK);

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 17-Nov-2019 às 23:59
+-- Tempo de geração: 18-Nov-2019 às 02:37
 -- Versão do servidor: 10.4.8-MariaDB
 -- versão do PHP: 7.3.10
 
@@ -53,7 +53,7 @@ INSERT INTO `area` (`id_area`, `nome`) VALUES
 --
 
 CREATE TABLE `clinica` (
-  `id_clinica` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `email` varchar(200) DEFAULT NULL,
   `nome` varchar(200) DEFAULT NULL,
   `senha` varchar(200) DEFAULT NULL,
@@ -67,7 +67,7 @@ CREATE TABLE `clinica` (
 -- Extraindo dados da tabela `clinica`
 --
 
-INSERT INTO `clinica` (`id_clinica`, `email`, `nome`, `senha`, `telefone`, `usuario`, `endereco`, `especialidade`) VALUES
+INSERT INTO `clinica` (`id`, `email`, `nome`, `senha`, `telefone`, `usuario`, `endereco`, `especialidade`) VALUES
 (1, 'https://www.telelistas.net/locais/pe/recife/clinicas+medicas/bu-3500266/clinica+dr+gi\r\nldo+ferreira+lima#contato', 'Clínica Dr Gildo Ferreira Lima', '123', '(81) 3222-2794,\r\n(81) 99966-0908', 'clinicadrgildoferreiralima', 'Rua do Riachuelo, 772 - Boa Vista -\r\nRecife - PE', NULL),
 (2, 'https://www.telelistas.net/locais/pe/recife/clinicas+medicas/bu-1526872/uniclinica#c\r\nontato', 'Uniclínica', '123', '(81) 3525-5805, (81) 99834-0335', 'uniclinica', 'Rua\r\nLeandro Barreto, 1384 - Jardim São Paulo - Recife - PE', NULL),
 (3, 'https://www.telelistas.net/locais/pe/recife/clinicas+medicas/bu-19147701/clinica+de+\r\nginecologia+dr+helio+costa+em+gracas#contato', 'Clínica de Ginecologia Dr Hélio\r\nCosta em Graças', '123', '(81) 3241-5946', 'drheliocosta', 'Rua Conselheiro Portela,\r\n632 - Graças - Recife - PE, Prox A João de Barros', NULL),
@@ -101,7 +101,10 @@ CREATE TABLE `diagnostico` (
 --
 
 INSERT INTO `diagnostico` (`id_diagnostico`, `id_user`) VALUES
-(28, 3);
+(28, 3),
+(39, 3),
+(42, 3),
+(49, 3);
 
 -- --------------------------------------------------------
 
@@ -617,7 +620,7 @@ INSERT INTO `doenca_sub_area_sintoma` (`id_doenca_sub_area_sintoma`, `doenca_id`
 --
 
 CREATE TABLE `especialidade` (
-  `id_especialidade` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `nome` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -625,7 +628,7 @@ CREATE TABLE `especialidade` (
 -- Extraindo dados da tabela `especialidade`
 --
 
-INSERT INTO `especialidade` (`id_especialidade`, `nome`) VALUES
+INSERT INTO `especialidade` (`id`, `nome`) VALUES
 (1, 'Avaliação de Risco Cirurgico Pulmonar, Pulmões, Pneumologia, Função\r\nPulmonar.'),
 (2, 'Consultas e Procedimentos, Médicos e Ondotológicos'),
 (3, 'Ginecologia'),
@@ -658,11 +661,11 @@ CREATE TABLE `hibernate_sequence` (
 --
 
 INSERT INTO `hibernate_sequence` (`next_val`) VALUES
-(39),
-(39),
-(39),
-(39),
-(39);
+(51),
+(51),
+(51),
+(51),
+(51);
 
 -- --------------------------------------------------------
 
@@ -1014,7 +1017,16 @@ INSERT INTO `user_sub_area_sintoma` (`id_user_sub_area_sintoma`, `user_id`, `sub
 (35, 3, 24, 28),
 (36, 3, 49, 28),
 (37, 3, 31, 28),
-(38, 3, 3, 28);
+(38, 3, 3, 28),
+(40, 3, 4, 39),
+(41, 3, 5, 39),
+(43, 3, 81, 42),
+(44, 3, 12, 42),
+(45, 3, 6, 42),
+(46, 3, 9, 42),
+(47, 3, 13, 42),
+(48, 3, 9, 42),
+(50, 3, 3, 49);
 
 --
 -- Índices para tabelas despejadas
@@ -1030,7 +1042,7 @@ ALTER TABLE `area`
 -- Índices para tabela `clinica`
 --
 ALTER TABLE `clinica`
-  ADD PRIMARY KEY (`id_clinica`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Índices para tabela `diagnostico`
@@ -1074,7 +1086,7 @@ ALTER TABLE `doenca_sub_area_sintoma`
 -- Índices para tabela `especialidade`
 --
 ALTER TABLE `especialidade`
-  ADD PRIMARY KEY (`id_especialidade`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Índices para tabela `sintomas`
@@ -1126,13 +1138,13 @@ ALTER TABLE `area`
 -- AUTO_INCREMENT de tabela `clinica`
 --
 ALTER TABLE `clinica`
-  MODIFY `id_clinica` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de tabela `diagnostico`
 --
 ALTER TABLE `diagnostico`
-  MODIFY `id_diagnostico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id_diagnostico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT de tabela `doencas`
@@ -1162,7 +1174,7 @@ ALTER TABLE `doenca_sub_area_sintoma`
 -- AUTO_INCREMENT de tabela `especialidade`
 --
 ALTER TABLE `especialidade`
-  MODIFY `id_especialidade` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de tabela `sintomas`
@@ -1192,7 +1204,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de tabela `user_sub_area_sintoma`
 --
 ALTER TABLE `user_sub_area_sintoma`
-  MODIFY `id_user_sub_area_sintoma` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id_user_sub_area_sintoma` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- Restrições para despejos de tabelas
@@ -1209,8 +1221,8 @@ ALTER TABLE `diagnostico`
 --
 ALTER TABLE `doenca_especialidade`
   ADD CONSTRAINT `doenca_especialidade_ibfk_1` FOREIGN KEY (`doenca_id`) REFERENCES `doencas` (`id`),
-  ADD CONSTRAINT `doenca_especialidade_ibfk_2` FOREIGN KEY (`especialidade_id`) REFERENCES `especialidade` (`id_especialidade`),
-  ADD CONSTRAINT `doenca_especialidade_ibfk_3` FOREIGN KEY (`clinica_id`) REFERENCES `clinica` (`id_clinica`);
+  ADD CONSTRAINT `doenca_especialidade_ibfk_2` FOREIGN KEY (`especialidade_id`) REFERENCES `especialidade` (`id`),
+  ADD CONSTRAINT `doenca_especialidade_ibfk_3` FOREIGN KEY (`clinica_id`) REFERENCES `clinica` (`id`);
 
 --
 -- Limitadores para a tabela `doenca_sintoma`

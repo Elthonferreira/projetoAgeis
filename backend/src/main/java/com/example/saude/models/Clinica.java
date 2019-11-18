@@ -9,7 +9,7 @@ public class Clinica {
     // Atributos
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id_clinica;
+    private Long id;
 
     private String usuario;
     private String senha;
@@ -34,9 +34,9 @@ public class Clinica {
     }
 
     // Getters e Setters
-    public Long getId_clinica() {return id_clinica;}
+    public Long getId_clinica() {return id;}
 
-    public void setId_clinica(Long id_clinica) {this.id_clinica = id_clinica;}
+    public void setId_clinica(Long id_clinica) {this.id = id_clinica;}
 
     public String getUsuario() {return usuario;}
 

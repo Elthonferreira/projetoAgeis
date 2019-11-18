@@ -81,42 +81,13 @@ export default {
       sintomasSelecionados: "",
       todasSintomasDoenca: "",
       clinicaselecionada: {
-        nome: "a",
-        especialidade: "a",
-        email: "a",
-        telefone: "a",
-        endereco: "a"
+        nome: "",
+        especialidade: "",
+        email: "",
+        telefone: "",
+        endereco: ""
       },
-      items: [
-        {
-          nome: "nome da clinica",
-          especialidade: "especialidade",
-          email: "teste@teste.com",
-          telefone: "(81) 9 9999 - 9999",
-          endereco: "Rua sem nome e sem numero"
-        },
-        {
-          nome: "nome da clinica 1",
-          especialidade: "especialidade",
-          email: "teste1@teste.com",
-          telefone: "(81) 9 9999 - 9999",
-          endereco: "Rua sem nome e sem numero"
-        },
-        {
-          nome: "nome da clinica 2",
-          especialidade: "especialidade",
-          email: "teste2@teste.com",
-          telefone: "(81) 9 9999 - 9999",
-          endereco: "Rua sem nome e sem numero"
-        },
-        {
-          nome: "nome da clinica 3",
-          especialidade: "especialidade",
-          email: "teste3@teste.com",
-          telefone: "(81) 9 9999 - 9999",
-          endereco: "Rua sem nome e sem numero"
-        }
-      ]
+      items: []
     };
   },
   methods: {
@@ -165,12 +136,44 @@ export default {
       } else {
         return maxCount;
       }
+    },
+    getClinica: function (clinicaId, clinicaEspecialidade) {
+      return axios
+        .get(
+          this.url +
+            "/clinicas/" +
+            clinicaId
+        )
+        .then(function(res) {
+          clinicaEspecialidade.push(res.data);
+        })
+        .catch(error => {
+          //this.error = error.response.data;
+          console.log(error);
+        });
+    },
+    getEspecialidade: function (especialidadeId, clinicaEspecialidade, index) {
+      return axios
+        .get(
+          this.url +
+            "/especialidade/" +
+            especialidadeId
+        )
+        .then(function(res) {
+          clinicaEspecialidade[index].especialidade = res.data.nome;
+        })
+        .catch(error => {
+          //this.error = error.response.data;
+          console.log(error);
+        });
     }
   },
   mounted: async function() {
     this.$nextTick(async function() {
       const vue = this;
       let doencasId = [];
+      let clinicaEspecialidade = []
+      vue.items = []
 
       await axios
         .get(this.url + "/usersubareasintoma/" + this.$route.params.id)
@@ -211,6 +214,36 @@ export default {
           //this.error = error.response.data;
           console.log(error);
         });
+
+        await axios
+        .get(
+          this.url +
+            "/doencaespecialidade/" +
+            vue.getMostOccurrence(doencasId, true)
+        )
+        .then(async function(res) {
+          for (let x in res.data) {
+            await vue.getClinica(res.data[x].clinica_id, clinicaEspecialidade);
+            await vue.getEspecialidade(res.data[x].especialidade_id, clinicaEspecialidade, x);
+          }
+        })
+        .catch(error => {
+          //this.error = error.response.data;
+          console.log(error);
+        });
+
+        for (let x in clinicaEspecialidade) {
+          vue.items.push({
+            nome: clinicaEspecialidade[x].nome,
+            especialidade: clinicaEspecialidade[x].especialidade,
+            email: clinicaEspecialidade[x].email,
+            telefone: clinicaEspecialidade[x].telefone,
+            endereco: clinicaEspecialidade[x].endereço
+          });
+        }
+
+        console.log(vue.items);
+
     });
   }
 };
