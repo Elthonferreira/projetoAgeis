@@ -403,7 +403,6 @@ export default {
         });
 
       for (let x in sintomasFront) {
-        console.log(x);
         await axios
           .get(this.url + "/sintoma/first/" + sintomasFront[x])
           .then(function(res) {
@@ -413,30 +412,34 @@ export default {
             //this.error = error.response.data;
             console.log(error);
           });
-      }
 
-      if (!this.checkIfInclude(this.humanResult, {
-        bodyRegion: this.selectMapId(this.mapFront || this.mapBack),
-        bodySubRegion: areaCorporalFront,
-        symptom: sintomasFront,
-        front: lado
-      })) {
-
-        this.humanResultLabel.push({
-          bodyRegion: this.mapFront || this.mapBack,
-          bodySubRegion: subAreaLabel,
-          symptom: sintomaLabel,
-          front: lado
-        });
-
-        this.humanResult.push({
+        if (!this.checkIfInclude(this.humanResult, {
           bodyRegion: this.selectMapId(this.mapFront || this.mapBack),
           bodySubRegion: areaCorporalFront,
-          symptom: sintomasFront,
+          symptom: [sintomasFront[x]],
           front: lado
-        });
+        })) {
+
+          this.humanResultLabel.push({
+            bodyRegion: this.mapFront || this.mapBack,
+            bodySubRegion: subAreaLabel,
+            symptom: [sintomaLabel[x]],
+            front: lado
+          });
+
+          this.humanResult.push({
+            bodyRegion: this.selectMapId(this.mapFront || this.mapBack),
+            bodySubRegion: areaCorporalFront,
+            symptom: [sintomasFront[x]],
+            front: lado
+          });
+
+        }
+
 
       }
+
+      
     },
     createUserSubAreaSintoma: function(userSubAreaSintomaId, diagnosticoId) {
       axios

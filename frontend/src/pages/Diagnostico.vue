@@ -10,6 +10,10 @@
           ><strong>{{ nomeDoenca }}</strong></span
         >
         <br />
+        <span class="sickness-description">
+          {{ descricao }}
+        </span>
+        <br>
         <span
           >Você possui {{ sintomasSelecionados }} de
           {{ todasSintomasDoenca }} sintomas da(o) {{ nomeDoenca }}</span
@@ -78,6 +82,7 @@ export default {
     return {
       url: "http://localhost:8081/api",
       nomeDoenca: "",
+      descricao: "",
       sintomasSelecionados: "",
       todasSintomasDoenca: "",
       clinicaselecionada: {
@@ -194,6 +199,7 @@ export default {
         .get(this.url + "/doenca/" + vue.getMostOccurrence(doencasId, true))
         .then(function(res) {
           vue.nomeDoenca = res.data.nome;
+          vue.descricao = res.data.descricao;
         })
         .catch(error => {
           //this.error = error.response.data;
@@ -366,8 +372,14 @@ input {
 }
 
 .sickness-name {
-  font-size: 25px;
+  font-size: 30px;
 }
+
+.sickness-description {
+  font-weight: bold;
+  color: #636363;
+}
+
 /* The Modal (background) */
 .modal {
   display: none; /* Hidden by default */
