@@ -2,7 +2,7 @@
   <div class="header">
     <div class="d-flex flex-row-reverse bd-highlight">
       <div class="p-2 bd-highlight column1">
-        <a href="/#/login"
+        <a v-if="!auth" href="/#/login"
           ><button type="button" class="btn btn-outline-success">
             Entrar
           </button></a
@@ -10,9 +10,21 @@
       </div>
       <div class="p-2 bd-highlight column2"></div>
       <div class="p-2 bd-highlight column3">
+        <div v-if="auth" class="user-box-login">
+          Olá, 
+          <span class="user-name">
+            {{ this.$session.get("user").name }}
+          </span>
+
+          <button v-on:click="logout()" type="button" class="btn btn-outline-success logout">
+            Sair
+          </button>
+        </div>
+
         <!-- Dropdown Structure -->
         <div class="dropdown">
           <button
+            v-if="!auth"
             class="btn btn-secondary dropdown-toggle"
             type="button"
             id="dropdownMenuButton"
@@ -37,7 +49,28 @@
 </template>
 
 <script>
-export default {};
+import Vue from 'vue'
+import VueSession from 'vue-session'
+
+Vue.use(VueSession)
+
+export default {
+  data() {
+    return {
+      auth: false,
+      logout: function() {
+        this.auth = false;
+        this.$session.destroy();
+        window.location.href = "/#/login";
+      }
+    }},
+    mounted() {
+      if (this.$session.exists()) {
+        this.auth = true;
+      }
+    }
+};
+
 </script>
 
 <style scoped>
@@ -47,7 +80,7 @@ export default {};
   margin-right: 50px;
 }
 
-.column1 > a > .btn-outline-success {
+.column1 > a > .btn-outline-success, .logout {
   width: 100px;
   background-color: #4676ff;
   border-color: #f3f3f3;
@@ -55,9 +88,9 @@ export default {};
   font-weight: bold;
 }
 
-.column1 > a > .btn-outline-success:hover {
+.column1 > a > .btn-outline-success:hover, .logout:hover {
   background-color: #f3f3f3;
-  color: #4676ff;
+  color: #9c9c9c;
 }
 
 .column3 > .dropdown > .btn-secondary {
@@ -78,8 +111,23 @@ export default {};
 
 .header {
   width: 100%;
+  min-height: 55px;
   background-color: #4676ff;
   margin-right: 50px;
   box-shadow: 0px 0px 10px 0px #888888;
+}
+
+.user-name {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.user-box-login {
+  color: #fff;
+
+}
+
+.logout {
+  margin-left: 30px;
 }
 </style>

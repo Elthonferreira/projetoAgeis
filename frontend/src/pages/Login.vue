@@ -6,7 +6,7 @@
       <div class="login-content">
         <div class="login-row">
           <h4 class="text-center">Login</h4>
-          <form action="/#/bodyregion1">
+          <form action="/#/">
             <div class="form-group">
               <input
                 type="email"
@@ -14,6 +14,7 @@
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
                 placeholder="E-mail"
+                v-model="user.email"
               />
             </div>
             <div class="form-group">
@@ -22,10 +23,11 @@
                 class="form-control"
                 id="exampleInputPassword1"
                 placeholder="Senha"
+                v-model="user.password"
               />
             </div>
             <div class="wrapper-button-submit">
-              <button type="submit" class="btn btn-primary">Entrar</button>
+              <button type="submit" class="btn btn-primary" v-on:click="login()">Entrar</button>
             </div>
 
             <div class="box-register">
@@ -52,6 +54,12 @@
 <script>
 import AppHeader from "../components/Header.vue";
 import AppFooter from "../components/Footer.vue";
+import axios from "axios";
+import Vue from 'vue'
+import VueSession from 'vue-session'
+import md5 from "md5";
+
+Vue.use(VueSession)
 
 export default {
   name: "login",
@@ -60,9 +68,41 @@ export default {
     AppFooter
   },
   data() {
-    return {};
+    return {
+      url: "http://localhost:8081/api",
+      user: {
+              email: "",
+              password: ""
+            },
+    };
   },
-  methods: {}
+  methods: {
+    login: function () {
+        const vue = this;
+
+          axios
+          .post(this.url + '/user/login', {
+            password: md5(this.user.password),
+            email: this.user.email
+          }).then(function (res) {
+            if (res.status === 200) {
+              vue.$session.start()
+              vue.$session.set('user', res.data)
+              
+              console.log(vue.$session.get("user"));
+              
+              window.location.href = "/#/bodyregion1";
+            }
+          }).catch(function(error) {
+
+          })
+        }
+  },
+  mounted() {
+    if (this.$session.exists()) {
+      window.location.href = "/#/bodyregion1";
+    }
+  }
 };
 </script>
 

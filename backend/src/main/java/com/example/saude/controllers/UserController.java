@@ -37,14 +37,29 @@ public class UserController {
         }
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getByCpf(@PathVariable("id") Long id) {
-        Usuario user = userService.getById(id);
+    @GetMapping("/{email}")
+    public ResponseEntity<?> getByCpf(@PathVariable("email") String email) {
+        Usuario user = userService.getByEmail(email);
         if(user == null) {
-            return new ResponseEntity<>("Usuário com id " + id + " não existe", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Usuário com id " + email + " não existe", HttpStatus.NOT_FOUND);
         }
         else {
             return new ResponseEntity<>(user, HttpStatus.OK);
+        }
+    }
+    
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody Usuario userBody) {
+        Usuario user = userService.getByEmail(userBody.getEmail());
+        if(user == null) {
+            return new ResponseEntity<>("Usuário não cadastrado!", HttpStatus.BAD_REQUEST);
+        }
+        else {
+        	 if (userBody.getPassword().equals(user.getPassword())) {
+        		 return new ResponseEntity<>(user,HttpStatus.OK);
+        	 }
+        	 
+        	 return new ResponseEntity<>("Senha incorreta!", HttpStatus.BAD_REQUEST);
         }
     }
 

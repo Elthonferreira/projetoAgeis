@@ -43,6 +43,12 @@
             </td>
           </tr>
         </table>
+        <div class="box-button-back">
+          <button @click="back()" type="button" class="btn btn-outline-success back">
+              Voltar
+          </button>
+        </div>
+
       </div>
 
       <app-footer></app-footer>
@@ -171,86 +177,93 @@ export default {
           //this.error = error.response.data;
           console.log(error);
         });
+    },
+    back: function() {
+      window.location.href = "/#/bodyregion1";
     }
   },
   mounted: async function() {
-    this.$nextTick(async function() {
-      const vue = this;
-      let doencasId = [];
-      let clinicaEspecialidade = []
-      vue.items = []
-
-      await axios
-        .get(this.url + "/usersubareasintoma/" + this.$route.params.id)
-        .then(async function(res) {
-          for (let x in res.data) {
-            await vue.getAllDoencasId(
-              res.data[x].sub_area_sintoma_id,
-              doencasId
-            );
-          }
-        })
-        .catch(error => {
-          //this.error = error.response.data;
-          console.log(error);
-        });
-
-      await axios
-        .get(this.url + "/doenca/" + vue.getMostOccurrence(doencasId, true))
-        .then(function(res) {
-          vue.nomeDoenca = res.data.nome;
-          vue.descricao = res.data.descricao;
-        })
-        .catch(error => {
-          //this.error = error.response.data;
-          console.log(error);
-        });
-
-      await axios
-        .get(
-          this.url +
-            "/doencasubareasintoma/countSintomas/" +
-            vue.getMostOccurrence(doencasId, true)
-        )
-        .then(function(res) {
-          vue.sintomasSelecionados = vue.getMostOccurrence(doencasId, false);
-          vue.todasSintomasDoenca = res.data;
-        })
-        .catch(error => {
-          //this.error = error.response.data;
-          console.log(error);
-        });
+    if (!this.$session.exists()) {
+      window.location.href = "/#/login";
+    } else {
+      this.$nextTick(async function() {
+        const vue = this;
+        let doencasId = [];
+        let clinicaEspecialidade = []
+        vue.items = []
 
         await axios
-        .get(
-          this.url +
-            "/doencaespecialidade/" +
-            vue.getMostOccurrence(doencasId, true)
-        )
-        .then(async function(res) {
-          for (let x in res.data) {
-            await vue.getClinica(res.data[x].clinica_id, clinicaEspecialidade);
-            await vue.getEspecialidade(res.data[x].especialidade_id, clinicaEspecialidade, x);
-          }
-        })
-        .catch(error => {
-          //this.error = error.response.data;
-          console.log(error);
-        });
-
-        for (let x in clinicaEspecialidade) {
-          vue.items.push({
-            nome: clinicaEspecialidade[x].nome,
-            especialidade: clinicaEspecialidade[x].especialidade,
-            email: clinicaEspecialidade[x].email,
-            telefone: clinicaEspecialidade[x].telefone,
-            endereco: clinicaEspecialidade[x].endereço
+          .get(this.url + "/usersubareasintoma/" + this.$route.params.id)
+          .then(async function(res) {
+            for (let x in res.data) {
+              await vue.getAllDoencasId(
+                res.data[x].sub_area_sintoma_id,
+                doencasId
+              );
+            }
+          })
+          .catch(error => {
+            //this.error = error.response.data;
+            console.log(error);
           });
-        }
 
-        console.log(vue.items);
+        await axios
+          .get(this.url + "/doenca/" + vue.getMostOccurrence(doencasId, true))
+          .then(function(res) {
+            vue.nomeDoenca = res.data.nome;
+            vue.descricao = res.data.descricao;
+          })
+          .catch(error => {
+            //this.error = error.response.data;
+            console.log(error);
+          });
 
-    });
+        await axios
+          .get(
+            this.url +
+              "/doencasubareasintoma/countSintomas/" +
+              vue.getMostOccurrence(doencasId, true)
+          )
+          .then(function(res) {
+            vue.sintomasSelecionados = vue.getMostOccurrence(doencasId, false);
+            vue.todasSintomasDoenca = res.data;
+          })
+          .catch(error => {
+            //this.error = error.response.data;
+            console.log(error);
+          });
+
+          await axios
+          .get(
+            this.url +
+              "/doencaespecialidade/" +
+              vue.getMostOccurrence(doencasId, true)
+          )
+          .then(async function(res) {
+            for (let x in res.data) {
+              await vue.getClinica(res.data[x].clinica_id, clinicaEspecialidade);
+              await vue.getEspecialidade(res.data[x].especialidade_id, clinicaEspecialidade, x);
+            }
+          })
+          .catch(error => {
+            //this.error = error.response.data;
+            console.log(error);
+          });
+
+          for (let x in clinicaEspecialidade) {
+            vue.items.push({
+              nome: clinicaEspecialidade[x].nome,
+              especialidade: clinicaEspecialidade[x].especialidade,
+              email: clinicaEspecialidade[x].email,
+              telefone: clinicaEspecialidade[x].telefone,
+              endereco: clinicaEspecialidade[x].endereço
+            });
+          }
+
+          console.log(vue.items);
+
+      });
+    }
   }
 };
 </script>
@@ -429,6 +442,25 @@ input {
 }
 
 .button-more-info:hover {
+  background-color: #355dd1;
+}
+
+.box-button-back {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.back {
+  margin: 25px auto;
+  width: 100px;
+  background-color: #4676ff;
+  border-color: #f3f3f3;
+  color: #f3f3f3;
+  font-weight: bold;
+}
+
+.back:hover {
   background-color: #355dd1;
 }
 </style>

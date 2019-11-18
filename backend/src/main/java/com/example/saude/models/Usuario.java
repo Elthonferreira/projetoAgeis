@@ -10,9 +10,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "user")
-public class Usuario {
+public class Usuario{
 
-    @Id
+	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
@@ -26,6 +26,10 @@ public class Usuario {
     private String email;
     private String password;
     
+	public Usuario() {
+		super();
+	}
+
 	public Usuario(Long userId, String name, String street, String number, String neighborhood, String state,
 			String telephone, Date birthdate, String email, String password) {
 		super();

@@ -435,16 +435,12 @@ export default {
           });
 
         }
-
-
       }
-
-      
     },
     createUserSubAreaSintoma: function(userSubAreaSintomaId, diagnosticoId) {
       axios
         .post(this.url + "/usersubareasintoma/", {
-          user_id: 3, // id do usuario fixo
+          user_id: this.$session.get("user").id, 
           sub_area_sintoma_id: userSubAreaSintomaId,
           id_diagnostico: diagnosticoId
         })
@@ -460,7 +456,7 @@ export default {
 
       await axios
         .post(this.url + "/diagnostico/", {
-          id_user: 3 // id do usuario fixo
+          id_user: this.$session.get("user").id
         })
         .then(function(res) {
           diagnosticoId = res.data;
@@ -501,6 +497,11 @@ export default {
 
       //M.toast({html: 'Registrado com sucesso!', classes: 'rounded'});
       window.location.href = "/#/diagnostico/" + diagnosticoId;
+    }
+  },
+  mounted() {
+    if (!this.$session.exists()) {
+      window.location.href = "/#/login";
     }
   }
 };

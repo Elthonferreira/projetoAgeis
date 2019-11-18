@@ -16,8 +16,10 @@
     "md5": "^2.2.1",
     "svg.js": "^2.7.1",
     "vue": "^2.0.1",
+    "vue-imask": "^5.2.1",
     "vue-resource": "^1.5.1",
-    "vue-router": "^3.1.3"
+    "vue-router": "^3.1.3",
+    "vue-session": "^1.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",

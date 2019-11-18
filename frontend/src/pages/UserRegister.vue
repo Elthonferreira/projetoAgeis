@@ -108,7 +108,7 @@
               <label for="birthdate">Data de Nascimento</label>
               <input
                 id="birthdate"
-                type="text"
+                type="Date"
                 class="form-control"
                 v-model="user.birthdate"
                 required

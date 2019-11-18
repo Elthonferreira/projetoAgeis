@@ -7,5 +7,6 @@ import com.example.saude.models.Usuario;
 
 @Repository
 public interface UserRepository extends JpaRepository<Usuario, String> {
+	public Usuario findByEmail(String email);
 	public Usuario findById(Long id);
 }
