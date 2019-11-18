@@ -14,20 +14,7 @@
                             <input id="name" type="text" class="form-control" v-model="clinica.nome" required>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="speciality-column1">
-                            <label for="speciality">Especialidade</label>
-                            <input id="speciality" type="text" class="form-control" v-model="clinica.especialidade" required>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="neighborhood-column1">
-                            <label for="neighborhood">Bairro</label>
-                            <input id="neighborhood" type="text" class="form-control" v-model="clinica.Email" required>
-                        </div>
-                    </div>
-
+                
                     <div class="form-group">
                         <div class="email-telephone-column1">
                             <label for="email">E-mail</label>
@@ -39,6 +26,14 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <div class="neighborhood-column1">
+                            <label for="neighborhood">Endereço</label>
+                            <input id="neighborhood" type="text" class="form-control" v-model="clinica.endereco" required>
+                        </div>
+                    </div>
+
+                  
                     <h4>Dados da Conta</h4>
 
                     <div class="form-group">
@@ -88,7 +83,7 @@ export default {
         nome: "",
         usuario: "",
         senha: "",
-        especialidade: "",
+        endereco: "",
         telefone: "",
         email: ""
       },
