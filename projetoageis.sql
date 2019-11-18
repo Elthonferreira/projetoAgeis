@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 18-Nov-2019 às 02:37
+-- Tempo de geração: 18-Nov-2019 às 19:14
 -- Versão do servidor: 10.4.8-MariaDB
 -- versão do PHP: 7.3.10
 
@@ -104,7 +104,15 @@ INSERT INTO `diagnostico` (`id_diagnostico`, `id_user`) VALUES
 (28, 3),
 (39, 3),
 (42, 3),
-(49, 3);
+(49, 3),
+(51, 3),
+(53, 3),
+(56, 3),
+(67, 3),
+(85, 3),
+(70, 4),
+(73, 4),
+(79, 5);
 
 -- --------------------------------------------------------
 
@@ -661,11 +669,11 @@ CREATE TABLE `hibernate_sequence` (
 --
 
 INSERT INTO `hibernate_sequence` (`next_val`) VALUES
-(51),
-(51),
-(51),
-(51),
-(51);
+(91),
+(91),
+(91),
+(91),
+(91);
 
 -- --------------------------------------------------------
 
@@ -983,12 +991,13 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `birthdate`, `email`, `name`, `neighborhood`, `number`, `password`, `state`, `street`, `telephone`) VALUES
-(1, '1996-05-14', 'elthonferreira18@gmail.com', 'Elthon Ferreira', 'Centro', '74', '123', 'São Lourenço da Mata-PE', 'Rua Virgílio Santiago', '(81) 99872-0773'),
-(2, '1984-06-24', 'ederlucenafonseca@gmail.com', 'Eder Lucena', 'Bairro 1', '75', '123', 'Camaragibe-PE', 'Rua 1', '(81) 99826-5133'),
-(3, '1997-09-03', 'amaurytavares16@gmail.com', 'Amaury Tavares', 'Bairro 2', '76', '123', 'Limoeiro-PE', 'Rua 2', '(81) 99454-6857'),
-(4, '1996-08-21', 'paixomaik6gmail.com', 'Maik Luiz', 'Bairro 3', '77', '123', 'Jaboatão dos Guararapes-PE', 'Rua 3', '(81) 98743-6058'),
-(5, '1993-11-20', 'marcoseduflautista1@gmail.com', 'Marcos Eduardo', 'Bairro\r\n4', '78', '123', 'Recife-PE', 'Rua 4', '(81) 99679-5183'),
-(6, '1985-10-02', 'suzana.sampaio@gmail.com', 'Suzana Sampaio', 'Bairro 5', '79', '123', 'Recife-PE', 'Rua 5', '(81)********');
+(1, '1996-05-14', 'elthonferreira18@gmail.com', 'Elthon Ferreira', 'Centro', '74', '202cb962ac59075b964b07152d234b70', 'São Lourenço da Mata-PE', 'Rua Virgílio Santiago', '(81) 99872-0773'),
+(2, '1984-06-24', 'ederlucenafonseca@gmail.com', 'Eder Lucena', 'Bairro 1', '75', '202cb962ac59075b964b07152d234b70', 'Camaragibe-PE', 'Rua 1', '(81) 99826-5133'),
+(3, '1997-09-03', 'amaurytavares16@gmail.com', 'Amaury Tavares', 'Bairro 2', '76', '202cb962ac59075b964b07152d234b70', 'Limoeiro-PE', 'Rua 2', '(81) 99454-6857'),
+(4, '1996-08-21', 'paixomaik6gmail.com', 'Maik Luiz', 'Bairro 3', '77', '202cb962ac59075b964b07152d234b70', 'Jaboatão dos Guararapes-PE', 'Rua 3', '(81) 98743-6058'),
+(5, '1993-11-20', 'marcoseduflautista1@gmail.com', 'Marcos Eduardo', 'Bairro\r\n4', '78', '202cb962ac59075b964b07152d234b70', 'Recife-PE', 'Rua 4', '(81) 99679-5183'),
+(6, '1985-10-02', 'suzana.sampaio@gmail.com', 'Suzana Sampaio', 'Bairro 5', '79', '202cb962ac59075b964b07152d234b70', 'Recife-PE', 'Rua 5', '(81)********'),
+(84, '1997-09-03', 'joao@gmail.com', 'João da Silva', 'Dioclécio', '123 A', 'e10adc3949ba59abbe56e057f20f883e', 'PI', 'Rua da Lama', '81994556755');
 
 -- --------------------------------------------------------
 
@@ -1026,7 +1035,38 @@ INSERT INTO `user_sub_area_sintoma` (`id_user_sub_area_sintoma`, `user_id`, `sub
 (46, 3, 9, 42),
 (47, 3, 13, 42),
 (48, 3, 9, 42),
-(50, 3, 3, 49);
+(50, 3, 3, 49),
+(52, 3, 11, 51),
+(54, 3, 16, 53),
+(55, 3, 38, 53),
+(57, 3, 2, 56),
+(58, 3, 35, 56),
+(59, 3, 37, 56),
+(60, 3, 41, 56),
+(61, 3, 40, 56),
+(62, 3, 73, 56),
+(63, 3, 61, 56),
+(64, 3, 91, 56),
+(65, 3, 99, 56),
+(66, 3, 70, 56),
+(68, 3, 16, 67),
+(69, 3, 38, 67),
+(71, 4, 18, 70),
+(72, 4, 84, 70),
+(74, 4, 3, 73),
+(75, 4, 69, 73),
+(76, 4, 37, 73),
+(77, 4, 40, 73),
+(78, 4, 91, 73),
+(80, 5, 6, 79),
+(81, 5, 12, 79),
+(82, 5, 49, 79),
+(83, 5, 69, 79),
+(86, 3, 68, 85),
+(87, 3, 69, 85),
+(88, 3, 3, 85),
+(89, 3, 87, 85),
+(90, 3, 60, 85);
 
 --
 -- Índices para tabelas despejadas
@@ -1144,7 +1184,7 @@ ALTER TABLE `clinica`
 -- AUTO_INCREMENT de tabela `diagnostico`
 --
 ALTER TABLE `diagnostico`
-  MODIFY `id_diagnostico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id_diagnostico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
 
 --
 -- AUTO_INCREMENT de tabela `doencas`
@@ -1198,13 +1238,13 @@ ALTER TABLE `sub_area_sintoma`
 -- AUTO_INCREMENT de tabela `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 
 --
 -- AUTO_INCREMENT de tabela `user_sub_area_sintoma`
 --
 ALTER TABLE `user_sub_area_sintoma`
-  MODIFY `id_user_sub_area_sintoma` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id_user_sub_area_sintoma` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
 
 --
 -- Restrições para despejos de tabelas
