@@ -20,6 +20,10 @@ public class ClinicaService {
         return clinicaRepository.findAll();
     }
 
+    public Clinica getByUsuario(String usuario) {
+    	return clinicaRepository.findByUsuario(usuario);
+    }
+    
     public Clinica getByNome(String nome) {return clinicaRepository.findByNome(nome);}
     
     public Clinica getById(Long id) {return clinicaRepository.findById(id);}

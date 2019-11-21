@@ -13,7 +13,7 @@
         <div v-if="auth" class="user-box-login">
           Olá, 
           <span class="user-name">
-            {{ this.$session.get("user").name }}
+            {{ this.$session.get("user").nome }}
           </span>
 
           <button v-on:click="logout()" type="button" class="btn btn-outline-success logout">

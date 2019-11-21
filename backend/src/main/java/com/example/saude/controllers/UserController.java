@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.saude.models.Clinica;
+import com.example.saude.models.Login;
 import com.example.saude.models.Usuario;
+import com.example.saude.services.ClinicaService;
 import com.example.saude.services.UserService;
 
 @CrossOrigin("*") // Depois trocar o * pelo endereço do frontend
@@ -25,6 +28,9 @@ public class UserController {
 	
 	@Autowired
     private UserService userService;
+	
+	@Autowired
+	private ClinicaService ClinicaService;
 
     @GetMapping
     public ResponseEntity<?> getAll() {
@@ -51,12 +57,20 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Usuario userBody) {
         Usuario user = userService.getByEmail(userBody.getEmail());
-        if(user == null) {
+        Clinica clinica = ClinicaService.getByUsuario(userBody.getEmail());
+        
+        if(user == null && clinica == null) {
             return new ResponseEntity<>("Usuário não cadastrado!", HttpStatus.BAD_REQUEST);
         }
         else {
-        	 if (userBody.getPassword().equals(user.getPassword())) {
-        		 return new ResponseEntity<>(user,HttpStatus.OK);
+        	 if (user != null && userBody.getPassword().equals(user.getPassword())) {
+        		 Login login = new Login(user.getId(), user.getName(), user.getEmail(), "Paciente");
+        		 
+        		 return new ResponseEntity<>(login,HttpStatus.OK);
+        	 } else if (clinica != null && userBody.getPassword().equals(clinica.getSenha())) {
+        		 Login login = new Login(clinica.getId_clinica(), clinica.getNome(), clinica.getEmail(), "Clinica");
+        		 
+        		 return new ResponseEntity<>(login,HttpStatus.OK);
         	 }
         	 
         	 return new ResponseEntity<>("Senha incorreta!", HttpStatus.BAD_REQUEST);

@@ -217,7 +217,7 @@ export default {
             //this.error = error.response.data;
             console.log(error);
           });
-console.log(vue.getMostOccurrence(doencasId, true));
+
         await axios
           .get(
             this.url +
