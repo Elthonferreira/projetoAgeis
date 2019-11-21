@@ -23,6 +23,11 @@ public class Clinica {
     // Construtor default
     public Clinica () {}
 
+    // Construtor aux
+    public Clinica (Long id) {
+        this.id = id;
+    }
+
     // Construtor geral
     public Clinica(String usuario, String senha, String nome, String especialidade, String telefone, String email, String endereco) {
         this.usuario = usuario;
