@@ -1,5 +1,6 @@
 package com.example.saude.controllers;
 
+import com.example.saude.models.Clinica;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.saude.models.Doenca;
 import com.example.saude.services.DoencaService;
+
+import java.util.List;
 
 @CrossOrigin("*") // Depois trocar o * pelo endereço do frontend
 @RestController
@@ -28,6 +31,17 @@ public class DoencaController {
         }
         else {
             return new ResponseEntity<>(doenca, HttpStatus.OK);
+        }
+    }
+
+    @GetMapping
+    public ResponseEntity<?> getAll() {
+        List<Doenca> doencas = doencaService.getAll();
+        if(doencas.isEmpty()) {
+            return new ResponseEntity<>("Sem doenças cadastradas", HttpStatus.NOT_FOUND);
+        }
+        else {
+            return new ResponseEntity<>(doencas, HttpStatus.OK);
         }
     }
     

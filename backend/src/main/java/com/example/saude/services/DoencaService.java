@@ -22,9 +22,7 @@ public class DoencaService {
 	     return doencaRepository.findAll();
 	 }
 	 
-	 public Doenca getById(Long id) {
-		 return doencaRepository.findById(id);
-	 }
+	 public Doenca getById(Long id) {return doencaRepository.findById(id);}
 	 
 	 public Doenca update(Doenca doenca) {
 	     return doencaRepository.save(doenca);
