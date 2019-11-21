@@ -32,7 +32,15 @@ public class DiagnosticoController {
     
     @PostMapping
     public ResponseEntity<?> save(@RequestBody Diagnostico diagnostico) {
-    	return new ResponseEntity<>(diagnosticoService.save(diagnostico).getId_diagnostico(), HttpStatus.OK);
+        Diagnostico diagnosticoResult =  diagnosticoService.save(diagnostico);
+        ResponseEntity responseEntity = new ResponseEntity<>(diagnosticoResult.getId_diagnostico(), HttpStatus.OK);
+
+        System.out.println(diagnosticoResult.getId_diagnostico());
+        System.out.println(diagnosticoResult.getId_user());
+
+        return responseEntity;
     }
+
+
     
 }

@@ -14,6 +14,13 @@
                             <input id="name" type="text" class="form-control" v-model="clinica.nome" required>
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <div class="speciality-column1">
+                            <label for="speciality">Especialidade</label>
+                            <input id="speciality" type="text" class="form-control" v-model="clinica.especialidade" required>
+                        </div>
+                    </div>
                 
                     <div class="form-group">
                         <div class="email-telephone-column1">
@@ -83,6 +90,7 @@ export default {
         nome: "",
         usuario: "",
         senha: "",
+        especialidade: "",
         endereco: "",
         telefone: "",
         email: ""

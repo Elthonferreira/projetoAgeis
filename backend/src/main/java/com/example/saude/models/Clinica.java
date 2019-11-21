@@ -14,6 +14,7 @@ public class Clinica {
     private String usuario;
     private String senha;
     private String nome;
+    private String especialidade;
     //private String especialidade;
     private String endereco;
     private String telefone;
@@ -23,10 +24,11 @@ public class Clinica {
     public Clinica () {}
 
     // Construtor geral
-    public Clinica(String usuario, String senha, String nome, String telefone, String email, String endereco) {
+    public Clinica(String usuario, String senha, String nome, String especialidade, String telefone, String email, String endereco) {
         this.usuario = usuario;
         this.senha = senha;
         this.nome = nome;
+        this.especialidade = especialidade;
         //this.especialidade = especialidade;
         this.endereco = endereco;
         this.telefone = telefone;
@@ -50,9 +52,9 @@ public class Clinica {
 
     public void setNome(String nome) {this.nome = nome;}
 
-    //public String getEspecialidade() {return especialidade;}
+    public String getEspecialidade() {return especialidade;}
 
-    //public void setEspecialidade(String especialidade) {this.especialidade = especialidade;}
+    public void setEspecialidade(String especialidade) {this.especialidade = especialidade;}
 
     public String getEndereco() {return endereco;}
 
