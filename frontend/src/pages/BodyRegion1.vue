@@ -506,6 +506,8 @@ export default {
   mounted() {
     if (!this.$session.exists()) {
       window.location.href = "/#/login";
+    } else {
+      console.log(this.$session.get("user"));
     }
   }
 };

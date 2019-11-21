@@ -9,7 +9,7 @@
         <form action="/#/">
           <div class="form-group">
             <input
-              type="email"
+              type="text"
               class="form-control"
               id="exampleInputEmail1"
               aria-describedby="emailHelp"
@@ -77,18 +77,19 @@ export default {
   methods: {
     login: function() {
       const vue = this;
-
+      console.log({
+          password: md5(this.user.password),
+          email: this.user.email
+        });
       axios
         .post(this.url + "/user/login", {
           password: md5(this.user.password),
           email: this.user.email
         })
-        .then(function(res) {
+        .then(async function(res) {
           if (res.status === 200) {
-            vue.$session.start();
-            vue.$session.set("user", res.data);
-
-            console.log(vue.$session.get("user"));
+            await vue.$session.start();
+            await vue.$session.set("user", res.data);
 
             window.location.href = "/#/bodyregion1";
           }
