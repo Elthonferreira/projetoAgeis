@@ -206,7 +206,7 @@ export default {
             //this.error = error.response.data;
             console.log(error);
           });
-
+    
         await axios
           .get(this.url + "/doenca/" + vue.getMostOccurrence(doencasId, true))
           .then(function(res) {
@@ -217,7 +217,7 @@ export default {
             //this.error = error.response.data;
             console.log(error);
           });
-
+console.log(vue.getMostOccurrence(doencasId, true));
         await axios
           .get(
             this.url +

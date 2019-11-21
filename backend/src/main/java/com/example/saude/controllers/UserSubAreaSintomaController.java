@@ -26,7 +26,7 @@ public class UserSubAreaSintomaController {
     private UserSubAreaSintomaService userSubAreaSintomaService;
 
     @GetMapping("/{diagnosticoId}")
-    public ResponseEntity<?> getByUserID(@PathVariable("diagnosticoId") Long diagnosticoId) {
+    public ResponseEntity<?> getByUserID(@PathVariable("diagnosticoId") int diagnosticoId) {
         List<UserSubAreaSintoma> userSubAreaSintomas = userSubAreaSintomaService.getAll();
         List<UserSubAreaSintoma> selectUserSubAreaSintoma = new ArrayList<>();
         
