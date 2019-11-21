@@ -1,65 +1,63 @@
 <template>
-  <div class="login">
-    <body>
-      <app-header></app-header>
+<div class="login">
+  <body>
+    <app-header></app-header>
 
-      <div class="login-content">
-        <div class="login-row">
-          <h4 class="text-center">Login</h4>
-          <form action="/#/">
-            <div class="form-group">
-              <input
-                type="email"
-                class="form-control"
-                id="exampleInputEmail1"
-                aria-describedby="emailHelp"
-                placeholder="E-mail"
-                v-model="user.email"
-              />
-            </div>
-            <div class="form-group">
-              <input
-                type="password"
-                class="form-control"
-                id="exampleInputPassword1"
-                placeholder="Senha"
-                v-model="user.password"
-              />
-            </div>
-            <div class="wrapper-button-submit">
-              <button type="submit" class="btn btn-primary" v-on:click="login()">Entrar</button>
-            </div>
+    <div class="login-content">
+      <div class="login-row">
+        <h4 class="text-center">Login</h4>
+        <form action="/#/">
+          <div class="form-group">
+            <input
+              type="email"
+              class="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+              placeholder="E-mail"
+              v-model="user.email"
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="password"
+              class="form-control"
+              id="exampleInputPassword1"
+              placeholder="Senha"
+              v-model="user.password"
+            />
+          </div>
+          <div class="wrapper-button-submit">
+            <button type="submit" class="btn btn-primary" v-on:click="login()">Entrar</button>
+          </div>
 
-            <div class="box-register">
-              <a
-                class="waves-effect waves-light btn button-register"
-                href="/#/userRegister"
-                >Registrar-se como um paciente</a
-              >
-              <a
-                class="waves-effect waves-light btn button-register"
-                href="/#/clinica"
-                >Registrar-se como uma clínica</a
-              >
-            </div>
-          </form>
-        </div>
+          <div class="box-register">
+            <a
+              class="waves-effect waves-light btn button-register"
+              href="/#/userRegister"
+            >Registrar-se como um paciente</a>
+            <a
+              class="waves-effect waves-light btn button-register"
+              href="/#/clinica"
+            >Registrar-se como uma clínica</a>
+          </div>
+        </form>
       </div>
+    </div>
 
-      <app-footer></app-footer>
-    </body>
-  </div>
+    <app-footer></app-footer>
+  </body>
+</div>
 </template>
 
 <script>
 import AppHeader from "../components/Header.vue";
 import AppFooter from "../components/Footer.vue";
 import axios from "axios";
-import Vue from 'vue'
-import VueSession from 'vue-session'
+import Vue from "vue";
+import VueSession from "vue-session";
 import md5 from "md5";
 
-Vue.use(VueSession)
+Vue.use(VueSession);
 
 export default {
   name: "login",
@@ -71,32 +69,34 @@ export default {
     return {
       url: "http://localhost:8081/api",
       user: {
-              email: "",
-              password: ""
-            },
+        email: "",
+        password: ""
+      }
     };
   },
   methods: {
-    login: function () {
-        const vue = this;
+    login: function() {
+      const vue = this;
 
-          axios
-          .post(this.url + '/user/login', {
-            password: md5(this.user.password),
-            email: this.user.email
-          }).then(function (res) {
-            if (res.status === 200) {
-              vue.$session.start()
-              vue.$session.set('user', res.data)
-              
-              console.log(vue.$session.get("user"));
-              
-              window.location.href = "/#/bodyregion1";
-            }
-          }).catch(function(error) {
+      axios
+        .post(this.url + "/user/login", {
+          password: md5(this.user.password),
+          email: this.user.email
+        })
+        .then(function(res) {
+          if (res.status === 200) {
+            vue.$session.start();
+            vue.$session.set("user", res.data);
 
-          })
-        }
+            console.log(vue.$session.get("user"));
+
+            window.location.href = "/#/bodyregion1";
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    }
   },
   mounted() {
     if (this.$session.exists()) {
