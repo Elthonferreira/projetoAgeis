@@ -453,6 +453,7 @@ export default {
     save: async function() {
       let allUserSubAreaSintomaId = [];
       let diagnosticoId = -1;
+      const vue = this;
 
       await axios
         .post(this.url + "/diagnostico/", {
@@ -488,15 +489,18 @@ export default {
         }
       }
 
-      for (let id in allUserSubAreaSintomaId) {
-        await this.createUserSubAreaSintoma(
-          allUserSubAreaSintomaId[id],
-          diagnosticoId
-        );
-      }
+      (async function() {
+          for (let id in allUserSubAreaSintomaId) {
+          await vue.createUserSubAreaSintoma(
+            allUserSubAreaSintomaId[id],
+            diagnosticoId
+          );
+        }
+
+        window.location.href = "/#/diagnostico/" + diagnosticoId;
+      })();
 
       //M.toast({html: 'Registrado com sucesso!', classes: 'rounded'});
-      window.location.href = "/#/diagnostico/" + diagnosticoId;
     }
   },
   mounted() {
