@@ -14,8 +14,6 @@ public class Clinica {
     private String usuario;
     private String senha;
     private String nome;
-    private String especialidade;
-    //private String especialidade;
     private String endereco;
     private String telefone;
     private String email;
@@ -29,48 +27,71 @@ public class Clinica {
     }
 
     // Construtor geral
-    public Clinica(String usuario, String senha, String nome, String especialidade, String telefone, String email, String endereco) {
-        this.usuario = usuario;
-        this.senha = senha;
-        this.nome = nome;
-        this.especialidade = especialidade;
-        //this.especialidade = especialidade;
-        this.endereco = endereco;
-        this.telefone = telefone;
-        this.email = email;
-    }
+	public Clinica(Long id, String usuario, String senha, String nome, String endereco, String telefone, String email) {
+		super();
+		this.id = id;
+		this.usuario = usuario;
+		this.senha = senha;
+		this.nome = nome;
+		this.endereco = endereco;
+		this.telefone = telefone;
+		this.email = email;
+	}
 
-    // Getters e Setters
-    public Long getId_clinica() {return id;}
+	public Long getId() {
+		return id;
+	}
 
-    public void setId_clinica(Long id_clinica) {this.id = id_clinica;}
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public String getUsuario() {return usuario;}
+	public String getUsuario() {
+		return usuario;
+	}
 
-    public void setUsuario(String usuario) {this.usuario = usuario;}
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
 
-    public String getSenha() {return senha;}
+	public String getSenha() {
+		return senha;
+	}
 
-    public void setSenha(String senha) {this.senha = senha;}
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
 
-    public String getNome() {return nome;}
+	public String getNome() {
+		return nome;
+	}
 
-    public void setNome(String nome) {this.nome = nome;}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
-    public String getEspecialidade() {return especialidade;}
+	public String getEndereco() {
+		return endereco;
+	}
 
-    public void setEspecialidade(String especialidade) {this.especialidade = especialidade;}
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
+	}
 
-    public String getEndereco() {return endereco;}
+	public String getTelefone() {
+		return telefone;
+	}
 
-    public void setEndereco(String endereço) {this.endereco = endereço;}
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
 
-    public String getTelefone() {return telefone;}
+	public String getEmail() {
+		return email;
+	}
 
-    public void setTelefone(String telefone) {this.telefone = telefone;}
-
-    public String getEmail() {return email;}
-
-    public void setEmail(String email) {this.email = email;}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 }

@@ -68,7 +68,7 @@ public class UserController {
         		 
         		 return new ResponseEntity<>(login,HttpStatus.OK);
         	 } else if (clinica != null && userBody.getPassword().equals(clinica.getSenha())) {
-        		 Login login = new Login(clinica.getId_clinica(), clinica.getNome(), clinica.getEmail(), "Clinica");
+        		 Login login = new Login(clinica.getId(), clinica.getNome(), clinica.getEmail(), "Clinica");
         		 
         		 return new ResponseEntity<>(login,HttpStatus.OK);
         	 }

@@ -13,7 +13,7 @@
         <span class="sickness-description">
           {{ descricao }}
         </span>
-        <br>
+        <br />
         <span
           >Você possui {{ sintomasSelecionados }} de
           {{ todasSintomasDoenca }} sintomas da(o) {{ nomeDoenca }}</span
@@ -39,16 +39,25 @@
             </td>
 
             <td>
-              <button class="button-more-info" v-on:click="mostrarClinica(item)">Ver mais</button>
+              <button
+                class="button-more-info"
+                v-on:click="mostrarClinica(item)"
+              >
+                Ver mais
+              </button>
             </td>
           </tr>
         </table>
+
         <div class="box-button-back">
-          <button @click="back()" type="button" class="btn btn-outline-success back">
-              Voltar
+          <button
+            @click="back()"
+            type="button"
+            class="btn btn-outline-success back"
+          >
+            Voltar
           </button>
         </div>
-
       </div>
 
       <app-footer></app-footer>
@@ -57,16 +66,31 @@
       <div id="myModal" class="modal">
         <!-- Modal content -->
         <div class="modal-content">
-          <span v-on:click="fecharModal()" class="close">&times;</span>
+          <div class="close">
+            <span v-on:click="fecharModal()" class="close-button">&times;</span>
+          </div>
 
           <h4>{{ clinicaselecionada.nome }}</h4>
-          <span>{{ clinicaselecionada.especialidade }}</span>
           <br />
-          <span>{{ clinicaselecionada.email }}</span>
+          <span
+            ><strong>Especialidade: </strong
+            >{{ clinicaselecionada.especialidade }}</span
+          >
           <br />
-          <span>{{ clinicaselecionada.telefone }}</span>
+          <span
+            ><strong>Contato: </strong
+            ><a :href="clinicaselecionada.email">{{
+              clinicaselecionada.email
+            }}</a></span
+          >
           <br />
-          <span>{{ clinicaselecionada.endereco }}</span>
+          <span
+            ><strong>Telefone: </strong> {{ clinicaselecionada.telefone }}</span
+          >
+          <br />
+          <span
+            ><strong>Endereço: </strong> {{ clinicaselecionada.endereco }}</span
+          >
         </div>
       </div>
     </body>
@@ -148,13 +172,9 @@ export default {
         return maxCount;
       }
     },
-    getClinica: function (clinicaId, clinicaEspecialidade) {
+    getClinica: function(clinicaId, clinicaEspecialidade) {
       return axios
-        .get(
-          this.url +
-            "/clinicas/" +
-            clinicaId
-        )
+        .get(this.url + "/clinicas/" + clinicaId)
         .then(function(res) {
           clinicaEspecialidade.push(res.data);
         })
@@ -163,13 +183,9 @@ export default {
           console.log(error);
         });
     },
-    getEspecialidade: function (especialidadeId, clinicaEspecialidade, index) {
+    getEspecialidade: function(especialidadeId, clinicaEspecialidade, index) {
       return axios
-        .get(
-          this.url +
-            "/especialidade/" +
-            especialidadeId
-        )
+        .get(this.url + "/especialidade/" + especialidadeId)
         .then(function(res) {
           clinicaEspecialidade[index].especialidade = res.data.nome;
         })
@@ -189,8 +205,8 @@ export default {
       this.$nextTick(async function() {
         const vue = this;
         let doencasId = [];
-        let clinicaEspecialidade = []
-        vue.items = []
+        let clinicaEspecialidade = [];
+        vue.items = [];
 
         await axios
           .get(this.url + "/usersubareasintoma/" + this.$route.params.id)
@@ -206,7 +222,7 @@ export default {
             //this.error = error.response.data;
             console.log(error);
           });
-    
+
         await axios
           .get(this.url + "/doenca/" + vue.getMostOccurrence(doencasId, true))
           .then(function(res) {
@@ -233,7 +249,7 @@ export default {
             console.log(error);
           });
 
-          await axios
+        await axios
           .get(
             this.url +
               "/doencaespecialidade/" +
@@ -241,8 +257,15 @@ export default {
           )
           .then(async function(res) {
             for (let x in res.data) {
-              await vue.getClinica(res.data[x].clinica_id, clinicaEspecialidade);
-              await vue.getEspecialidade(res.data[x].especialidade_id, clinicaEspecialidade, x);
+              await vue.getClinica(
+                res.data[x].clinica_id,
+                clinicaEspecialidade
+              );
+              await vue.getEspecialidade(
+                res.data[x].especialidade_id,
+                clinicaEspecialidade,
+                x
+              );
             }
           })
           .catch(error => {
@@ -250,18 +273,18 @@ export default {
             console.log(error);
           });
 
-          for (let x in clinicaEspecialidade) {
-            vue.items.push({
-              nome: clinicaEspecialidade[x].nome,
-              especialidade: clinicaEspecialidade[x].especialidade,
-              email: clinicaEspecialidade[x].email,
-              telefone: clinicaEspecialidade[x].telefone,
-              endereco: clinicaEspecialidade[x].endereço
-            });
-          }
+        for (let x in clinicaEspecialidade) {
+          console.log(clinicaEspecialidade[x]);
+          vue.items.push({
+            nome: clinicaEspecialidade[x].nome,
+            especialidade: clinicaEspecialidade[x].especialidade,
+            email: clinicaEspecialidade[x].email,
+            telefone: clinicaEspecialidade[x].telefone,
+            endereco: clinicaEspecialidade[x].endereco
+          });
+        }
 
-          console.log(vue.items);
-
+        console.log(vue.items);
       });
     }
   }
@@ -419,17 +442,21 @@ input {
 
 /* The Close Button */
 .close {
-  color: #aaaaaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
+  display: flex;
+  justify-content: flex-end;
 }
 
-.close:hover,
-.close:focus {
+.close-button {
+  color: #aaaaaa;
+  width: 25px;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.close-button:hover,
+.close-button:focus {
   color: #000;
   text-decoration: none;
-  cursor: pointer;
 }
 
 .button-more-info {

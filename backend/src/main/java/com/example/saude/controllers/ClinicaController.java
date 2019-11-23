@@ -39,7 +39,7 @@ public class ClinicaController {
 //    }
     
     @GetMapping("/{clinicaId}")
-    public ResponseEntity<?> getByCpf(@PathVariable("clinicaId") Long id) {
+    public ResponseEntity<?> getById(@PathVariable("clinicaId") Long id) {
         Clinica clinica = clinicaService.getById(id);
         if(clinica == null) {
             return new ResponseEntity<>("Clínica com id "+id+" não existe", HttpStatus.NOT_FOUND);
@@ -67,7 +67,7 @@ public class ClinicaController {
             return new ResponseEntity<>("Clínica com nome "+novo.getNome()+" não existe", HttpStatus.NOT_FOUND);
         }
         else {
-            novo.setId_clinica(velho.getId_clinica());
+            novo.setId(velho.getId());
             return new ResponseEntity<>(clinicaService.update(novo),HttpStatus.OK);
         }
     }
