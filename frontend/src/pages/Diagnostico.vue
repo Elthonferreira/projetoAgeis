@@ -252,7 +252,7 @@ export default {
         await axios
           .get(
             this.url +
-              "/doencaespecialidade/" +
+              "/doencaespecialidade/doenca/" +
               vue.getMostOccurrence(doencasId, true)
           )
           .then(async function(res) {

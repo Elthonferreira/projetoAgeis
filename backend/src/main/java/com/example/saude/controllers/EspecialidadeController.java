@@ -3,6 +3,8 @@ package com.example.saude.controllers;
 import com.example.saude.models.Especialidade;
 import com.example.saude.services.EspecialidadeService;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +26,17 @@ public class EspecialidadeController {
         }
         else {
             return new ResponseEntity<>(especialidade, HttpStatus.OK);
+        }
+    }
+    
+    @GetMapping
+    public ResponseEntity<?> getAll() {
+        List<Especialidade> especialidades = especialidadeService.getAll();
+        if(especialidades.isEmpty()) {
+            return new ResponseEntity<>("Sem doenças cadastradas", HttpStatus.NOT_FOUND);
+        }
+        else {
+            return new ResponseEntity<>(especialidades, HttpStatus.OK);
         }
     }
 //

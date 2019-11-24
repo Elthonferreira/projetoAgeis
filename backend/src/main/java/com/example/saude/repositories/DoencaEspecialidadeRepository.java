@@ -7,5 +7,5 @@ import com.example.saude.models.DoencaEspecialidade;
 
 @Repository
 public interface DoencaEspecialidadeRepository extends JpaRepository<DoencaEspecialidade, String>{
-
+	public DoencaEspecialidade findById(Long id);
 }

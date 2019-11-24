@@ -12,7 +12,7 @@ public class DoencaEspecialidade {
     
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id_doenca_especialidade;
+	private Long id;
 	
     private Long doenca_id;
     private Long especialidade_id;
@@ -22,20 +22,20 @@ public class DoencaEspecialidade {
 		super();
 	}
 
-	public DoencaEspecialidade(Long id_doenca_especialidade, Long doenca_id, Long especialidade_id, Long clinica_id) {
+	public DoencaEspecialidade(Long id, Long doenca_id, Long especialidade_id, Long clinica_id) {
 		super();
-		this.id_doenca_especialidade = id_doenca_especialidade;
+		this.id = id;
 		this.doenca_id = doenca_id;
 		this.especialidade_id = especialidade_id;
 		this.clinica_id = clinica_id;
 	}
 
-	public Long getId_doenca_especialidade() {
-		return id_doenca_especialidade;
+	public Long getId() {
+		return id;
 	}
 
-	public void setId_doenca_especialidade(Long id_doenca_especialidade) {
-		this.id_doenca_especialidade = id_doenca_especialidade;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Long getDoenca_id() {

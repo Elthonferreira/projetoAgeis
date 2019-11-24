@@ -22,6 +22,10 @@ public class DoencaEspecialidadeService {
 	     return doencaEspecialidadeRepository.findAll();
 	 }
 	 
+	 public DoencaEspecialidade getById(Long id) {
+		 return doencaEspecialidadeRepository.findById(id);
+	 }
+	 
 	 public DoencaEspecialidade update(DoencaEspecialidade doencaEspecialidade) {
 	     return doencaEspecialidadeRepository.save(doencaEspecialidade);
 	 }
