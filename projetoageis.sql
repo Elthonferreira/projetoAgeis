@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 18-Nov-2019 às 19:14
+-- Tempo de geração: 25-Nov-2019 às 01:02
 -- Versão do servidor: 10.4.8-MariaDB
 -- versão do PHP: 7.3.10
 
@@ -68,22 +68,22 @@ CREATE TABLE `clinica` (
 --
 
 INSERT INTO `clinica` (`id`, `email`, `nome`, `senha`, `telefone`, `usuario`, `endereco`, `especialidade`) VALUES
-(1, 'https://www.telelistas.net/locais/pe/recife/clinicas+medicas/bu-3500266/clinica+dr+gi\r\nldo+ferreira+lima#contato', 'Clínica Dr Gildo Ferreira Lima', '123', '(81) 3222-2794,\r\n(81) 99966-0908', 'clinicadrgildoferreiralima', 'Rua do Riachuelo, 772 - Boa Vista -\r\nRecife - PE', NULL),
-(2, 'https://www.telelistas.net/locais/pe/recife/clinicas+medicas/bu-1526872/uniclinica#c\r\nontato', 'Uniclínica', '123', '(81) 3525-5805, (81) 99834-0335', 'uniclinica', 'Rua\r\nLeandro Barreto, 1384 - Jardim São Paulo - Recife - PE', NULL),
-(3, 'https://www.telelistas.net/locais/pe/recife/clinicas+medicas/bu-19147701/clinica+de+\r\nginecologia+dr+helio+costa+em+gracas#contato', 'Clínica de Ginecologia Dr Hélio\r\nCosta em Graças', '123', '(81) 3241-5946', 'drheliocosta', 'Rua Conselheiro Portela,\r\n632 - Graças - Recife - PE, Prox A João de Barros', NULL),
-(4, 'https://www.guiamais.com.br/recife-pe/clinicas-medicos-e-terapias/otorrinolaringolog\r\nistas-ouvidos-nariz-e-garganta/12718710-2/iop-instituto-de-otorrino-de-pernambuco#\r\nmaisFone', 'IOP - INSTITUTO DE OTORRINO DE PERNAMBUCO', '123', '(81)\r\n3445-5289, (81) 3227-1618, (81) 3227-5820', 'iop', 'R J A da Silveira, 116 -\r\nMadalena - Recife, PE - CEP: 50610-030', NULL),
-(5, 'https://www.guiamais.com.br/recife-pe/clinicas-medicos-e-terapias/otorrinolaringolog\r\nistas-ouvidos-nariz-e-garganta/12376062-2/roberto-lucas-de-oliveira', 'ROBERTO\r\nLUCAS DE OLIVEIRA', '123', '(81) 3467-4400', 'robertolucas', 'Av Engenheiro\r\nDomingos Ferreira, 4371 - an-6 sl-605 - - Boa Viagem - Recife, PE - CEP:\r\n51021-040', NULL),
-(6, 'https://www.guiamais.com.br/recife-pe/clinicas-medicos-e-terapias/clinicas-de-derm\r\natologia/16474744-1/clinica-de-dermatologia-real-derma', 'CLÍNICA DE\r\nDERMATOLOGIA REAL DERMA', '123', '(81) 3416-1687', 'realderma', 'Av\r\nGovernador Agamenon Magalhães, 163 - Santo Amaro - Recife, PE - CEP:\r\n50110-000', NULL),
-(7, 'https://www.guiamais.com.br/recife-pe/clinicas-medicos-e-terapias/clinicas-de-olhos/\r\n1963047-10/ior-instituto-de-olhos-do-recife', 'IOR - INSTITUTO DE OLHOS DO\r\nRECIFE', '123', '(81) 2122-5000, (81) 3213-0725, (81) 3221-0135', 'ior', 'R Doutor\r\nVicente Meira, 137 - Espinheiro - Recife, PE - CEP: 52020-130', NULL),
-(8, 'https://www.guiamais.com.br/recife-pe/clinicas-medicos-e-terapias/clinicas-de-olhos/\r\n2162535356-5487128/clinica-de-olhos-romulo-belfort', 'CLÍNICA DE OLHOS\r\nRÔMULO BELFORT', '123', '(81) 3326-0696', 'romulobelfort', 'Av Fernando Simões\r\nBarbosa, 22 - 814 - - Boa Viagem - Recife, PE - CEP: 51020-904', NULL),
-(9, 'https://www.guiamais.com.br/recife-pe/clinicas-medicos-e-terapias/gastroenterologis\r\nta/14463540-2/ricad-real-instituto-do-aparelho-digestivo', 'RICAD - REAL\r\nINSTITUTO DO APARELHO DIGESTIVO', '123', '(81) 3134-2914, (81) 3416-7749,\r\n(81) 3416-7750', 'ricad', 'Av Portugal, 4760 - Paissandu - Recife, PE - CEP:\r\n52010-010', NULL),
-(10, 'https://www.guiamais.com.br/recife-pe/clinicas-medicos-e-terapias/psiquiatras/2161\r\n365902-6187916/dreduardo-silva-santos', 'DR. EDUARDO SILVA SANTOS', '123', '(81) 9908-0525, (81) 3423-7424', 'dreduardosilvasantos', 'Av República do Líbano,\r\n251 - Emp Rio Mar Trade Sala 2715 - - Pina - Recife, PE - CEP: 51110-160', NULL),
-(11, 'https://www.guiamais.com.br/recife-pe/clinicas-medicos-e-terapias/endocrinologistas\r\n-e-metabologistas/16091201-1/consultorio-dra-silvia-maranhao', 'CONSULTÓRIO\r\nDRA SÍLVIA MARANHÃO', '123', '(81) 3462-5573, (81) 3461-9937', 'silviamaranhao', 'R Tenente Domingos de Brito, 281 - Boa Viagem - Recife, PE - CEP: 51021-100', NULL),
-(12, 'https://www.guiamais.com.br/recife-pe/clinicas-medicos-e-terapias/alergologistas-e-i\r\nmunologistas/8641766-2/clinica-de-alergia-e-asma-marco-aurelio-ramalho-bezerra', 'CLÍNICA DE ALERGIA E ASMA MARCO AURÉLIO RAMALHO BEZERRA', '123', '(81) 3221-5549', 'marcoaurelio', 'R Viscondessa do Livramento, 155 - Derby -\r\nRecife, PE - CEP: 52010-060', NULL),
-(13, 'https://www.doctoralia.com.br/pergunta-efetuada/jefferson-correia-de-souza', 'Dr. Jefferson Correia de Souza', '123', '(81) 3241-6355, (81) 3427-0019', 'drjefferson', 'Rua Manoel Carvalho, 94, Aflitos , Recife', NULL),
-(14, 'https://www.doctoralia.com.br/marilena-melo-cavalcanti/cardiologista-medico-clinicogeral/recife#address-id=[12266]', 'Dra. Marilena Melo Cavalcanti ', '123', '(81)\r\n3081-6767, (81) 3081-6780', 'dramarilena', 'R. do Futuro, 141, Graças , Recife', NULL),
-(15, 'https://www.doctoralia.com.br/renata-brandao-2/hematologista/recife#address-id=[5\r\n90883]', 'Dra. Renata Brandão', '123', '(81) 3049-3915', 'drarenata', 'Rua Iramaia,\r\n1156, Ilha do Leite, Ilha Do Leite , Recife', NULL),
-(16, 'http://www.jaymedafonte.com.br/consultorios/especialidades/18', 'Cláudio\r\nLacerda', '123', '3416-0075', 'claudiolacerda', 'Rua das Pernambucanas, 100, Graças\r\n- Recife', NULL);
+(1, 'https://www.telelistas.net/locais/pe/recife/clinicas+medicas/bu-3500266/clinica+dr+gi\r\nldo+ferreira+lima#contato', 'Clínica Dr Gildo Ferreira Lima', '202cb962ac59075b964b07152d234b70', '(81) 3222-2794,\r\n(81) 99966-0908', 'clinicadrgildoferreiralima', 'Rua do Riachuelo, 772 - Boa Vista -\r\nRecife - PE', NULL),
+(2, 'https://www.telelistas.net/locais/pe/recife/clinicas+medicas/bu-1526872/uniclinica#c\r\nontato', 'Uniclínica', '202cb962ac59075b964b07152d234b70', '(81) 3525-5805, (81) 99834-0335', 'uniclinica', 'Rua\r\nLeandro Barreto, 1384 - Jardim São Paulo - Recife - PE', NULL),
+(3, 'https://www.telelistas.net/locais/pe/recife/clinicas+medicas/bu-19147701/clinica+de+\r\nginecologia+dr+helio+costa+em+gracas#contato', 'Clínica de Ginecologia Dr Hélio\r\nCosta em Graças', '202cb962ac59075b964b07152d234b70', '(81) 3241-5946', 'drheliocosta', 'Rua Conselheiro Portela,\r\n632 - Graças - Recife - PE, Prox A João de Barros', NULL),
+(4, 'https://www.guiamais.com.br/recife-pe/clinicas-medicos-e-terapias/otorrinolaringolog\r\nistas-ouvidos-nariz-e-garganta/12718710-2/iop-instituto-de-otorrino-de-pernambuco#\r\nmaisFone', 'IOP - INSTITUTO DE OTORRINO DE PERNAMBUCO', '202cb962ac59075b964b07152d234b70', '(81)\r\n3445-5289, (81) 3227-1618, (81) 3227-5820', 'iop', 'R J A da Silveira, 116 -\r\nMadalena - Recife, PE - CEP: 50610-030', NULL),
+(5, 'https://www.guiamais.com.br/recife-pe/clinicas-medicos-e-terapias/otorrinolaringolog\r\nistas-ouvidos-nariz-e-garganta/12376062-2/roberto-lucas-de-oliveira', 'ROBERTO\r\nLUCAS DE OLIVEIRA', '202cb962ac59075b964b07152d234b70', '(81) 3467-4400', 'robertolucas', 'Av Engenheiro\r\nDomingos Ferreira, 4371 - an-6 sl-605 - - Boa Viagem - Recife, PE - CEP:\r\n51021-040', NULL),
+(6, 'https://www.guiamais.com.br/recife-pe/clinicas-medicos-e-terapias/clinicas-de-derm\r\natologia/16474744-1/clinica-de-dermatologia-real-derma', 'CLÍNICA DE\r\nDERMATOLOGIA REAL DERMA', '202cb962ac59075b964b07152d234b70', '(81) 3416-1687', 'realderma', 'Av\r\nGovernador Agamenon Magalhães, 163 - Santo Amaro - Recife, PE - CEP:\r\n50110-000', NULL),
+(7, 'https://www.guiamais.com.br/recife-pe/clinicas-medicos-e-terapias/clinicas-de-olhos/\r\n1963047-10/ior-instituto-de-olhos-do-recife', 'IOR - INSTITUTO DE OLHOS DO\r\nRECIFE', '202cb962ac59075b964b07152d234b70', '(81) 2122-5000, (81) 3213-0725, (81) 3221-0135', 'ior', 'R Doutor\r\nVicente Meira, 137 - Espinheiro - Recife, PE - CEP: 52020-130', NULL),
+(8, 'https://www.guiamais.com.br/recife-pe/clinicas-medicos-e-terapias/clinicas-de-olhos/\r\n2162535356-5487128/clinica-de-olhos-romulo-belfort', 'CLÍNICA DE OLHOS\r\nRÔMULO BELFORT', '202cb962ac59075b964b07152d234b70', '(81) 3326-0696', 'romulobelfort', 'Av Fernando Simões\r\nBarbosa, 22 - 814 - - Boa Viagem - Recife, PE - CEP: 51020-904', NULL),
+(9, 'https://www.guiamais.com.br/recife-pe/clinicas-medicos-e-terapias/gastroenterologis\r\nta/14463540-2/ricad-real-instituto-do-aparelho-digestivo', 'RICAD - REAL\r\nINSTITUTO DO APARELHO DIGESTIVO', '202cb962ac59075b964b07152d234b70', '(81) 3134-2914, (81) 3416-7749,\r\n(81) 3416-7750', 'ricad', 'Av Portugal, 4760 - Paissandu - Recife, PE - CEP:\r\n52010-010', NULL),
+(10, 'https://www.guiamais.com.br/recife-pe/clinicas-medicos-e-terapias/psiquiatras/2161\r\n365902-6187916/dreduardo-silva-santos', 'DR. EDUARDO SILVA SANTOS', '202cb962ac59075b964b07152d234b70', '(81) 9908-0525, (81) 3423-7424', 'dreduardosilvasantos', 'Av República do Líbano,\r\n251 - Emp Rio Mar Trade Sala 2715 - - Pina - Recife, PE - CEP: 51110-160', NULL),
+(11, 'https://www.guiamais.com.br/recife-pe/clinicas-medicos-e-terapias/endocrinologistas\r\n-e-metabologistas/16091201-1/consultorio-dra-silvia-maranhao', 'CONSULTÓRIO\r\nDRA SÍLVIA MARANHÃO', '202cb962ac59075b964b07152d234b70', '(81) 3462-5573, (81) 3461-9937', 'silviamaranhao', 'R Tenente Domingos de Brito, 281 - Boa Viagem - Recife, PE - CEP: 51021-100', NULL),
+(12, 'https://www.guiamais.com.br/recife-pe/clinicas-medicos-e-terapias/alergologistas-e-i\r\nmunologistas/8641766-2/clinica-de-alergia-e-asma-marco-aurelio-ramalho-bezerra', 'CLÍNICA DE ALERGIA E ASMA MARCO AURÉLIO RAMALHO BEZERRA', '202cb962ac59075b964b07152d234b70', '(81) 3221-5549', 'marcoaurelio', 'R Viscondessa do Livramento, 155 - Derby -\r\nRecife, PE - CEP: 52010-060', NULL),
+(13, 'https://www.doctoralia.com.br/pergunta-efetuada/jefferson-correia-de-souza', 'Dr. Jefferson Correia de Souza', '202cb962ac59075b964b07152d234b70', '(81) 3241-6355, (81) 3427-0019', 'drjefferson', 'Rua Manoel Carvalho, 94, Aflitos , Recife', NULL),
+(14, 'https://www.doctoralia.com.br/marilena-melo-cavalcanti/cardiologista-medico-clinicogeral/recife#address-id=[12266]', 'Dra. Marilena Melo Cavalcanti ', '202cb962ac59075b964b07152d234b70', '(81)\r\n3081-6767, (81) 3081-6780', 'dramarilena', 'R. do Futuro, 141, Graças , Recife', NULL),
+(15, 'https://www.doctoralia.com.br/renata-brandao-2/hematologista/recife#address-id=[5\r\n90883]', 'Dra. Renata Brandão', '202cb962ac59075b964b07152d234b70', '(81) 3049-3915', 'drarenata', 'Rua Iramaia,\r\n1156, Ilha do Leite, Ilha Do Leite , Recife', NULL),
+(16, 'http://www.jaymedafonte.com.br/consultorios/especialidades/18', 'Cláudio\r\nLacerda', '202cb962ac59075b964b07152d234b70', '3416-0075', 'claudiolacerda', 'Rua das Pernambucanas, 100, Graças\r\n- Recife', NULL);
 
 -- --------------------------------------------------------
 
@@ -110,6 +110,21 @@ INSERT INTO `diagnostico` (`id_diagnostico`, `id_user`) VALUES
 (56, 3),
 (67, 3),
 (85, 3),
+(91, 3),
+(104, 3),
+(117, 3),
+(123, 3),
+(130, 3),
+(143, 3),
+(146, 3),
+(150, 3),
+(154, 3),
+(158, 3),
+(159, 3),
+(160, 3),
+(161, 3),
+(164, 3),
+(172, 3),
 (70, 4),
 (73, 4),
 (79, 5);
@@ -669,11 +684,11 @@ CREATE TABLE `hibernate_sequence` (
 --
 
 INSERT INTO `hibernate_sequence` (`next_val`) VALUES
-(91),
-(91),
-(91),
-(91),
-(91);
+(174),
+(174),
+(174),
+(174),
+(174);
 
 -- --------------------------------------------------------
 
@@ -1066,7 +1081,75 @@ INSERT INTO `user_sub_area_sintoma` (`id_user_sub_area_sintoma`, `user_id`, `sub
 (87, 3, 69, 85),
 (88, 3, 3, 85),
 (89, 3, 87, 85),
-(90, 3, 60, 85);
+(90, 3, 60, 85),
+(92, 3, 4, 91),
+(93, 3, 8, 91),
+(94, 3, 5, 91),
+(95, 3, 54, 91),
+(96, 3, 36, 91),
+(97, 3, 62, 91),
+(98, 3, 64, 91),
+(99, 3, 65, 91),
+(100, 3, 67, 91),
+(101, 3, 66, 91),
+(102, 3, 79, 91),
+(103, 3, 94, 91),
+(105, 3, 4, 104),
+(106, 3, 8, 104),
+(107, 3, 36, 104),
+(108, 3, 54, 104),
+(109, 3, 5, 104),
+(110, 3, 62, 104),
+(111, 3, 64, 104),
+(112, 3, 66, 104),
+(113, 3, 65, 104),
+(114, 3, 67, 104),
+(115, 3, 79, 104),
+(116, 3, 94, 104),
+(118, 3, 77, 117),
+(119, 3, 49, 117),
+(120, 3, 31, 117),
+(121, 3, 24, 117),
+(122, 3, 68, 117),
+(124, 3, 5, 123),
+(125, 3, 8, 123),
+(126, 3, 36, 123),
+(127, 3, 3, 123),
+(128, 3, 49, 123),
+(129, 3, 68, 123),
+(131, 3, 4, 130),
+(132, 3, 5, 130),
+(133, 3, 8, 130),
+(134, 3, 36, 130),
+(135, 3, 54, 130),
+(136, 3, 62, 130),
+(137, 3, 64, 130),
+(138, 3, 65, 130),
+(139, 3, 66, 130),
+(140, 3, 67, 130),
+(141, 3, 79, 130),
+(142, 3, 94, 130),
+(144, 3, 49, 143),
+(145, 3, 69, 143),
+(147, 3, 16, 146),
+(148, 3, 38, 146),
+(149, 3, 60, 146),
+(151, 3, 50, 150),
+(152, 3, 38, 150),
+(153, 3, 16, 150),
+(155, 3, 49, 154),
+(156, 3, 68, 154),
+(157, 3, 69, 154),
+(162, 3, 5, 161),
+(163, 3, 8, 161),
+(165, 3, 3, 164),
+(166, 3, 49, 164),
+(167, 3, 68, 164),
+(168, 3, 36, 164),
+(169, 3, 8, 164),
+(170, 3, 66, 164),
+(171, 3, 79, 164),
+(173, 3, 81, 172);
 
 --
 -- Índices para tabelas despejadas
@@ -1184,7 +1267,7 @@ ALTER TABLE `clinica`
 -- AUTO_INCREMENT de tabela `diagnostico`
 --
 ALTER TABLE `diagnostico`
-  MODIFY `id_diagnostico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+  MODIFY `id_diagnostico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=173;
 
 --
 -- AUTO_INCREMENT de tabela `doencas`
@@ -1244,7 +1327,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de tabela `user_sub_area_sintoma`
 --
 ALTER TABLE `user_sub_area_sintoma`
-  MODIFY `id_user_sub_area_sintoma` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `id_user_sub_area_sintoma` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=174;
 
 --
 -- Restrições para despejos de tabelas
