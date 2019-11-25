@@ -1,5 +1,6 @@
 <template>
   <div class="header">
+    <img src="../assets/logo.png" height="50" width="50"> 
     <div class="d-flex flex-row-reverse bd-highlight">
       <div class="p-2 bd-highlight column1">
         <a v-if="!auth" href="/#/login"
@@ -20,7 +21,7 @@
             Sair
           </button>
         </div>
-
+ 
         <!-- Dropdown Structure -->
         <div class="dropdown">
           <button
