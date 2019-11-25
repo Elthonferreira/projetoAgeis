@@ -78,20 +78,28 @@ export default {
     login: function() {
       const vue = this;
       console.log({
-          password: md5(this.user.password),
-          email: this.user.email
-        });
+        password: md5(this.user.password),
+        email: this.user.email
+      });
       axios
         .post(this.url + "/user/login", {
           password: md5(this.user.password),
           email: this.user.email
         })
         .then(async function(res) {
+          console.log(res);
           if (res.status === 200) {
-            await vue.$session.start();
-            await vue.$session.set("user", res.data);
+            if (res.tipoUsuario != "Clinica") {
+              await vue.$session.start();
+              await vue.$session.set("user", res.data);
 
-            window.location.href = "/#/bodyregion1";
+              window.location.href = "/#/bodyregion1";
+            } else {
+              await vue.$session.start();
+              await vue.$session.set("user", res.data);
+
+              window.location.href = "/#/clinicaGerenciamento";
+            }
           }
         })
         .catch(function(error) {
@@ -101,7 +109,11 @@ export default {
   },
   mounted() {
     if (this.$session.exists()) {
-      window.location.href = "/#/bodyregion1";
+      if (this.$session.get("user").tipoUsuario == "Clinica") {
+        window.location.href = "/#/clinicaGerenciamento";
+      } else {
+        window.location.href = "/#/bodyregion1";
+      }
     }
   }
 };

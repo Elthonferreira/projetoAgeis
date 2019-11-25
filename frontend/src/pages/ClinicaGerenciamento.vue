@@ -77,22 +77,7 @@ export default {
         telefone: "",
         endereco: ""
       },
-      pacientes: [
-        {
-          nome: "fulano",
-          doenca: "enxaqueca",
-          email: "teste@teste.com",
-          telefone: "123401234",
-          endereco: "rua de fulano, n 123"
-        },
-        {
-          nome: "fulano",
-          doenca: "enxaqueca",
-          email: "teste@teste.com",
-          telefone: "123401234",
-          endereco: "rua de fulano, n 123"
-        }
-      ]
+      pacientes: []
     };
   },
   methods: {
@@ -111,10 +96,12 @@ export default {
       modal.style.display = "none";
     },
 
-    getClinica: function(clinicaId, clinicaEspecialidade) {
+    getClinica: function(clinicaId) {
+      console.log("getclinica");
       return axios
         .get(this.url + "/clinicas/" + clinicaId)
         .then(function(res) {
+          console.log(res);
           clinicaEspecialidade.push(res.data);
         })
         .catch(error => {
@@ -128,6 +115,7 @@ export default {
     }
   },
   mounted: async function() {
+    this.getClinica(this.$session.get("user").id);
     //  if (!this.$session.exists()) {
     //   window.location.href = "/#/login";
     //  } else {
