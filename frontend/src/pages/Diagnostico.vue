@@ -257,6 +257,7 @@ export default {
           )
           .then(async function(res) {
             for (let x in res.data) {
+              console.log(res.data);
               await vue.getClinica(
                 res.data[x].clinica_id,
                 clinicaEspecialidade
