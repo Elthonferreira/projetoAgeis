@@ -12,16 +12,16 @@
           <th>Nome do paciente</th>
           <th>Possivel doença</th>
           <th>Contato</th>
+          <th>Endereço</th>
           <th>Ação</th>
         </tr>
         <tr v-bind:key="index" v-for="(item, index) in pacientes">
-          <td>asd</td>
+          <td>{{ item.nome }}</td>
           <td>{{ item.doenca }}</td>
           <td>
-            <span>{{ item.email }}</span>
-            <br />
             <span>{{ item.telefone }}</span>
           </td>
+          <td>{{ item.endereco }}</td>
 
           <td>
             <button class="button-more-info" v-on:click="mostrarClinica(item)">Ver mais</button>
@@ -99,11 +99,21 @@ export default {
     getClinica: function(clinicaId) {
       return axios
         .get(this.url + "/clinicaGerenciamento/" + clinicaId)
-        .then(function(res) {
-          console.log(res);
-          this.pacientes.push(res.data);
+        .then(res => {
+          const vue = this;
+          this.pacientes = res.data;
+          /* res.data.forEach(function(elem) {
+            console.log(elem);
+            vue.pacientes.push({
+              //nome doenca telefone endereco
+              nome: elem.nome,
+              doenca: elem.doenca,
+              telefone: elem.telefone,
+              endereco: elem.endereco
+            });
+          });*/
           console.log("this.pacientes");
-          console.log(this.pacientes);
+          //  console.log(this.pacientes);
         })
         .catch(error => {
           //this.error = error.response.data;

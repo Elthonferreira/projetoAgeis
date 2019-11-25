@@ -47,7 +47,7 @@ public class ClinicaGerenciamentoController {
         //Statement stm = con.conexao.createStatement();
         //stm.executeQuery("select * from doencas d join  doenca_especialidade de on de.doenca_id = d.id");
 
-        statement.executeQuery("select distinct u.name, d.nome, c.nome, e.nome from \n" +
+        statement.executeQuery("select distinct u.name, d.nome, u.telephone, u.street from \n" +
                 "area a join sub_area sa on a.id_area = sa.area_id join\n" +
                 "sub_area_sintoma sas on sas.sub_area_id = sa.id join\n" +
                 "sintomas s on s.id = sas.sintoma_id join\n" +
@@ -65,13 +65,13 @@ List<UserAux> listUsers = new ArrayList<>();
         while (resultSet.next()){
         	listUsers.add(new UserAux(resultSet.getString("u.name"),
         			resultSet.getString("d.nome"),
-        			resultSet.getString("c.nome"),
-        			resultSet.getString("e.nome")));
+        			resultSet.getString("u.telephone"),
+        			resultSet.getString("u.street")));
         	
             System.out.println(resultSet.getString("u.name") +
                     ", "+ resultSet.getString("d.nome") +
-                    ", "+ resultSet.getString("c.nome") +
-                    ", "+ resultSet.getString("e.nome"));
+                    ", "+ resultSet.getString("u.telephone") +
+                    ", "+ resultSet.getString("u.street"));
         }
              return new ResponseEntity<>(listUsers, HttpStatus.OK);
 
