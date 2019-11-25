@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin("*") // Depois trocar o * pelo endereço do frontend
@@ -36,7 +37,7 @@ public class ClinicaGerenciamentoController {
 
 
     @GetMapping("/{clinica}")
-    public void getUsuariosByClinica (@PathVariable("clinica") Long id_clinica) throws SQLException {
+    public ResponseEntity<?> getUsuariosByClinica (@PathVariable("clinica") Long id_clinica) throws SQLException {
         //List<Usuario> usuarios = userService.getAll();
         //this.clinica.setId_clinica(id_clinica);
 
@@ -60,13 +61,19 @@ public class ClinicaGerenciamentoController {
 
         //ResultSet rs = stm.getResultSet();
         ResultSet resultSet = statement.getResultSet();
-
+List<UserAux> listUsers = new ArrayList<>(); 
         while (resultSet.next()){
+        	listUsers.add(new UserAux(resultSet.getString("u.name"),
+        			resultSet.getString("d.nome"),
+        			resultSet.getString("c.nome"),
+        			resultSet.getString("e.nome")));
+        	
             System.out.println(resultSet.getString("u.name") +
                     ", "+ resultSet.getString("d.nome") +
                     ", "+ resultSet.getString("c.nome") +
                     ", "+ resultSet.getString("e.nome"));
         }
+             return new ResponseEntity<>(listUsers, HttpStatus.OK);
 
         // Código abaixo tentando fazer na mão, mas sem sucesso
         /*if (this.clinica.getId_clinica() == id_clinica){

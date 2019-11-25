@@ -55,24 +55,26 @@ public class UserController {
     }
     
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody Usuario userBody) {
+    public ResponseEntity<?> login(@RequestBody Usuario userBody) { 
+     	System.out.println("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeSenha incorreta!");
         Usuario user = userService.getByEmail(userBody.getEmail());
         Clinica clinica = ClinicaService.getByUsuario(userBody.getEmail());
         
         if(user == null && clinica == null) {
+        	System.out.println("Usuário não cadastrado!");
             return new ResponseEntity<>("Usuário não cadastrado!", HttpStatus.BAD_REQUEST);
         }
         else {
         	 if (user != null && userBody.getPassword().equals(user.getPassword())) {
         		 Login login = new Login(user.getId(), user.getName(), user.getEmail(), "Paciente");
-        		 
+             	System.out.println("Paciente");
         		 return new ResponseEntity<>(login,HttpStatus.OK);
         	 } else if (clinica != null && userBody.getPassword().equals(clinica.getSenha())) {
         		 Login login = new Login(clinica.getId(), clinica.getNome(), clinica.getEmail(), "Clinica");
-        		 
+             	System.out.println("Clinica");
         		 return new ResponseEntity<>(login,HttpStatus.OK);
         	 }
-        	 
+         	System.out.println("Senha incorreta!");
         	 return new ResponseEntity<>("Senha incorreta!", HttpStatus.BAD_REQUEST);
         }
     }

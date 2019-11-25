@@ -40,11 +40,14 @@ public class ClinicaController {
     
     @GetMapping("/{clinicaId}")
     public ResponseEntity<?> getById(@PathVariable("clinicaId") Long id) {
+    	System.out.println(id);
         Clinica clinica = clinicaService.getById(id);
         if(clinica == null) {
+        	System.out.println("não existe");
             return new ResponseEntity<>("Clínica com id "+id+" não existe", HttpStatus.NOT_FOUND);
         }
         else {
+        	System.out.println(clinica.getNome());
             return new ResponseEntity<>(clinica, HttpStatus.OK);
         }
     }

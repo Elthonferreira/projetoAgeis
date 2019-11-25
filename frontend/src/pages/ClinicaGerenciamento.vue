@@ -97,12 +97,13 @@ export default {
     },
 
     getClinica: function(clinicaId) {
-      console.log("getclinica");
       return axios
-        .get(this.url + "/clinicas/" + clinicaId)
+        .get(this.url + "/clinicaGerenciamento/" + clinicaId)
         .then(function(res) {
           console.log(res);
-          clinicaEspecialidade.push(res.data);
+          this.pacientes.push(res.data);
+          console.log("this.pacientes");
+          console.log(this.pacientes);
         })
         .catch(error => {
           //this.error = error.response.data;
