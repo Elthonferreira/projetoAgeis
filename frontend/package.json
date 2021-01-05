@@ -10,7 +10,7 @@
     "build": "cross-env NODE_ENV=production browserify -g envify src/main.js | uglifyjs -c warnings=false -m > dist/build.js"
   },
   "dependencies": {
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "bootstrap-datepicker": "^1.9.0",
     "jquery": "^3.4.1",
     "md5": "^2.2.1",
